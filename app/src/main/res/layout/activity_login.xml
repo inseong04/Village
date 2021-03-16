@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Login">
+
+    <data>
+        <variable
+            name="LoginActivity"
+            type="com.example.village.Login" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/etv_id"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/login_box"
+            android:hint="Id"
+            android:fontFamily="@font/ns_r"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.397"
+            android:layout_marginLeft="52dp"
+            android:layout_marginRight="52dp"
+            />
+
+        <EditText
+        android:id="@+id/etv_password"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="Password"
+        android:fontFamily="@font/ns_r"
+        android:background="@drawable/login_box"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.48"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="10dp"
+        android:layout_marginLeft="52dp"
+        android:layout_marginRight="52dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/login_btn"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Login"
+        android:fontFamily="@font/ns_r"
+        android:textColor="#fff"
+        android:background="@drawable/login_button"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.57"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginLeft="52dp"
+        android:layout_marginRight="52dp"
+        />
+
+        <View
+            android:layout_width="128dp"
+            android:layout_height="1dp"
+            android:background="#707070"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.66"
+            app:layout_constraintEnd_toStartOf="@id/tv1"
+            />
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="or"
+            android:fontFamily="@font/ns_r"
+            android:textSize="14sp"
+            android:textColor="#707070"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.66"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingLeft="21dp"
+            android:paddingRight="21dp"
+            />
+
+        <View
+            android:layout_width="128dp"
+            android:layout_height="1dp"
+            android:background="#707070"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.66"
+            app:layout_constraintStart_toEndOf="@id/tv1"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/google_login"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Google 계정으로 로그인"
+            android:fontFamily="@font/ns_r"
+            android:background="@drawable/login_box2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.75"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginLeft="52dp"
+            android:layout_marginRight="52dp"
+            />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_signup"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="회원가입"
+            android:fontFamily="@font/ns_r"
+            android:background="@drawable/login_box2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.84"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginLeft="52dp"
+            android:layout_marginRight="52dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
