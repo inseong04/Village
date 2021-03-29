@@ -14,6 +14,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:src="@drawable/login_logo"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/etv_id"
+            />
+
         <EditText
             android:id="@+id/etv_id"
             android:layout_width="match_parent"
@@ -37,6 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:hint="Password"
+        android:inputType="textPassword"
         android:fontFamily="@font/ns_r"
         android:background="@drawable/login_box"
         app:layout_constraintTop_toTopOf="parent"
@@ -49,7 +58,7 @@
         android:layout_marginRight="52dp"
         />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <Button
         android:id="@+id/login_btn"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -103,7 +112,7 @@
             app:layout_constraintStart_toEndOf="@id/tv1"
             />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/google_login"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -118,7 +127,7 @@
             android:layout_marginLeft="52dp"
             android:layout_marginRight="52dp"
             />
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/btn_signup"
             android:layout_width="match_parent"
             android:layout_height="40dp"
