@@ -47,7 +47,6 @@ public class Splash extends AppCompatActivity {
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                         startActivity(intent);
                                         finish();
-
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Log.e("firebase", "signInWithEmail:failure", task.getException());
