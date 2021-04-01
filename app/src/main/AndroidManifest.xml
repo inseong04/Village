@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Village">
+        <activity android:name=".productwritng.ProductWritng"></activity>
         <activity android:name=".splash.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +20,7 @@
         <activity android:name=".signup.Name" />
         <activity android:name=".signup.Password" />
         <activity android:name=".signup.Id" />
-        <activity android:name=".Login"/>
+        <activity android:name=".Login" />
         <activity android:name=".MainActivity" />
     </application>
 
