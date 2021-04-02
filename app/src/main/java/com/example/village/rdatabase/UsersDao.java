@@ -2,6 +2,7 @@ package com.example.village.rdatabase;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
+import androidx.room.Entity;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -13,13 +14,13 @@ public interface UsersDao {
 
 
     @Insert
-    public void insert(Users users);
+    public void insertUsers(Users users);
 
     @Update
-    public void update(Users users);
+    public void updateUsers(Users users);
 
     @Delete
-    public void delete(Users users);
+    public void deleteUsers(Users users);
 
     @Query("SELECT * FROM Users ")
     List<Users> getAll();

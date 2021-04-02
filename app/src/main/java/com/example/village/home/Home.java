@@ -19,6 +19,8 @@ import com.example.village.rdatabase.UserDatabase;
 
 public class Home extends Fragment {
 
+    private FragmentHomeBinding binding;
+    private UserDatabase db;
 
     public Home() {
         // Required empty public constructor
@@ -30,8 +32,6 @@ public class Home extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
-
-    private FragmentHomeBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,6 +52,10 @@ public class Home extends Fragment {
     public void goWritng(View view) {
         Intent intent = new Intent(view.getContext(), ProductWritng.class);
         startActivity(intent);
+    }
+
+    private void updateUsers() {
+
     }
 
 }

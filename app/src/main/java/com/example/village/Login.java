@@ -2,7 +2,7 @@ package com.example.village;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingComponent;
+import androidx.room.Room;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.village.databinding.ActivityLoginBinding;
+import com.example.village.rdatabase.LoginData;
+import com.example.village.rdatabase.LoginDatabase;
 import com.example.village.signup.Name;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,7 +33,10 @@ public class Login extends AppCompatActivity {
         binding= ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
+        final LoginDatabase db = Room.databaseBuilder(this, LoginDatabase.class,
+                "village-login-db")
+                .allowMainThreadQueries()
+                .build();
 
         binding.loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,11 +51,7 @@ public class Login extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d("firebase", "signInWithEmail:success");
-                                    SharedPreferences sharedPreferences = getSharedPreferences("login",MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    editor.putString("email",email);
-                                    editor.putString("password",password);
-                                    editor.commit();
+                                    insertDB(db, email, password);
                                     Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                                     startActivity(intent);
                                     finish();
@@ -77,6 +78,11 @@ public class Login extends AppCompatActivity {
         });
 
 
+    }
+
+    private void insertDB(LoginDatabase db, String id, String password) {
+        Log.w("Login::Room","insertDB");
+        db.LoginDataDao().insertLogin(new LoginData(id,password));
     }
 
 

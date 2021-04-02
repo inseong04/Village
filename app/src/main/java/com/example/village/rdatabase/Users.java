@@ -8,23 +8,17 @@ import java.util.ArrayList;
 
 @Entity
 public class Users {
-    @PrimaryKey (autoGenerate = true)
-    public int uid;
+    @PrimaryKey
+    public int usersID = 1;
 
     @ColumnInfo(name = "name")
     public String dbName;
 
-    @ColumnInfo(name = "id")
-    public String dbId;
-
-    @ColumnInfo(name = "password")
-    public String dbPassword;
-
     @ColumnInfo(name = "location")
     public String dbLocation;
 
-    @ColumnInfo(name = "searchWord")
-    public ArrayList<String> dbSearchWord;
+/*    @ColumnInfo(name = "searchWord")
+    public ArrayList<String> dbSearchWord;*/
 
 
 

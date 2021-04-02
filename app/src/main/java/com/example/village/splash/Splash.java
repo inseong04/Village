@@ -2,6 +2,7 @@ package com.example.village.splash;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.util.Log;
 import com.example.village.Login;
 import com.example.village.MainActivity;
 import com.example.village.R;
+import com.example.village.rdatabase.LoginDatabase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -25,17 +27,21 @@ public class Splash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceStare) {
         super.onCreate(savedInstanceStare);
         setContentView(R.layout.activity_splash);
+        final LoginDatabase db = Room.databaseBuilder(this, LoginDatabase.class,
+                "village-login-db")
+                .allowMainThreadQueries()
+                .build();
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                SharedPreferences sharedPreferences = getSharedPreferences("login",MODE_PRIVATE);
 
-                if(sharedPreferences.getString("email","") != null) {
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    String email = sharedPreferences.getString("email","");
-                    String password = sharedPreferences.getString("password","");
+
+
+                if(db.LoginDataDao().getId() != null) {
+                    String email = db.LoginDataDao().getId();
+                    String password = db.LoginDataDao().getPassword();
                     final FirebaseAuth mAuth = FirebaseAuth.getInstance();
                     mAuth.signInWithEmailAndPassword(email, password)
                             .addOnCompleteListener(Splash.this, new OnCompleteListener<AuthResult>() {
@@ -43,7 +49,7 @@ public class Splash extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
-                                        Log.e("firebase", "signInWithEmail:success");
+                                        Log.w("firebase", "signInWithEmail:success");
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                         startActivity(intent);
                                         finish();
