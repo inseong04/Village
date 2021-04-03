@@ -22,11 +22,11 @@ public interface LoginDataDao {
     public void deleteLogin(LoginData logindata);
 
     @Query("SELECT id FROM LoginData")
-    String getId();
+    String RgetId();
 
     @Query("SELECT password FROM LoginData")
-    String getPassword();
+    String RgetPassword();
 
     @Query("SELECT * FROM LoginData")
-    List<LoginData> getAll();
+    List<LoginData> RgetAll();
 }

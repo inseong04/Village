@@ -15,10 +15,17 @@ import com.example.village.Login;
 import com.example.village.MainActivity;
 import com.example.village.R;
 import com.example.village.rdatabase.LoginDatabase;
+import com.example.village.rdatabase.UserDatabase;
+import com.example.village.rdatabase.Users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.auth.User;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Splash extends AppCompatActivity {
 
@@ -32,16 +39,16 @@ public class Splash extends AppCompatActivity {
                 .allowMainThreadQueries()
                 .build();
 
+
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
 
-
-
-                if(db.LoginDataDao().getId() != null) {
-                    String email = db.LoginDataDao().getId();
-                    String password = db.LoginDataDao().getPassword();
+                if(db.LoginDataDao().RgetId() != null) {
+                    String email = db.LoginDataDao().RgetId();
+                    String password = db.LoginDataDao().RgetPassword();
                     final FirebaseAuth mAuth = FirebaseAuth.getInstance();
                     mAuth.signInWithEmailAndPassword(email, password)
                             .addOnCompleteListener(Splash.this, new OnCompleteListener<AuthResult>() {

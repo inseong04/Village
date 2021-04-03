@@ -4,6 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".home.Home">
 
+
+    
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -17,9 +19,10 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+
             app:mt_hint="찾고 싶은 상품을 검색하세요."
             app:mt_maxSuggestionsCount="5"
-            app:mt_speechMode="true"
+            app:mt_speechMode="false"
             app:theme="@style/AppTheme.PopupOverlay" />
 
         <ListView
@@ -30,7 +33,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchBar"
             />
-       <ImageView
+<!--       <ImageView
             android:id="@+id/heart"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -41,7 +44,7 @@
             app:layout_constraintBottom_toTopOf="@id/view1"
             android:layout_marginBottom="15dp"
             android:layout_marginRight="22dp"
-            />
+            />-->
 
         <View
             android:id="@+id/view1"
@@ -61,13 +64,13 @@
             app:maxImageSize="40dp"
             android:src="@drawable/ic_action_name"
             android:elevation="0dp"
-            app:layout_constraintBottom_toTopOf="@id/asdf"
+            app:layout_constraintBottom_toTopOf="@id/bottomView"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="20dp"
             />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/asdf"
+            android:id="@+id/bottomView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#fff"

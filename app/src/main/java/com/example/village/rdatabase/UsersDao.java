@@ -2,11 +2,11 @@ package com.example.village.rdatabase;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
-import androidx.room.Entity;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Dao
@@ -22,7 +22,16 @@ public interface UsersDao {
     @Delete
     public void deleteUsers(Users users);
 
+    @Query("SELECT name FROM Users")
+    String RgetName();
+
+    @Query("SELECT location FROM Users")
+    String RgetLocation();
+
+    @Query("SELECT searchWord FROM Users")
+    String RgetSearchWord();
+
     @Query("SELECT * FROM Users ")
-    List<Users> getAll();
+    List<Users> RgetAll();
 
 }
