@@ -20,8 +20,10 @@ public class Users {
     @ColumnInfo(name = "location")
     public String dbLocation;
 
-    @ColumnInfo(name = "searchWord")
-    public ArrayList<String> searchWord;
+    public Users(String dbName, String dbLocation) {
+        this.dbName = dbName;
+        this.dbLocation = dbLocation;
+    }
 
     public String getDbName() {
         return dbName;
@@ -38,24 +40,6 @@ public class Users {
     public void setDbLocation(String dbLocation) {
         this.dbLocation = dbLocation;
     }
-
-    public ArrayList<String> getSearchWord() {
-        return searchWord;
-    }
-
-    public void setSearchWord(ArrayList<String> searchWord) {
-        this.searchWord = searchWord;
-    }
-
-    public Users(String dbName, String dbLocation, ArrayList<String> searchWord) {
-        this.dbName = dbName;
-        this.dbLocation = dbLocation;
-        this.searchWord = searchWord;
-    }
-
-    /*    @ColumnInfo(name = "searchWord")
-    public ArrayList<String> dbSearchWord;*/
-
-
-
 }
+
+

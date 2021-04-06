@@ -4,7 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".home.Home">
 
-
+    <data>
+        <variable
+            name="ViewModel"
+            type="com.example.village.home.HomeViewModel" />
+    </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -25,14 +29,26 @@
             app:mt_speechMode="false"
             app:theme="@style/AppTheme.PopupOverlay" />
 
-        <ListView
-            android:id="@+id/mListView"
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#c7c7c7"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.12"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:visible="@{ViewModel.visible}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchBar"
+            app:layout_constraintTop_toBottomOf="@id/view1"
             />
+
 <!--       <ImageView
             android:id="@+id/heart"
             android:layout_width="0dp"
@@ -46,15 +62,7 @@
             android:layout_marginRight="22dp"
             />-->
 
-        <View
-            android:id="@+id/view1"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#c7c7c7"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.12"
-            />
+
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floating_writing"

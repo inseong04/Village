@@ -28,9 +28,6 @@ public interface UsersDao {
     @Query("SELECT location FROM Users")
     String RgetLocation();
 
-    @Query("SELECT searchWord FROM Users")
-    String RgetSearchWord();
-
     @Query("SELECT * FROM Users ")
     List<Users> RgetAll();
 
