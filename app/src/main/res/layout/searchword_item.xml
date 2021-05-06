@@ -19,13 +19,16 @@
         android:layout_weight="9"
         android:text="SearchWord"
         android:gravity=""
-        android:textSize="15dp"
+        android:textSize="17dp"
         android:fontFamily="@font/ns_r"
+        android:padding="10dp"
         />
     <Button
         android:id="@+id/delete_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="X"
+        android:background="#fff"
         android:layout_weight="1"
         />
     </LinearLayout>

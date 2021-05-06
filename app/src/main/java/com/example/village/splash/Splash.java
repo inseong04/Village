@@ -34,10 +34,15 @@ public class Splash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceStare) {
         super.onCreate(savedInstanceStare);
         setContentView(R.layout.activity_splash);
-        final LoginDatabase db = Room.databaseBuilder(this, LoginDatabase.class,
+
+        final LoginDatabase db = Room.databaseBuilder(this,LoginDatabase.class,
                 "village-login-db")
                 .allowMainThreadQueries()
                 .build();
+        /*        final LoginDatabase db = Room.databaseBuilder(this, LoginDatabase.class,
+                "village-login-db")
+                .allowMainThreadQueries()
+                .build();*/
 
 
 

@@ -3,6 +3,8 @@ plugins {
     // add
 
     id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
 
 }
 
@@ -36,10 +38,17 @@ android {
 }
 
 dependencies {
+// Extensions = ViewModel + LiveData
+    kapt "android.arch.lifecycle:compiler:1.1.0"
+// Room
+    implementation "android.arch.persistence.room:runtime:1.0.0"
+    kapt "android.arch.persistence.room:compiler:1.0.0"
 
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     def room_version = "2.2.6"
-
+    kapt 'com.android.databinding:compiler:4.1.1'
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 

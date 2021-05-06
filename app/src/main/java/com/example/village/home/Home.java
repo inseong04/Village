@@ -5,28 +5,16 @@ import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.room.Room;
 
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.village.R;
 import com.example.village.databinding.FragmentHomeBinding;
-import com.example.village.productwritng.ProductWritng;
+import com.example.village.home.search.SearchActivity;
+import com.example.village.productwritng.ProductWriting;
 import com.example.village.rdatabase.UserDatabase;
-import com.example.village.rdatabase.UsersSearchData;
-import com.example.village.rdatabase.UsersSearchDatabase;
-import com.mancj.materialsearchbar.MaterialSearchBar;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Home extends Fragment {
 
@@ -69,110 +57,22 @@ public class Home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
-
-        ArrayList<String> searchWord = new ArrayList<>();
-        final UsersSearchDatabase db = Room.databaseBuilder(getContext(),UsersSearchDatabase.class
-                ,"village-search-db")
-                .allowMainThreadQueries()
-                .build();
-        final UserDatabase userDatabase = Room.databaseBuilder(getContext(),UserDatabase.class
-        ,"village-user-db")
-                .allowMainThreadQueries()
-                .build();
-
-
-        binding.setLifecycleOwner(this);
-        viewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
-        binding.setViewModel(viewModel);
-        binding.searchBar.setHint("찾고 싶은 상품을 검색해보세요.");
-
-        for(String word : converWord(db)) {
-            searchWord.add(word);
-        }
-
-        binding.floatingWriting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(),ProductWritng.class);
-                startActivity(intent);
-            }
-        });
-
-
-
-        SearchAdapter adapter = new SearchAdapter(searchWord);
-        binding.mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.mRecyclerView.setAdapter(adapter);
-
-        binding.searchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
-            @Override
-            public void onSearchStateChanged(boolean enabled) {
-                if(enabled){
-                    viewModel.setVisible();
-                } else {
-                    viewModel.setInvisible();
-                }
-            }
-
-            @Override
-            public void onSearchConfirmed(CharSequence text) {
-                Toast.makeText(getContext(), "qwtgeqa", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onButtonClicked(int buttonCode) {
-
-            }
-        });
-
-        binding.searchBar.addTextChangeListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                viewModel.setInvisible();
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-
+        binding.setActivity(this);
 
         return binding.getRoot();
     }
 
-    public List<String> converWord(UsersSearchDatabase usersSearchDatabase) {
-        List<String> array = new ArrayList<>();
-        String str = usersSearchDatabase.usersSearchDao().RgetSearchWord();
-
-        try {
-
-            str = str.replace("[", "");
-            str = str.replace("]", "");
-            str = str.replace("\"", "");
-            array = Arrays.asList(str.split(","));
-
-            return array;
-        } catch (NullPointerException e) {
-            array.add("");
-            return array;
-        }
+    public void go_searchActivity(View view) {
+        Intent intent = new Intent(getContext(), SearchActivity.class);
+        startActivity(intent);
     }
 
-    private void updateUsers() {
-
+    public void go_productWriting(View view) {
+        Intent intent = new Intent(getContext(), ProductWriting.class);
+        startActivity(intent);
     }
 
-    public void insertDB(UsersSearchDatabase db, ArrayList<String> searchWords) {
-        Log.w("Search::Room","insertDB");
-        db.usersSearchDao().insertUsers(new UsersSearchData(searchWords));
-    }
+
+
 
 }

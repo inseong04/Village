@@ -17,7 +17,7 @@ public class HomeBindingAdapter {
             if (isVisible)
                 view.setVisibility(view.VISIBLE);
             else
-                view.setVisibility(view.INVISIBLE);
+                view.setVisibility(view.GONE);
 
         }
 

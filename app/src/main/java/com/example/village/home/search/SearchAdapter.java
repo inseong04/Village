@@ -1,4 +1,4 @@
-package com.example.village.home;
+package com.example.village.home.search;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.village.R;
@@ -36,10 +35,14 @@ public class SearchAdapter extends RecyclerView.Adapter<Holder> {
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         holder.text.setText(arrayList.get(position));
+        SearchActivity searchActivity = new SearchActivity();
+
 
         holder.delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                arrayList.remove(position);
+                searchActivity.updateDB(arrayList);
                 removeItem(position);
             }
         });
@@ -55,6 +58,7 @@ public class SearchAdapter extends RecyclerView.Adapter<Holder> {
         arrayList.remove(position);
         notifyItemRemoved(position);
         notifyDataSetChanged();
+
     }
 
 }

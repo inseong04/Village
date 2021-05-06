@@ -8,6 +8,9 @@
         <variable
             name="ViewModel"
             type="com.example.village.home.HomeViewModel" />
+        <variable
+            name="activity"
+            type="com.example.village.home.Home" />
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,54 +18,48 @@
         android:layout_height="match_parent">
 
 
-        <com.mancj.materialsearchbar.MaterialSearchBar
-            android:id="@+id/searchBar"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/top"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-
-            app:mt_hint="찾고 싶은 상품을 검색하세요."
-            app:mt_maxSuggestionsCount="5"
-            app:mt_speechMode="false"
-            app:theme="@style/AppTheme.PopupOverlay" />
-
-        <View
-            android:id="@+id/view1"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#c7c7c7"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.12"
-            />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:visible="@{ViewModel.visible}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view1"
-            />
-
-<!--       <ImageView
-            android:id="@+id/heart"
-            android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintWidth_percent="0.1"
-            app:layout_constraintHeight_percent="0.1"
-            android:src="@drawable/heart3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/view1"
-            android:layout_marginBottom="15dp"
-            android:layout_marginRight="22dp"
-            />-->
+            app:layout_constraintHeight_percent="0.09"
+            app:layout_constraintTop_toTopOf="parent"
+            >
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/search_layout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintWidth_percent="0.83"
+                android:onClick="@{activity.go_searchActivity}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                >
 
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintWidth_percent="0.85"
+                    android:text="찾고 싶은 상품을 검색해보세요."
+                    android:textSize="17dp"
+                    android:textColor="#8a8a8a"
+                    android:fontFamily="@font/ns_r"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:padding="20dp"
+                    />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintWidth_percent="0.15"
+                    android:src="@drawable/search"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floating_writing"
@@ -72,6 +69,7 @@
             app:maxImageSize="40dp"
             android:src="@drawable/ic_action_name"
             android:elevation="0dp"
+            android:onClick="@{activity.go_productWriting}"
             app:layout_constraintBottom_toTopOf="@id/bottomView"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="20dp"

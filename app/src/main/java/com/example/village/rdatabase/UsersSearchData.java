@@ -9,8 +9,8 @@ import java.util.ArrayList;
 @Entity
 public class UsersSearchData {
 
-    @PrimaryKey(autoGenerate = true)
-    public int searchID;
+    @PrimaryKey()
+    public int searchID=1;
 
     @ColumnInfo (name = "searchWord")
     public ArrayList<String> searchWord;
