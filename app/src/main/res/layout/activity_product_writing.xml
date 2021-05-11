@@ -51,9 +51,8 @@
         <EditText
             android:id="@+id/productNameEtv"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintWidth_percent="0.8"
-            app:layout_constraintHeight_percent="0.08"
             android:hint="상품명 입력"
             android:fontFamily="@font/ns_r"
             android:background="@drawable/writing_input_box"
@@ -61,16 +60,15 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="20dp"
-            android:padding="14dp"
+            android:padding="15dp"
             />
 
         <LinearLayout
             android:id="@+id/layout1"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:weightSum="1"
             app:layout_constraintWidth_percent="0.8"
-            app:layout_constraintHeight_percent="0.08"
             app:layout_constraintTop_toBottomOf="@id/productNameEtv"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -81,32 +79,34 @@
             <EditText
                 android:id="@+id/priceEtv"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.65"
                 android:hint="가격 입력"
                 android:fontFamily="@font/ns_r"
                 android:inputType="number"
                 android:background="@drawable/writing_input_box"
-                android:padding="14dp"
+                android:padding="15dp"
                 />
 
             <Spinner
                 android:id="@+id/periodSpinner"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.35"
                 android:background="@drawable/writing_input_box"
                 android:entries="@array/period"
                 android:layout_marginLeft="10dp"
+                android:padding="15dp"
                 />
         </LinearLayout>
+
+
 
         <EditText
             android:id="@+id/hashtagEtv"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintWidth_percent="0.8"
-            app:layout_constraintHeight_percent="0.08"
             android:hint="#연관해시태그입력"
             android:fontFamily="@font/ns_r"
             android:background="@drawable/writing_input_box"
@@ -114,15 +114,14 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="20dp"
-            android:padding="14dp"
+            android:padding="15dp"
             />
 
         <EditText
             android:id="@+id/descriptionEtv"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintWidth_percent="0.8"
-            app:layout_constraintHeight_percent="0.22"
             android:hint="상품 설명 입력"
             android:fontFamily="@font/ns_r"
             android:gravity="left"
@@ -131,14 +130,13 @@
             app:layout_constraintLeft_toLeftOf="@id/hashtagEtv"
             app:layout_constraintRight_toRightOf="@id/hashtagEtv"
             android:layout_marginTop="20dp"
-            android:padding="14dp"
+            android:padding="15dp"
             />
         <Button
             android:id="@+id/goHomeBtn"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintWidth_percent="0.4"
-            app:layout_constraintHeight_percent="0.08"
             android:text="상품 등록하기"
             android:fontFamily="@font/ns_r"
             android:textColor="#ffffff"
@@ -147,6 +145,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="14dp"
+            android:padding="15dp"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
