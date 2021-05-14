@@ -101,7 +101,6 @@
         </LinearLayout>
 
 
-
         <EditText
             android:id="@+id/hashtagEtv"
             android:layout_width="0dp"
@@ -120,13 +119,14 @@
         <EditText
             android:id="@+id/descriptionEtv"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             app:layout_constraintWidth_percent="0.8"
             android:hint="상품 설명 입력"
             android:fontFamily="@font/ns_r"
             android:gravity="left"
             android:background="@drawable/writing_input_box"
             app:layout_constraintTop_toBottomOf="@id/hashtagEtv"
+            app:layout_constraintBottom_toTopOf="@id/goHomeBtn"
             app:layout_constraintLeft_toLeftOf="@id/hashtagEtv"
             app:layout_constraintRight_toRightOf="@id/hashtagEtv"
             android:layout_marginTop="20dp"
@@ -142,10 +142,12 @@
             android:textColor="#ffffff"
             android:background="@drawable/writing_button_box"
             app:layout_constraintTop_toBottomOf="@+id/descriptionEtv"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="14dp"
-            android:padding="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:padding="20dp"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
