@@ -35,54 +35,14 @@ public class Splash extends AppCompatActivity {
         super.onCreate(savedInstanceStare);
         setContentView(R.layout.activity_splash);
 
-        final LoginDatabase db = Room.databaseBuilder(this,LoginDatabase.class,
-                "village-login-db")
-                .allowMainThreadQueries()
-                .build();
-        /*        final LoginDatabase db = Room.databaseBuilder(this, LoginDatabase.class,
-                "village-login-db")
-                .allowMainThreadQueries()
-                .build();*/
-
-
-
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                    Intent intent = new Intent(getApplicationContext(), Login.class);
+                    startActivity(intent);
+                    finish();
 
-                if(db.LoginDataDao().RgetId() != null) {
-                    String email = db.LoginDataDao().RgetId();
-                    String password = db.LoginDataDao().RgetPassword();
-                    final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                    mAuth.signInWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(Splash.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        // Sign in success, update UI with the signed-in user's information
-                                        Log.w("firebase", "signInWithEmail:success");
-                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                        startActivity(intent);
-                                        finish();
-                                    } else {
-                                        // If sign in fails, display a message to the user.
-                                        Log.e("firebase", "signInWithEmail:failure", task.getException());
-                                        Intent intent = new Intent(getApplicationContext(), Login.class);
-                                        startActivity(intent);
-                                        finish();
-                                        // ...
-                                    }
-
-                                    // ...
-                                }
-                            });
-                }
-                else {
-                        Intent intent = new Intent(getApplicationContext(), Login.class);
-                        startActivity(intent);
-                        finish();
-                    }
                 }
         },3000);
     }
