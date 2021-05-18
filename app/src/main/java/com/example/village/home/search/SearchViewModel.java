@@ -9,9 +9,10 @@ public class SearchViewModel extends ViewModel {
     protected MutableLiveData<Integer> position = new MutableLiveData<>();
     protected MutableLiveData<Boolean> workRemove = new MutableLiveData<>();
     protected MutableLiveData<ArrayList<String>> searchWord = new MutableLiveData<>();
+    protected MutableLiveData<String> searchEtvText = new MutableLiveData<>();
+
     ArrayList<String> arrayList = new ArrayList<>();
     public SearchViewModel() {
-        arrayList.add("");
         position.setValue(0);
         workRemove.setValue(false);
         searchWord.setValue(arrayList);
@@ -29,6 +30,10 @@ public class SearchViewModel extends ViewModel {
     public void removeSearchWord(int position) {
         arrayList.remove(position);
         searchWord.setValue(arrayList);
+    }
+
+    public void setSearchEtvText(String word) {
+        searchEtvText.setValue(word);
     }
 
     public void setWorkRemoveTrue() {

@@ -25,7 +25,6 @@ public class SearchAdapter extends RecyclerView.Adapter<Holder> {
     SearchViewModel viewModel;
     SearchAdapter(Context context) {
         viewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(SearchViewModel.class);
-                //ViewModelProviders.of((FragmentActivity) context).get(SearchViewModel.class);
     }
 
     @NonNull
@@ -48,6 +47,12 @@ public class SearchAdapter extends RecyclerView.Adapter<Holder> {
             @Override
             public void onClick(View v) {
                 removeItem(position);
+            }
+        });
+        holder.text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.setSearchEtvText(viewModel.searchWord.getValue().get(position));
             }
         });
 

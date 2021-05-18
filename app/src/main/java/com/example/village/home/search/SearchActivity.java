@@ -3,6 +3,7 @@ package com.example.village.home.search;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.room.Room;
@@ -35,17 +36,31 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_search);
         binding.setActivity(this);
-        //ArrayList<String> searchWord = new ArrayList<>();
-        viewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
+
+        viewModel = new ViewModelProvider(this).get(SearchViewModel.class);
+
 
 
         viewModel.searchWord.observe(this, new Observer<ArrayList<String>>() {
             @Override
             public void onChanged(ArrayList<String> arrayList) {
-                Log.e("beforeUpdate",viewModel.searchWord.getValue().toString());
-                updateDB(viewModel.searchWord.getValue());
+
+                Log.e("check","asd"+arrayList.get(0));
+                if (!(arrayList.isEmpty()) ) {
+                    // 실행시 array에 room Rget받아서 넣어줘야함
+                    Log.e("beforeUpdate", arrayList.toString());
+                    updateDB(arrayList);
+                }
             }
         });
+
+        viewModel.searchEtvText.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                binding.searchEtv.setText(s);
+            }
+        });
+
 
         for(String word : converWord(getRoom())) {
             viewModel.setSearchWord(word);
@@ -54,19 +69,19 @@ public class SearchActivity extends AppCompatActivity {
         SearchAdapter adapter = new SearchAdapter(this);
         binding.mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.mRecyclerView.setAdapter(adapter);
-        if(viewModel.searchWord.getValue().get(0).equals("")) {
-            Log.e("aa","null");
+
+        if(viewModel.searchWord.getValue().isEmpty()) {
             binding.mRecyclerView.setVisibility(View.INVISIBLE);
             binding.emptyAlarmTv.setVisibility(View.VISIBLE);
         } else {
-            Log.e("aa","Full");
             binding.mRecyclerView.setVisibility(View.VISIBLE);
         }
 
         binding.searchEtv.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(viewModel.searchWord.getValue().get(0).equals("")) {
+                if(viewModel.searchWord.getValue().isEmpty()) {
+                    Log.e("clear","when work searchEtv.setOnclicklistender");
                     viewModel.arrayList.clear();
                 }
                 viewModel.setSearchWord(binding.searchEtv.getText().toString());
@@ -84,15 +99,16 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
-    public List<String> converWord(UsersSearchDatabase usersSearchDatabase) {
-        List<String> array = new ArrayList<>();
+    public ArrayList<String> converWord(UsersSearchDatabase usersSearchDatabase) {
+        ArrayList<String> array = new ArrayList<>();
         String str = usersSearchDatabase.usersSearchDao().RgetSearchWord();
-        Log.e("convert",str);
+
         try {
             str = str.replace("[", "");
             str = str.replace("]", "");
             str = str.replace("\"", "");
-            array = Arrays.asList(str.split(","));
+            array = new ArrayList<String>(Arrays.asList(str.split(",")));
+
             return array;
         } catch (NullPointerException e) {
             array.add("");
@@ -123,13 +139,17 @@ public class SearchActivity extends AppCompatActivity {
 
     public void updateDB(ArrayList<String> searchWords) {
         UsersSearchDatabase db = getRoom();
-        Log.w("Search::Room", "updateDB");
+        Log.w("Search::Room", "updateDB"+searchWords);
         db.usersSearchDao().updateUsers(new UsersSearchData(searchWords));
     }
+    protected void onStop() {
+        super.onStop();
+        Log.e("onDestroy", getRoom().usersSearchDao().RgetSearchWord());
+    }
 
-/*    public void insertDB(ArrayList<String> searchWords) {
+    public void insertDB(ArrayList<String> searchWords) {
         UsersSearchDatabase db = getRoom();
         Log.w("Search::Room","insertDB");
         db.usersSearchDao().insertUsers(new UsersSearchData(searchWords));
-    }*/
+    }
 }
