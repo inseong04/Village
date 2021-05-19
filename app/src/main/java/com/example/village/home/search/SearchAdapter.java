@@ -23,6 +23,7 @@ import java.util.Objects;
 public class SearchAdapter extends RecyclerView.Adapter<Holder> {
 
     SearchViewModel viewModel;
+
     SearchAdapter(Context context) {
         viewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(SearchViewModel.class);
     }
@@ -68,6 +69,12 @@ public class SearchAdapter extends RecyclerView.Adapter<Holder> {
     }
 
     public void removeItem(int position) {
+        if(position == 0) {
+            Log.e("abzx","position run");
+            viewModel.searchWordDeleteIndex0.setValue(true);
+            viewModel.emptyAlarm.setValue(true);
+            viewModel.first = true;
+        }
         viewModel.removeSearchWord(position);
         notifyItemRemoved(position);
         notifyDataSetChanged();

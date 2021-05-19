@@ -22,4 +22,5 @@ public interface UsersSearchDao {
 
     @Query("SELECT searchWord FROM UsersSearchData")
     String RgetSearchWord();
+
 }

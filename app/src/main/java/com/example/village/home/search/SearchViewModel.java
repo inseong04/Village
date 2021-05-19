@@ -10,13 +10,18 @@ public class SearchViewModel extends ViewModel {
     protected MutableLiveData<Boolean> workRemove = new MutableLiveData<>();
     protected MutableLiveData<ArrayList<String>> searchWord = new MutableLiveData<>();
     protected MutableLiveData<String> searchEtvText = new MutableLiveData<>();
+    protected MutableLiveData<Boolean> searchWordDeleteIndex0 = new MutableLiveData<>();
+    protected MutableLiveData<Boolean> emptyAlarm = new MutableLiveData<>();
+    protected Boolean first;
 
     ArrayList<String> arrayList = new ArrayList<>();
     public SearchViewModel() {
         position.setValue(0);
         workRemove.setValue(false);
-        searchWord.setValue(arrayList);
+        searchWordDeleteIndex0.setValue(false);
+        first = false;
     }
+
 
     public void setPosition(int externalPosition) {
         position.setValue(externalPosition);

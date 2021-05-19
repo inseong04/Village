@@ -11,7 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Village"
         android:windowSoftInputMode="adjustNothing">
-        <activity android:name=".home.search.SearchActivity"></activity>
+        <activity android:name=".home.searchresult.SearchResult"></activity>
+        <activity android:name=".home.search.SearchActivity" />
         <activity android:name=".productwritng.ProductWriting" />
         <activity android:name=".splash.Splash">
             <intent-filter>

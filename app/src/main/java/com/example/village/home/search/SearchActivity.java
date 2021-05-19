@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.room.Room;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.village.R;
 import com.example.village.databinding.ActivitySearchBinding;
+import com.example.village.home.searchresult.SearchResult;
 import com.example.village.rdatabase.UserDatabase;
 import com.example.village.rdatabase.UsersSearchData;
 import com.example.village.rdatabase.UsersSearchDatabase;
@@ -40,39 +42,55 @@ public class SearchActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(SearchViewModel.class);
 
 
+/*        Log.e("onDestroy", getRoom().usersSearchDao().RgetSearchWord());*/
+        viewModel.searchWord.observe(this, arrayList -> {
 
-        viewModel.searchWord.observe(this, new Observer<ArrayList<String>>() {
-            @Override
-            public void onChanged(ArrayList<String> arrayList) {
+            Log.e("nnnn", arrayList.toString());
+            if(viewModel.first) {
+                Log.e("beforeInsert",arrayList.toString());
+                Log.e("searchwordDelte",viewModel.searchWordDeleteIndex0.toString());
+                if(!viewModel.searchWordDeleteIndex0.getValue())
+                    insertDB(arrayList);
+                else
+                    viewModel.searchWordDeleteIndex0.setValue(false);
+            }
 
-                Log.e("check","asd"+arrayList.get(0));
-                if (!(arrayList.isEmpty()) ) {
-                    // 실행시 array에 room Rget받아서 넣어줘야함
-                    Log.e("beforeUpdate", arrayList.toString());
-                    updateDB(arrayList);
-                }
+            else {
+                // 실행시 array에 room Rget받아서 넣어줘야함
+                Log.e("beforeUpdate", arrayList.toString());
+                updateDB(arrayList);
             }
         });
 
-        viewModel.searchEtvText.observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                binding.searchEtv.setText(s);
+        viewModel.searchWordDeleteIndex0.observe(this, bl -> {
+            if (bl) {
+                deleteAll(viewModel.searchWord.getValue());
             }
         });
 
+        viewModel.searchEtvText.observe(this, s -> binding.searchEtv.setText(s));
+
+        viewModel.emptyAlarm.observe(this, bl -> {
+            if(bl) {
+                binding.mRecyclerView.setVisibility(View.INVISIBLE);
+                binding.emptyAlarmTv.setVisibility(View.VISIBLE);
+            }
+        });
 
         for(String word : converWord(getRoom())) {
+            if(word.equals(""))
+                break;
+            Log.e("add searchword Line 75","add : "+word);
             viewModel.setSearchWord(word);
         }
-        Log.e("aa",viewModel.searchWord.getValue().toString());
         SearchAdapter adapter = new SearchAdapter(this);
         binding.mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.mRecyclerView.setAdapter(adapter);
 
-        if(viewModel.searchWord.getValue().isEmpty()) {
-            binding.mRecyclerView.setVisibility(View.INVISIBLE);
-            binding.emptyAlarmTv.setVisibility(View.VISIBLE);
+        if(viewModel.searchWord.getValue() == null) {
+            Log.e("vvvvv","adwegaehwdbsxczsderf");
+            viewModel.first = true;
+            viewModel.emptyAlarm.setValue(true);
         } else {
             binding.mRecyclerView.setVisibility(View.VISIBLE);
         }
@@ -80,11 +98,11 @@ public class SearchActivity extends AppCompatActivity {
         binding.searchEtv.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(viewModel.searchWord.getValue().isEmpty()) {
-                    Log.e("clear","when work searchEtv.setOnclicklistender");
-                    viewModel.arrayList.clear();
-                }
+                Log.e("add searchword Line 93","add : "+binding.searchEtv.getText().toString());
                 viewModel.setSearchWord(binding.searchEtv.getText().toString());
+                Intent intent = new Intent(getApplicationContext(), SearchResult.class);
+                startActivity(intent);
+                finish();
                 return true;
             }
         });
@@ -93,6 +111,9 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 deleteAll(viewModel.searchWord.getValue());
+                viewModel.first = true;
+                viewModel.emptyAlarm.setValue(true);
+                viewModel.arrayList = new ArrayList<>();
             }
         });
 
@@ -142,10 +163,10 @@ public class SearchActivity extends AppCompatActivity {
         Log.w("Search::Room", "updateDB"+searchWords);
         db.usersSearchDao().updateUsers(new UsersSearchData(searchWords));
     }
-    protected void onStop() {
+/*    protected void onStop() {
         super.onStop();
         Log.e("onDestroy", getRoom().usersSearchDao().RgetSearchWord());
-    }
+    }*/
 
     public void insertDB(ArrayList<String> searchWords) {
         UsersSearchDatabase db = getRoom();
