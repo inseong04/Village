@@ -9,11 +9,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Village"
-        android:windowSoftInputMode="adjustNothing">
-        <activity android:name=".home.searchresult.SearchResult"></activity>
+        android:theme="@style/Theme.Village">
+        <activity
+            android:name=".productwritng.ProductWriting"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".home.searchresult.SearchResult" />
         <activity android:name=".home.search.SearchActivity" />
-        <activity android:name=".productwritng.ProductWriting" />
         <activity android:name=".splash.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

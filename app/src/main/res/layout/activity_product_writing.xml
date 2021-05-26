@@ -10,22 +10,45 @@
             type="com.example.village.productwritng.ProductWriting" />
     </data>
 
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            android:background="@drawable/toolbar_background"
+            app:popupTheme="@style/Theme.AppCompat.Light"
+            app:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="상품 등록"
+                android:textColor="#000000"
+                android:gravity="center"
+                android:textSize="25dp"
+                android:fontFamily="@font/ns_b"
+                />
+
+        </androidx.appcompat.widget.Toolbar>
 
         <ImageButton
             android:id="@+id/callGallery"
             android:layout_width="0dp"
             android:layout_height="0dp"
-
             app:layout_constraintWidth_percent="0.3"
             app:layout_constraintHeight_percent="0.15"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/imagebutton_box"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintVertical_bias="0.15"
-            android:padding="20dp"
+            android:layout_margin="10dp"
             />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -34,10 +57,9 @@
             android:layout_height="0dp"
             app:layout_constraintWidth_percent="0.7"
             app:layout_constraintHeight_percent="0.15"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.15"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintLeft_toRightOf="@id/callGallery"
+
             />
 
         <View
@@ -45,7 +67,8 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#919191"
-            app:layout_constraintTop_toBottomOf="@id/imageRecycleView"
+            app:layout_constraintTop_toBottomOf="@id/callGallery"
+            android:layout_marginTop="10dp"
             />
 
         <EditText
@@ -100,8 +123,7 @@
                 />
         </LinearLayout>
 
-
-        <EditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/hashtagEtv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -124,14 +146,17 @@
             android:hint="상품 설명 입력"
             android:fontFamily="@font/ns_r"
             android:gravity="left"
+            android:lineSpacingExtra="5sp"
             android:background="@drawable/writing_input_box"
             app:layout_constraintTop_toBottomOf="@id/hashtagEtv"
             app:layout_constraintBottom_toTopOf="@id/goHomeBtn"
-            app:layout_constraintLeft_toLeftOf="@id/hashtagEtv"
-            app:layout_constraintRight_toRightOf="@id/hashtagEtv"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:padding="15dp"
             />
+
         <Button
             android:id="@+id/goHomeBtn"
             android:layout_width="0dp"
@@ -141,7 +166,6 @@
             android:fontFamily="@font/ns_r"
             android:textColor="#ffffff"
             android:background="@drawable/writing_button_box"
-            app:layout_constraintTop_toBottomOf="@+id/descriptionEtv"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
