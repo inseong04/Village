@@ -25,7 +25,7 @@ public class SearchAdapter extends RecyclerView.Adapter<Holder> {
     SearchViewModel viewModel;
 
     SearchAdapter(Context context) {
-        viewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(SearchViewModel.class);
+        this.viewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(SearchViewModel.class);
     }
 
     @NonNull
@@ -34,7 +34,6 @@ public class SearchAdapter extends RecyclerView.Adapter<Holder> {
         Context context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.searchword_item,parent,false);
-
         return new Holder(view);
     }
 
@@ -44,17 +43,12 @@ public class SearchAdapter extends RecyclerView.Adapter<Holder> {
         holder.text.setText(viewModel.searchWord.getValue().get(position));
         SearchActivity searchActivity = new SearchActivity();
 
-        holder.delete_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        holder.delete_btn.setOnClickListener(v -> {
                 removeItem(position);
-            }
         });
-        holder.text.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewModel.setSearchEtvText(viewModel.searchWord.getValue().get(position));
-            }
+
+        holder.text.setOnClickListener(v -> {
+            viewModel.setSearchEtvText(viewModel.searchWord.getValue().get(position));
         });
 
     }
@@ -70,7 +64,6 @@ public class SearchAdapter extends RecyclerView.Adapter<Holder> {
 
     public void removeItem(int position) {
         if(position == 0) {
-            Log.e("abzx","position run");
             viewModel.searchWordDeleteIndex0.setValue(true);
             viewModel.emptyAlarm.setValue(true);
             viewModel.first = true;

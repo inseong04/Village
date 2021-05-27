@@ -41,11 +41,7 @@ public class SearchActivity extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(this).get(SearchViewModel.class);
 
-
-/*        Log.e("onDestroy", getRoom().usersSearchDao().RgetSearchWord());*/
         viewModel.searchWord.observe(this, arrayList -> {
-
-            Log.e("nnnn", arrayList.toString());
             if(viewModel.first) {
                 Log.e("beforeInsert",arrayList.toString());
                 Log.e("searchwordDelte",viewModel.searchWordDeleteIndex0.toString());
@@ -107,14 +103,11 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        binding.deleteAllTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        binding.deleteAllTv.setOnClickListener(v -> {
                 deleteAll(viewModel.searchWord.getValue());
                 viewModel.first = true;
                 viewModel.emptyAlarm.setValue(true);
                 viewModel.arrayList = new ArrayList<>();
-            }
         });
 
 

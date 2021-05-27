@@ -18,14 +18,11 @@ public class Name extends AppCompatActivity {
         binding = ActivityNameBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.btnNameNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        binding.btnNameNext.setOnClickListener(v -> {
                 Intent intent = new Intent(getApplicationContext(),Id.class);
                 intent.putExtra("name",binding.etvName.getText().toString().trim());
                 startActivity(intent);
                 finish();
-            }
         });
     }
 }

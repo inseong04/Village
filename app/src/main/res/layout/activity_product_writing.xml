@@ -50,16 +50,19 @@
             app:layout_constraintWidth_percent="0.3" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintWidth_percent="0.7"
+            app:layout_constraintLeft_toRightOf="@id/callGallery"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            >
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/imageRecycleView"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintHeight_percent="0.15"
-                app:layout_constraintLeft_toRightOf="@id/callGallery"
-                app:layout_constraintTop_toBottomOf="@id/toolbar"
-                app:layout_constraintWidth_percent="0.7" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
         </LinearLayout>
 
         <View
@@ -79,6 +82,7 @@
             android:fontFamily="@font/ns_r"
             android:hint="상품명 입력"
             android:padding="15dp"
+            android:inputType="text"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view1"
@@ -118,7 +122,7 @@
                 android:padding="15dp" />
         </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatEditText
+        <EditText
             android:id="@+id/hashtagEtv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -24,7 +24,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
+        getSupportFragmentManager().beginTransaction().add(R.id.layout_main_frame, new Home()).commit();
+        // 권한요청 구현 필요
         binding.bottomBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -40,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         String tag = String.valueOf(id);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
         Fragment currentFragment = fragmentManager.getPrimaryNavigationFragment();
         if (currentFragment != null) {
             fragmentTransaction.hide(currentFragment);

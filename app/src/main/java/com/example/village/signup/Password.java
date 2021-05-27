@@ -35,31 +35,30 @@ public class Password extends AppCompatActivity {
         String email = intent1.getExtras().getString("email");
 
         mAuth = FirebaseAuth.getInstance();
-        binding.btnPasswordNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String password = binding.etvPassword.getText().toString();
-                Log.e("aa","email : "+email+"password : "+password);
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(Password.this, new OnCompleteListener<AuthResult>() {
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Log.d("firebase", "createUserWithEmail:success");
-                                    save_username(mAuth,name);
-                                    Intent intent = new Intent(getApplicationContext(), Login.class);
-                                    startActivity(intent);
-                                    finish();
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Log.w("firebase", "createUserWithEmail:failure", task.getException());
+        binding.btnPasswordNext.setOnClickListener(v -> {
 
-                                }
+            String password = binding.etvPassword.getText().toString();
+            Log.e("aa", "email : " + email + "password : " + password);
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(Password.this, new OnCompleteListener<AuthResult>() {
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d("firebase", "createUserWithEmail:success");
+                                save_username(mAuth, name);
+                                Intent intent = new Intent(getApplicationContext(), Login.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w("firebase", "createUserWithEmail:failure", task.getException());
 
-                                // ...
                             }
-                        });
-            }
+
+                            // ...
+                        }
+                    });
+
         });
     }
 

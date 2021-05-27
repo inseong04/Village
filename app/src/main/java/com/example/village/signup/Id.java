@@ -20,15 +20,12 @@ public class Id extends AppCompatActivity {
         Intent intent1 = getIntent();
         String name = intent1.getExtras().getString("name");
 
-        binding.btnIdNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        binding.btnIdNext.setOnClickListener(v -> {
                 Intent intent = new Intent(getApplicationContext(),Password.class);
                 intent.putExtra("name",name);
                 intent.putExtra("email",binding.etvId.getText().toString().trim());
                 startActivity(intent);
                 finish();
-            }
         });
 
     }
