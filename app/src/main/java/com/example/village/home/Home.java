@@ -18,27 +18,6 @@ import com.example.village.rdatabase.UserDatabase;
 
 public class Home extends Fragment {
 
-    /*UserDatabase userDatabase = Room.databaseBuilder(this, UserDatabase.class,
-            "village-user-db")
-            .allowMainThreadQueries()
-            .build();
-
-    ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("안녕");
-        arrayList.add("ㅁㅁㅁㅁ");
-        arrayList.add("ㄴㅁㄹ머ㅓㅓㅓ");
-
-        if(userDatabase.UsersDao().RgetLocation() != null) {
-        userDatabase.UsersDao().updateUsers(new Users("ㅇㅇㅇ","ㅁㅁㅁㅁ",arrayList));
-    }
-
-        else{
-        userDatabase.UsersDao().insertUsers(new Users("옥인성","aaaa",arrayList));
-    }
-
-*/
-
-
     private FragmentHomeBinding binding;
     private UserDatabase db;
     private HomeViewModel viewModel;
