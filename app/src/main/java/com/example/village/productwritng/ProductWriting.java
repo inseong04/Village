@@ -33,6 +33,7 @@ import java.util.ArrayList;
 public class ProductWriting extends AppCompatActivity {
 
     private ActivityProductWritingBinding binding;
+    private ProductViewModel viewModel;
     private final int PICK_IMAGE = 1;
     int hashTagCount =0;
 
@@ -42,14 +43,22 @@ public class ProductWriting extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_writing);
         binding.setActivity(this);
 
+        viewModel = new ViewModelProvider(this).get(ProductViewModel.class);
         String price;
         final String[] strAmount = {""};
-
 
         checkSelfPermission();
 
         binding.goHomeBtn.setOnClickListener(v -> {
             finish();
+        });
+
+        viewModel.hashtagEtvText.observe(this, text -> {
+            Log.e("z","observe run12412");
+            if(text.substring(text.length()-1).equals(" ")) {
+                Log.e("z","observe run");
+                viewModel.hashtagEtvText.setValue(text+"#");
+            }
         });
 
         binding.priceEtv.addTextChangedListener(new TextWatcher() {
@@ -74,15 +83,18 @@ public class ProductWriting extends AppCompatActivity {
             }
         });
 
-        binding.hashtagEtv.addTextChangedListener(new TextWatcher() {
+/*        binding.hashtagEtv.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(binding.hashtagEtv.isFocusable() && !s.toString().equals("")) {
-                    binding.hashtagEtv.setText("#");
+
+                if (count > 0 && String.valueOf(s.charAt(count-1)).equals(" ")) {
+                    Log.e("xc"," serhnfxrhjsfewdc");
+                    binding.hashtagEtv.setText(s.toString() + "#");
                 }
             }
 
@@ -90,7 +102,7 @@ public class ProductWriting extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
 
             }
-        });
+        });*/
     }
 
     @Override
@@ -121,7 +133,7 @@ public class ProductWriting extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        ProductViewModel viewModel = new ViewModelProvider(this).get(ProductViewModel.class);
+        viewModel = new ViewModelProvider(this).get(ProductViewModel.class);
         ProductAdapter adapter;
         ProductData productData;
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this

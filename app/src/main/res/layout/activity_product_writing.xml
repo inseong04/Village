@@ -5,12 +5,13 @@
     tools:context=".productwritng.ProductWriting">
 
     <data>
-
         <variable
             name="activity"
             type="com.example.village.productwritng.ProductWriting" />
+        <variable
+            name="viewModel"
+            type="com.example.village.productwritng.ProductViewModel" />
     </data>
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -110,7 +111,6 @@
                 android:hint="가격 입력"
                 android:inputType="number"
                 android:padding="15dp" />
-
             <Spinner
                 android:id="@+id/periodSpinner"
                 android:layout_width="0dp"
@@ -130,11 +130,14 @@
             android:background="@drawable/writing_input_box"
             android:fontFamily="@font/ns_r"
             android:hint="#연관해시태그입력"
+            android:text="@{viewModel.hashtagEtvText}"
+            android:maxLines="1"
             android:padding="15dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout1"
-            app:layout_constraintWidth_percent="0.8" />
+            app:layout_constraintWidth_percent="0.8"
+            />
 
         <EditText
             android:id="@+id/descriptionEtv"

@@ -49,6 +49,7 @@ public class SearchActivity extends AppCompatActivity {
                     insertDB(arrayList);
                 else
                     viewModel.searchWordDeleteIndex0.setValue(false);
+
             }
 
             else {
