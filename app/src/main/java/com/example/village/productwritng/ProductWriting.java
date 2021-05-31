@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -20,21 +21,39 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.example.village.MainActivity;
 import com.example.village.R;
 import com.example.village.databinding.ActivityProductWritingBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class ProductWriting extends AppCompatActivity {
 
     private ActivityProductWritingBinding binding;
     private ProductViewModel viewModel;
+    private ProductAdapter adapter;
+    FirebaseFirestore db;
     private final int PICK_IMAGE = 1;
+    private Boolean uploadSuccess;
     int hashTagCount =0;
 
     @Override
@@ -48,18 +67,19 @@ public class ProductWriting extends AppCompatActivity {
         final String[] strAmount = {""};
 
         checkSelfPermission();
+        setUi();
 
-        binding.goHomeBtn.setOnClickListener(v -> {
+/*        binding.goHomeBtn.setOnClickListener(v -> {
             finish();
-        });
+        });*/
 
-        viewModel.hashtagEtvText.observe(this, text -> {
+/*        viewModel.hashtagEtvText.observe(this, text -> {
             Log.e("z","observe run12412");
             if(text.substring(text.length()-1).equals(" ")) {
                 Log.e("z","observe run");
                 viewModel.hashtagEtvText.setValue(text+"#");
             }
-        });
+        });*/
 
         binding.priceEtv.addTextChangedListener(new TextWatcher() {
             @Override
@@ -103,6 +123,25 @@ public class ProductWriting extends AppCompatActivity {
 
             }
         });*/
+
+        binding.periodSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    protected void setUi() {
+        String[] period = getResources().getStringArray(R.array.period);
+        ArrayAdapter adapter = new ArrayAdapter(this,R.layout.spinner_item, period);
+        adapter.setDropDownViewResource(R.layout.spinner_item);
+        binding.periodSpinner.setAdapter(adapter);
     }
 
     @Override
@@ -134,7 +173,6 @@ public class ProductWriting extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         viewModel = new ViewModelProvider(this).get(ProductViewModel.class);
-        ProductAdapter adapter;
         ProductData productData;
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this
                 , LinearLayoutManager.HORIZONTAL, false);
@@ -158,9 +196,105 @@ public class ProductWriting extends AppCompatActivity {
             } catch (RuntimeException ignored) {
             }
         }
-        adapter = new ProductAdapter(this);
+        this.adapter = new ProductAdapter(this);
         binding.imageRecycleView.setLayoutManager(layoutManager);
         binding.imageRecycleView.setAdapter(adapter);
+
+    }
+
+    public void uploadPost(View view) {
+
+
+        int postNumber = getPostNumber();
+        db = FirebaseFirestore.getInstance();
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+        StorageReference storageReference = firebaseStorage.getReference();
+        String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        final String[] writtenPost = new String[1];
+
+        db.collection("users")
+                .document(uid)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        DocumentSnapshot documentSnapshot = task.getResult();
+                        if (documentSnapshot.get("writtenPost").equals(""))
+                            writtenPost[0] = "";
+                        else
+                            writtenPost[0] = (String) documentSnapshot.get("writtenPost");
+                    }
+                });
+        Map<String, Object> post = new HashMap<>();
+
+        String productName = binding.productNameEtv.getText().toString();
+        String price = binding.priceEtv.getText().toString();
+        String period = binding.periodSpinner.getSelectedItem().toString();
+        String hashTag = binding.hashtagEtv.getText().toString();
+        String descripton = binding.descriptionEtv.getText().toString();
+        post.put("postNumber", postNumber);
+        post.put("productName", productName);
+        post.put("price", price);
+        post.put("period", period);
+        post.put("hashTag", hashTag);
+        post.put("description", descripton);
+
+        db.collection("post") // 포스트 생성
+                .document(String.valueOf(postNumber))
+                .set(post)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("uploadPost","postUpload Success");
+                    }
+                });
+
+        db.collection("users") // 사용자가 쓴 게시물 번호 저장
+                .document(uid)
+                .update("writtenPost",writtenPost[0]+"-"+String.valueOf(getPostNumber()));
+
+        db.collection("post") // 서버의 포스트 개수 증가
+                .document("information")
+                .update("postNumbers",getPostNumber()+1);
+
+        for (int i = 0; i < adapter.getItemCount(); i++) {
+            String filename = "img-"+getPostNumber()+"-"+i;
+            Uri img = viewModel.arrayList.get(i).uri;
+            StorageReference postStorage = storageReference.child("postImg/"+filename);
+            UploadTask uploadTask = postStorage.putFile(img);
+
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    uploadSuccess = true;
+                    Log.d("uploadPost","Image upload Success");
+                }
+            });
+        }
+        finish();
+
+    }
+
+    public int getPostNumber() {
+        final int[] result = new int[1];
+        db = FirebaseFirestore.getInstance();
+        db.collection("post")
+                .document("information")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()) {
+                            DocumentSnapshot documentSnapshot= task.getResult();
+
+
+                          result[0] = Integer.parseInt(String.valueOf(documentSnapshot.get("postNumbers")));
+                            Log.e("ff","postNumber"+result[0]);
+                        }
+                    }
+                });
+
+        return result[0];
     }
 
     public void callGallery(View view) {

@@ -67,7 +67,8 @@ public class Password extends AppCompatActivity {
         final FirebaseUser user = mAuth.getCurrentUser();
         final String user_uid = user.getUid();
         Map<String,Object> map = new HashMap<>();
-        map.put("name",name);
+        map.put("name", name);
+        map.put("writtenPost", "");
         firebaseFirestore.collection("users").document(user_uid)
                 .set(map)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
