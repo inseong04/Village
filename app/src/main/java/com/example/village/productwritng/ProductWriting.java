@@ -14,7 +14,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextUtils;
@@ -25,24 +24,19 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import com.example.village.MainActivity;
 import com.example.village.R;
 import com.example.village.databinding.ActivityProductWritingBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.InputStream;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -56,6 +50,7 @@ public class ProductWriting extends AppCompatActivity {
     private final int PICK_IMAGE = 1;
     private Boolean uploadSuccess;
     int hashTagCount = 0;
+    int postNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +64,7 @@ public class ProductWriting extends AppCompatActivity {
 
         checkSelfPermission();
         setUi();
-
+        getPostNumber();
 /*        binding.goHomeBtn.setOnClickListener(v -> {
             finish();
         });*/
@@ -202,17 +197,42 @@ public class ProductWriting extends AppCompatActivity {
         binding.imageRecycleView.setAdapter(adapter);
 
     }
+    public void getPostNumber() {
+        db = FirebaseFirestore.getInstance();
+        db.collection("post")
+                .document("information")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        Log.e("zb","before");
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot documentSnapshot = task.getResult();
+                            postNumber = Integer.parseInt(String.valueOf(documentSnapshot.get("postNumbers")))+1;
+                        }
+                    }
+                });
+    }
 
     public void uploadPost(View view) {
 
-
+/*        int postNumber = getPostNumber() + 1;*/
         db = FirebaseFirestore.getInstance();
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         StorageReference storageReference = firebaseStorage.getReference();
         String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         final String[] writtenPost = new String[1];
-        Log.e("postNumber", String.valueOf(getPostNumber())+"+"+"1");
-        int postNumber = getPostNumber() + 1;
+        /*Log.e("postNumber", String.valueOf(getPostNumber())+"+"+"1");*/
+
+        db.collection("post") // 서버의 포스트 Count 증가
+                .document("information")
+                .update("postNumbers", postNumber)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.e("xzcv","server post count");
+                    }
+                });
 
         db.collection("users")
                 .document(uid)
@@ -223,7 +243,7 @@ public class ProductWriting extends AppCompatActivity {
                         DocumentSnapshot documentSnapshot = task.getResult();
                         try {
                             Log.e("test", ": : : " + documentSnapshot.get("writtenPost").toString());
-                            writtenPost[0] = (String) documentSnapshot.get("writtenPost") + "-" + String.valueOf(postNumber);
+                            writtenPost[0] = (String) documentSnapshot.get("writtenPost") + "-" + String.valueOf(postNumber);//String.valueOf(postNumber);
                         } catch (NullPointerException e) {
                             writtenPost[0] = String.valueOf(postNumber);
                         }
@@ -239,21 +259,15 @@ public class ProductWriting extends AppCompatActivity {
         String period = binding.periodSpinner.getSelectedItem().toString();
         String hashTag = binding.hashtagEtv.getText().toString();
         String descripton = binding.descriptionEtv.getText().toString();
+        int imageNumber = adapter.getItemCount();
         post.put("productName", productName);
         post.put("price", price);
         post.put("period", period);
         post.put("hashTag", hashTag);
         post.put("description", descripton);
+        post.put("imageNumber", imageNumber);
 
-        db.collection("post") // 서버의 포스트 Count 증가
-                .document("information")
-                .update("postNumbers", postNumber)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.e("xzcv","server post count");
-                    }
-                });
+
 
         db.collection("post") // 포스트 생성
                 .document(String.valueOf(postNumber))
@@ -265,8 +279,8 @@ public class ProductWriting extends AppCompatActivity {
                     }
                 });
 
-        for (int i = 0; i < adapter.getItemCount(); i++) {
-            String filename = "img-" + postNumber + "-" + i;
+        for (int i = 0; i < imageNumber; i++) {
+            String filename = "img-" + String.valueOf(postNumber) + "-" + i;
             Uri img = viewModel.arrayList.get(i).uri;
             StorageReference postStorage = storageReference.child("postImg/" + filename);
             UploadTask uploadTask = postStorage.putFile(img);
@@ -283,25 +297,7 @@ public class ProductWriting extends AppCompatActivity {
         finish();
     }
 
-    public int getPostNumber() {
-        int[] result = new int[1];
-        db = FirebaseFirestore.getInstance();
-        db.collection("post")
-                .document("information")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot documentSnapshot = task.getResult();
-                            result[0] = Integer.parseInt(String.valueOf(documentSnapshot.get("postNumbers")));
-                            Log.e("ff", "postNumber" + result[0]);
-                        }
-                    }
-                });
-        Log.e("result","result : "+result[0]);
-        return result[0];
-    }
+
 
     public void callGallery(View view) {
         Intent intent = new Intent(Intent.ACTION_PICK);

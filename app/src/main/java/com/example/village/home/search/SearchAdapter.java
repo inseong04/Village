@@ -41,7 +41,6 @@ public class SearchAdapter extends RecyclerView.Adapter<Holder> {
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         Log.e("aa","position"+position+":  "+viewModel.searchWord.getValue().get(position));
         holder.text.setText(viewModel.searchWord.getValue().get(position));
-        SearchActivity searchActivity = new SearchActivity();
 
         holder.delete_btn.setOnClickListener(v -> {
                 removeItem(position);
