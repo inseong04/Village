@@ -34,7 +34,7 @@ public class Splash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceStare) {
         super.onCreate(savedInstanceStare);
         setContentView(R.layout.activity_splash);
-
+        this.overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         final LoginDatabase db = Room.databaseBuilder(getApplicationContext(), LoginDatabase.class,
                 "village-login-db")
                 .allowMainThreadQueries()
@@ -84,6 +84,12 @@ public class Splash extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         finish();
+    }
+
+    public void finish() {
+        super.finish();
+
+        this.overridePendingTransition(R.anim.fadein, R.anim.fadeout);
     }
 
 }

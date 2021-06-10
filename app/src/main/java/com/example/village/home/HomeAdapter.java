@@ -2,6 +2,7 @@ package com.example.village.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                 .into(holder.homeImageIv);
         holder.wholeLayout.setOnClickListener(v -> {
             Intent intent = new Intent(context, Post.class);
-            intent.putExtra("postNumber",position+1);
+            Log.e("select","selected position : "+String.valueOf(position+1));
+            intent.putExtra("postNumber",viewModel.getProductArray().get(position).postNum);
             context.startActivity(intent);
         });
     }

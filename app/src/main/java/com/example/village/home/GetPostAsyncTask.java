@@ -4,12 +4,16 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.village.databinding.FragmentHomeBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -28,6 +32,7 @@ public class GetPostAsyncTask extends AsyncTask {
     String[] price;
     Uri[] postUri;
     private int postNumber;
+    HomeAdapter adapter;
 
     public GetPostAsyncTask(Context mContext, FragmentHomeBinding binding, int postNumber) {
         this.mContext = mContext;
@@ -46,34 +51,37 @@ public class GetPostAsyncTask extends AsyncTask {
         location = new String[postNumber];
         price = new String[postNumber];
         postUri = new Uri[postNumber];
+
     }
 
     @Override
     protected Object doInBackground(Object[] objects) {
 
-        for(int i=1; i<=postNumber; i++) {
+        for (int i = 1; i <= postNumber; i++) {
             int finalI = i;
-            db.collection("post")
-                    .document(String.valueOf(i) )
-                    .get()
-                    .addOnCompleteListener(task -> {
+            storageReference.child("postImg/" + "img" + "-" + i + "-0").getDownloadUrl().
+                    addOnSuccessListener(uri -> {
+                        postUri[finalI - 1] = uri;
 
-                        DocumentSnapshot documentSnapshot = task.getResult();
-                        Log.e("z", "postinforrun");
-                        title[finalI-1] = String.valueOf(documentSnapshot.get("productName"));
-                        Log.e("title", String.valueOf(documentSnapshot.get("productName")));
-                        location[finalI-1] = String.valueOf(documentSnapshot.get("location"));
-                        Log.e("location", String.valueOf(documentSnapshot.get("location")));
-                        price[finalI-1] = String.valueOf(documentSnapshot.get("price"));
-                        Log.e("price", String.valueOf(documentSnapshot.get("price")));
+                        db.collection("post")
+                                .document(String.valueOf(finalI))
+                                .get()
+                                .addOnCompleteListener(task -> {
+                                        DocumentSnapshot documentSnapshot = task.getResult();
+                                        int postNum = finalI;
+                                        title[finalI-1] = String.valueOf(documentSnapshot.get("productName"));
+                                        location[finalI-1] = String.valueOf(documentSnapshot.get("location"));
+                                        price[finalI-1] = String.valueOf(documentSnapshot.get("price"));
+                                        Log.e("test", "index[" + String.valueOf(finalI - 1) + "] " +
+                                                title[finalI -1] + "/" + location[finalI -1] + "/" + price[finalI - 1]);
 
-                        storageReference.child("postImg/" + "img" + "-" + finalI + "-0").getDownloadUrl().addOnSuccessListener(uri -> {
-                            Log.e("sucees", "getpostimage : "+uri.toString());
-                            postUri[finalI-1] = uri;
-                            HomeData homeData = new HomeData(postUri[finalI-1], title[finalI-1], location[finalI-1], price[finalI-1]);
-                            Log.e("homeData", homeData.title+String.valueOf(finalI-1));
-                            viewModel.productArray.add(homeData);
-                        });
+                                        HomeData homeData = new HomeData(postUri[finalI - 1], postNum, title[finalI - 1], location[finalI - 1], price[finalI - 1]);
+                                        Log.e("homeData", homeData.title + "/" + homeData.location + "/" +
+                                                homeData.price +
+                                                "// index : " + String.valueOf(finalI - 1));
+                                        viewModel.productArray.add(homeData);
+                                        publishProgress("");
+                                    });
                     });
 
         }
@@ -81,19 +89,23 @@ public class GetPostAsyncTask extends AsyncTask {
     }
 
     @Override
-    protected void onProgressUpdate(Object[] values) {
+    protected void onProgressUpdate (Object[] values) {
         super.onProgressUpdate(values);
+        adapter = new HomeAdapter(mContext);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
+        binding.homeRecyclerview.setLayoutManager(linearLayoutManager);
+        Log.e("view",viewModel.getProductArray().toString());
+        adapter.notifyDataSetChanged();
+        binding.homeRecyclerview.setAdapter(adapter);
     }
 
     @Override
     protected void onPostExecute(Object o) {
+        // 이게 처음으로 실행됨
         super.onPostExecute(o);
-        HomeAdapter adapter = new HomeAdapter(mContext);
-        binding.homeRecyclerview.setLayoutManager(new LinearLayoutManager(mContext));
-        binding.homeRecyclerview.setAdapter(adapter);
+
+
     }
-
-
 
 
 }

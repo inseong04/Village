@@ -2,12 +2,15 @@ package com.example.village.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +39,7 @@ public class Home extends Fragment {
     public void onAttach(@NotNull Context context) {
         super.onAttach(context);
         mContext = context;
+        getPost();
     }
 
     @Override
@@ -51,6 +55,23 @@ public class Home extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         binding.setActivity(this);
 
+        binding.swipeRefreshLayout.setOnRefreshListener( () -> {
+           // onRefresh
+            viewModel.productArray.clear();
+            getPost();
+            binding.swipeRefreshLayout.setRefreshing(false);
+        });
+
+        return binding.getRoot();
+    }
+
+    @Override
+        public void onDestroyView() {
+        super.onDestroyView();
+        viewModel.productArray.clear();
+    }
+
+    protected void getPost() {
         db = FirebaseFirestore.getInstance();
         db.collection("post")
                 .document("information")
@@ -60,104 +81,17 @@ public class Home extends Fragment {
                     try {
                         int postNumber = Integer.parseInt(String.valueOf(documentSnapshot.get("postNumbers")));
                         GetPostAsyncTask getPostAsyncTask = new GetPostAsyncTask(mContext, binding, postNumber);
-                        getPostAsyncTask.execute();
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                            getPostAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+                        } else {
+                            getPostAsyncTask.execute();
+                        }
                     } catch (NullPointerException e) {
 
                     }
                 });
-
-
-        /*String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();*/
-
-  /*      viewModel.arrayListMutableLiveData.observe(getViewLifecycleOwner(), v -> {
-            viewModel.setProduct();
-        });
-
-\
-
-        Log.e("postNumber",String.valueOf(postNumbers));
-        for(int i=1; i<=viewModel.getPostNumber(); i++) {
-            Log.e("test","for : "+i);
-            getPostInformation(i);
-
-        }
-        HomeAdapter adapter = new HomeAdapter(mContext);
-        binding.homeRecyclerview.setLayoutManager(new LinearLayoutManager(mContext));
-        binding.homeRecyclerview.setAdapter(adapter);*/
-        return binding.getRoot();
     }
-
-/*    @Override
-        public void onDestroyView() {
-        super.onDestroyView();
-        viewModel.product.setValue(new ArrayList<HomeData>());
-    }*/
-
- /*   protected void getPostInformation(int num) {
-
-        final String[] title = new String[1];
-        final String[] location = new String[1];
-        final String[] price = new String[1];
-        final Uri[] postUri = new Uri[1];
-        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-        StorageReference storageReference = firebaseStorage.getReference();
-
-        db.collection("post")
-                .document(String.valueOf(num))
-                .get()
-                .addOnCompleteListener(task -> {
-
-                    DocumentSnapshot documentSnapshot = task.getResult();
-                    Log.e("z", "postinforrun");
-                    title[0] = String.valueOf(documentSnapshot.get("productName"));
-                    Log.e("title", String.valueOf(documentSnapshot.get("productName")));
-                    location[0] = String.valueOf(documentSnapshot.get("location"));
-                    Log.e("location", String.valueOf(documentSnapshot.get("location")));
-                    price[0] = String.valueOf(documentSnapshot.get("price"));
-                    Log.e("price", String.valueOf(documentSnapshot.get("price")));
-
-                    storageReference.child("postImg/" + "img" + "-" + num + "-0").getDownloadUrl().addOnSuccessListener(uri -> {
-                            Log.e("sucees", "getpostimage");
-                            postUri[0] = uri;
-                            HomeData homeData = new HomeData(postUri[0], title[0], location[0], price[0]);
-                            Log.e("homeData", homeData.toString());
-                            viewModel.setArrayListMutableLiveData(homeData);
-                    });
-                });
-
-
-
-    }*/
-
-/*    protected void getPostImage(int num) {
-        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-        StorageReference storageReference = firebaseStorage.getReference();
-        storageReference.child("postImg/"+"img"+"-"+num+"-0").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Log.e("sucees","getpostimage");
-                postUri = uri;
-            }
-        });
-
-    }*/
-
-/*    protected void getPostNumber() {
-        db = FirebaseFirestore.getInstance();
-        db.collection("post")
-                .document("information")
-                .get()
-                .addOnCompleteListener( task -> {
-                        DocumentSnapshot documentSnapshot = task.getResult();
-                        try {
-                            postNumbers = Integer.parseInt(String.valueOf(documentSnapshot.get("postNumbers")));
-                            Log.e("getPost",String.valueOf(postNumbers));
-                        } catch (NullPointerException e) {
-
-                        }
-                });
-    }*/
-
 
     public void go_searchActivity(View view) {
         Intent intent = new Intent(getContext(), SearchActivity.class);
