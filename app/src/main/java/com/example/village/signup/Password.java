@@ -46,7 +46,7 @@ public class Password extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d("firebase", "createUserWithEmail:success");
                                 save_username(mAuth, name);
-                                Intent intent = new Intent(getApplicationContext(), Login.class);
+                                Intent intent = new Intent(getApplicationContext(), SignupSuccess.class);
                                 startActivity(intent);
                                 finish();
                             } else {

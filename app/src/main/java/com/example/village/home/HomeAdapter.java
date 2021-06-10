@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.village.R;
 import com.example.village.post.Post;
 
@@ -38,10 +39,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.productTitleTv.setText(viewModel.arrayList.get(position).title);
-        holder.sellerLocationTv.setText(viewModel.arrayList.get(position).location);
-        holder.productPriceTv.setText(viewModel.arrayList.get(position).price);
-
+        holder.productTitleTv.setText(viewModel.getProductArray().get(position).title);
+        holder.sellerLocationTv.setText(viewModel.getProductArray().get(position).location);
+        holder.productPriceTv.setText(viewModel.getProductArray().get(position).price);
+        holder.homeImageIv.setImageURI(viewModel.getProductArray().get(position).HomeImageuri);
+        Glide.with(holder.itemView)
+                .load(viewModel.getProductArray().get(position).HomeImageuri)
+                .into(holder.homeImageIv);
         holder.wholeLayout.setOnClickListener(v -> {
             Intent intent = new Intent(context, Post.class);
             intent.putExtra("postNumber",position+1);
@@ -51,7 +55,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return viewModel.arrayList.size();
+        return viewModel.getProductArray() != null ? viewModel.getProductArray().size() : 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -68,7 +72,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             productTitleTv = itemView.findViewById(R.id.productTitleTv);
             sellerLocationTv = itemView.findViewById(R.id.sellerLocationTv);
             productPriceTv = itemView.findViewById(R.id.productPriceTv);
-
         }
     }
 }

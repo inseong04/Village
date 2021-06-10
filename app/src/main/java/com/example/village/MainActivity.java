@@ -18,52 +18,45 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        getSupportFragmentManager().beginTransaction().add(R.id.layout_main_frame, new Home()).commit();
-        // 권한요청 구현 필요
-        binding.bottomBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                BottomNavigate(item.getItemId());
-                return true;
+
+        Fragment Chat = new Chat();
+        Fragment Home = new Home();
+        Fragment My = new My();
+
+/*        getSupportFragmentManager().beginTransaction().replace(R.id.layout_main_frame, Home).commitAllowingStateLoss();
+        binding.bottomBar.setSelectedItemId(R.id.home);*/
+
+        // 권한요청 구현 필요.
+        binding.bottomBar.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.chat:
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.layout_main_frame, Chat).commit();
+                    return true;
+
+                case R.id.home:
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.layout_main_frame, Home).commit();
+                    return true;
+
+                case R.id.my:
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.layout_main_frame, My).commit();
+                    return true;
+
+                default:
+                    return false;
+
             }
         });
 
-
-    }
-
-    private void BottomNavigate(int id) {
-        String tag = String.valueOf(id);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        Fragment currentFragment = fragmentManager.getPrimaryNavigationFragment();
-        if (currentFragment != null) {
-            fragmentTransaction.hide(currentFragment);
-        }
-
-        Fragment fragment = fragmentManager.findFragmentByTag(tag);
-        if(fragment == null) {
-            if (id == R.id.home) {
-                fragment = new Home();
-            } else if (id == R.id.chat) {
-                fragment = new Chat();
-            } else {
-                fragment = new My();
-            }
-
-            fragmentTransaction.add(R.id.layout_main_frame,fragment,tag);
-        } else {
-            fragmentTransaction.show(fragment);
-        }
-
-        fragmentTransaction.setPrimaryNavigationFragment(fragment);
-        fragmentTransaction.setReorderingAllowed(true);
-        fragmentTransaction.commitNow();
 
     }
 }

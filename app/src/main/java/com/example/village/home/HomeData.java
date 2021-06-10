@@ -24,6 +24,16 @@ public class HomeData {
         return price;
     }
 
+   public HomeData(Uri uri) {
+        this.HomeImageuri = uri;
+   }
+
+    public HomeData(String title, String location, String price) {
+        this.title = title;
+        this.location = location;
+        this.price = price;
+    }
+
     public HomeData(Uri uri, String title, String location, String price) {
         this.HomeImageuri = uri;
         this.title = title;

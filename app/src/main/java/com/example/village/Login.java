@@ -32,41 +32,8 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding= ActivityLoginBinding.inflate(getLayoutInflater());
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        final LoginDatabase db = Room.databaseBuilder(this,LoginDatabase.class,
-                "village-login-db")
-                .allowMainThreadQueries()
-                .build();
-
-        if (db.LoginDataDao().RgetId() != null) {
-            String email = db.LoginDataDao().RgetId();
-            String password = db.LoginDataDao().RgetPassword();
-            final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.w("firebase", "signInWithEmail:success");
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.e("firebase", "signInWithEmail:failure", task.getException());
-                                Intent intent = new Intent(getApplicationContext(), Login.class);
-                                startActivity(intent);
-                                finish();
-                                // ...
-                            }
-                            // ...
-                        }
-                    });
-        }
 
     }
 
@@ -79,35 +46,32 @@ public class Login extends AppCompatActivity {
                 .allowMainThreadQueries()
                 .build();
 
-        binding.loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = binding.etvId.getText().toString();
-                String password = binding.etvPassword.getText().toString();
+        binding.loginBtn.setOnClickListener(v -> {
+            String email = binding.etvId.getText().toString();
+            String password = binding.etvPassword.getText().toString();
 
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Log.d("firebase", "signInWithEmail:success");
-                                    insertDB(db, email, password);
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Log.e("firebase", "signInWithEmail:failure", task.getException());
-
-                                    // ...
-                                }
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d("firebase", "signInWithEmail:success");
+                                insertDB(db, email, password);
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.e("firebase", "signInWithEmail:failure", task.getException());
 
                                 // ...
                             }
-                        });
 
-            }
+                            // ...
+                        }
+                    });
+
         });
 
         binding.btnSignup.setOnClickListener(new View.OnClickListener() {
@@ -120,8 +84,8 @@ public class Login extends AppCompatActivity {
     }
 
     private void insertDB(LoginDatabase db, String id, String password) {
-        Log.w("Login::Room","insertDB");
-        db.LoginDataDao().insertLogin(new LoginData(id,password));
+        Log.w("Login::Room", "insertDB");
+        db.LoginDataDao().insertLogin(new LoginData(id, password));
     }
 
 

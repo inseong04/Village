@@ -202,15 +202,12 @@ public class ProductWriting extends AppCompatActivity {
         db.collection("post")
                 .document("information")
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                .addOnCompleteListener(task -> {
                         Log.e("zb","before");
                         if (task.isSuccessful()) {
                             DocumentSnapshot documentSnapshot = task.getResult();
                             postNumber = Integer.parseInt(String.valueOf(documentSnapshot.get("postNumbers")))+1;
                         }
-                    }
                 });
     }
 
@@ -266,8 +263,6 @@ public class ProductWriting extends AppCompatActivity {
         post.put("hashTag", hashTag);
         post.put("description", descripton);
         post.put("imageNumber", imageNumber);
-
-
 
         db.collection("post") // 포스트 생성
                 .document(String.valueOf(postNumber))

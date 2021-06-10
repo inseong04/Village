@@ -52,7 +52,6 @@ public class SearchActivity extends AppCompatActivity {
                     viewModel.searchWordDeleteIndex0.setValue(false);
 
             } else {
-                // 실행시 array에 room Rget받아서 넣어줘야함
                 Log.e("beforeUpdate", arrayList.toString());
                 updateDB(arrayList);
             }
@@ -156,10 +155,6 @@ public class SearchActivity extends AppCompatActivity {
         Log.w("Search::Room", "updateDB" + searchWords);
         db.usersSearchDao().updateUsers(new UsersSearchData(searchWords));
     }
-/*    protected void onStop() {
-        super.onStop();
-        Log.e("onDestroy", getRoom().usersSearchDao().RgetSearchWord());
-    }*/
 
     public void insertDB(ArrayList<String> searchWords) {
         UsersSearchDatabase db = getRoom();
