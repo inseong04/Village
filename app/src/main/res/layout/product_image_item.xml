@@ -13,6 +13,7 @@
             android:src="@drawable/imagebutton_box"
             android:layout_width="100dp"
             android:layout_height="99dp"
+            android:scaleType="centerCrop"
             />
         <Button
             android:id="@+id/deleteItem"

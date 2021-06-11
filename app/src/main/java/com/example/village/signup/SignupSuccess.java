@@ -15,9 +15,8 @@ public class SignupSuccess extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_success);
-        Button signupBtn = findViewById(R.id.signupBtn);
 
-        signupBtn.setOnClickListener(v -> {
+        findViewById(R.id.signupBtn).setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), Login.class);
             startActivity(intent);
         });
