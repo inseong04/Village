@@ -4,16 +4,10 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
-
-import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.example.village.databinding.FragmentHomeBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -74,7 +68,6 @@ public class GetPostAsyncTask extends AsyncTask {
                                         price[finalI-1] = String.valueOf(documentSnapshot.get("price"));
                                         Log.e("test", "index[" + String.valueOf(finalI - 1) + "] " +
                                                 title[finalI -1] + "/" + location[finalI -1] + "/" + price[finalI - 1]);
-
                                         HomeData homeData = new HomeData(postUri[finalI - 1], postNum, title[finalI - 1], location[finalI - 1], price[finalI - 1]);
                                         Log.e("homeData", homeData.title + "/" + homeData.location + "/" +
                                                 homeData.price +
@@ -101,7 +94,6 @@ public class GetPostAsyncTask extends AsyncTask {
 
     @Override
     protected void onPostExecute(Object o) {
-        // 이게 처음으로 실행됨
         super.onPostExecute(o);
 
 

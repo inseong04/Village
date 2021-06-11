@@ -1,9 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".post.Post">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+
+        <variable
+            name="userName"
+            type="String" />
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="description"
+            type="String" />
+
+        <variable
+            name="hashTag"
+            type="String" />
+
+        <variable
+            name="time"
+            type="String" />
+
+        <variable
+            name="period"
+            type="String" />
+
+        <variable
+            name="price"
+            type="String" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.45" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.55">
+
+            <ImageView
+                android:id="@+id/userProfileIv"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="15dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/userNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:fontFamily="@font/ns_b"
+                android:text="@{userName}"
+                android:textColor="#000"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/view1"
+                app:layout_constraintLeft_toRightOf="@id/userProfileIv"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="username" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="20sp"
+                android:background="#707070"
+                app:layout_constraintTop_toBottomOf="@id/userProfileIv" />
+
+            <TextView
+                android:id="@+id/titleTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20sp"
+                android:fontFamily="@font/ns_b"
+                android:text="@{title}"
+                android:textColor="#000"
+                android:textSize="26sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view1"
+                tools:text="VR STATION 기기 대여" />
+
+            <TextView
+                android:id="@+id/descriptionTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20sp"
+                android:fontFamily="@font/ns_r"
+                android:text="@{description}"
+                android:textColor="#000"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/titleTv"
+                tools:text="구매 후 보관 중이던 기기입니다. 4차산업 혁명 시대에 아이
+들 교육용, 게임용 등 다양한 용도로 활용하여도 손색없습니
+다. VR 영상을 통해 유명 테마파크를 집에서 즐겨실 수 있습
+니다." />
+
+            <TextView
+                android:id="@+id/hashTagTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20sp"
+                android:fontFamily="@font/ns_b"
+                android:text="@{hashTag}"
+                android:textColor="#000"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/view2"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/descriptionTv"
+                app:layout_constraintVertical_bias="0.9"
+
+                tools:text="#VR #전자기기 #아이교육 #4차산업" />
+
+            <TextView
+                android:id="@+id/timeTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20sp"
+                android:fontFamily="@font/ns_l"
+                android:text="@{time}"
+                android:textColor="#636363"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/view2"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/descriptionTv"
+                app:layout_constraintVertical_bias="0.9"
+                tools:text="20분 전" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#e2e2e2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="@id/hashTagTv"
+                app:layout_constraintVertical_bias="0.35" />
+
+            <TextView
+                android:id="@+id/periodTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="25sp"
+                android:fontFamily="@font/ns_r"
+                android:text="@{period}"
+                android:textColor="#000"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/view2"
+                tools:text="월" />
+
+            <TextView
+                android:id="@+id/priceTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8sp"
+                android:layout_marginTop="25sp"
+                android:layout_marginRight="25sp"
+                android:layout_marginBottom="25sp"
+                android:fontFamily="@font/ns_b"
+                android:text="@{price}"
+                android:textColor="#000"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/periodTv"
+                app:layout_constraintTop_toTopOf="@id/view2"
+                tools:text="10,000원" />
+
+            <Button
+                android:id="@+id/chatBtn"
+                android:layout_width="190sp"
+                android:layout_height="45sp"
+                android:layout_margin="25sp"
+                android:background="@drawable/login_button"
+                android:fontFamily="@font/ns_r"
+                android:text="채팅하기"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/priceTv"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</layout>
