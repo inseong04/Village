@@ -10,7 +10,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,12 +79,12 @@ public class Home extends Fragment {
                     DocumentSnapshot documentSnapshot = task.getResult();
                     try {
                         int postNumber = Integer.parseInt(String.valueOf(documentSnapshot.get("postNumbers")));
-                        GetPostAsyncTask getPostAsyncTask = new GetPostAsyncTask(mContext, binding, postNumber);
+                        GetHomePostAsyncTask getHomePostAsyncTask = new GetHomePostAsyncTask(mContext, binding, postNumber);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                            getPostAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                            getHomePostAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
                         } else {
-                            getPostAsyncTask.execute();
+                            getHomePostAsyncTask.execute();
                         }
                     } catch (NullPointerException e) {
 

@@ -13,7 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-public class GetPostAsyncTask extends AsyncTask {
+public class GetHomePostAsyncTask extends AsyncTask {
 
     private HomeViewModel viewModel;
     private Context mContext;
@@ -28,7 +28,7 @@ public class GetPostAsyncTask extends AsyncTask {
     private int postNumber;
     HomeAdapter adapter;
 
-    public GetPostAsyncTask(Context mContext, FragmentHomeBinding binding, int postNumber) {
+    public GetHomePostAsyncTask(Context mContext, FragmentHomeBinding binding, int postNumber) {
         this.mContext = mContext;
         this.binding = binding;
         this.postNumber = postNumber;

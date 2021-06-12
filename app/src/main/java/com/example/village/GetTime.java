@@ -9,15 +9,15 @@ public class GetTime{
 
     private SimpleDateFormat dayTime;
     private FirebaseFirestore db;
-    private long postTime;
-
+    private static long postTime;
+    // db에 등록해줘야하고 글 올릴때도 이거 추가해야됨
     public GetTime(String postTimeStr) {
         this.postTime = Long.parseLong(postTimeStr);
         this.dayTime = new SimpleDateFormat("yyyy-MM-dd a hh:mm:ss");
         this.db = FirebaseFirestore.getInstance();
     }
 
-    public String getTime() {
+    public static String getTime() {
         long currentTime = System.currentTimeMillis();
 
         if (currentTime-postTime < 60000) {
