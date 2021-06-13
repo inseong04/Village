@@ -2,15 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".home.search.SearchActivity">
+    tools:context=".screen.home.search.SearchActivity">
 
     <data>
         <variable
             name="activity"
-            type="com.example.village.home.search.SearchActivity" />
+            type="com.example.village.screen.home.search.SearchActivity" />
         <variable
             name="viewModel"
-            type="com.example.village.home.search.SearchViewModel" />
+            type="com.example.village.screen.home.search.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

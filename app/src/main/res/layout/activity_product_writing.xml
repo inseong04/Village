@@ -2,15 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".productwritng.ProductWriting">
+    tools:context=".screen.productwriting.ProductWriting">
 
     <data>
         <variable
             name="activity"
-            type="com.example.village.productwritng.ProductWriting" />
+            type="com.example.village.screen.productwriting.ProductWriting" />
         <variable
             name="viewModel"
-            type="com.example.village.productwritng.ProductViewModel" />
+            type="com.example.village.screen.productwriting.ProductViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

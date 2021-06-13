@@ -15,27 +15,27 @@
         android:roundIcon="@mipmap/ic_app_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Village">
-        <activity android:name=".signup.SignupSuccess"></activity>
-        <activity android:name=".post.Post" />
+        <activity android:name=".screen.signup.SignupSuccess"></activity>
+        <activity android:name=".screen.post.Post" />
         <activity
-            android:name=".productwritng.ProductWriting"
+            android:name=".screen.productwriting.ProductWriting"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".home.searchresult.SearchResult" />
-        <activity android:name=".home.search.SearchActivity" />
-        <activity android:name=".splash.Splash">
+        <activity android:name=".screen.home.searchresult.SearchResult" />
+        <activity android:name=".screen.home.search.SearchActivity" />
+        <activity android:name=".screen.splash.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".signup.Name" />
-        <activity android:name=".signup.Password" />
-        <activity android:name=".signup.Id" />
-        <activity android:name=".Login" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".screen.signup.Name" />
+        <activity android:name=".screen.signup.Password" />
+        <activity android:name=".screen.signup.Id" />
+        <activity android:name=".screen.login.Login" />
+        <activity android:name=".screen.MainActivity" />
         <activity
-            android:name=".home.Home"
+            android:name=".screen.home.Home"
             tools:ignore="Instantiatable" />
     </application>
 
