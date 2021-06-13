@@ -13,7 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-public class GetHomePostAsyncTask extends AsyncTask {
+public class SetHomePostAsyncTask extends AsyncTask {
 
     private HomeViewModel viewModel;
     private Context mContext;
@@ -28,7 +28,7 @@ public class GetHomePostAsyncTask extends AsyncTask {
     private int postNumber;
     HomeAdapter adapter;
 
-    public GetHomePostAsyncTask(Context mContext, FragmentHomeBinding binding, int postNumber) {
+    public SetHomePostAsyncTask(Context mContext, FragmentHomeBinding binding, int postNumber) {
         this.mContext = mContext;
         this.binding = binding;
         this.postNumber = postNumber;
@@ -66,13 +66,8 @@ public class GetHomePostAsyncTask extends AsyncTask {
                                         title[finalI-1] = String.valueOf(documentSnapshot.get("productName"));
                                         location[finalI-1] = String.valueOf(documentSnapshot.get("location"));
                                         price[finalI-1] = String.valueOf(documentSnapshot.get("price"));
-                                        Log.e("test", "index[" + String.valueOf(finalI - 1) + "] " +
-                                                title[finalI -1] + "/" + location[finalI -1] + "/" + price[finalI - 1]);
-                                        HomeData homeData = new HomeData(postUri[finalI - 1], postNum, title[finalI - 1], location[finalI - 1], price[finalI - 1]);
-                                        Log.e("homeData", homeData.title + "/" + homeData.location + "/" +
-                                                homeData.price +
-                                                "// index : " + String.valueOf(finalI - 1));
-                                        viewModel.productArray.add(homeData);
+                                        PreviewPostData previewPostData = new PreviewPostData(postUri[finalI - 1], postNum, title[finalI - 1], location[finalI - 1], price[finalI - 1]);
+                                        viewModel.productArray.add(previewPostData);
                                         publishProgress("");
                                     });
                     });

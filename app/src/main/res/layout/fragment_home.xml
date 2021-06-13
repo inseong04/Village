@@ -22,7 +22,8 @@
             android:id="@+id/top"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.09"
+            android:background="@drawable/search_border"
+            app:layout_constraintHeight_percent="0.08"
             app:layout_constraintTop_toTopOf="parent"
             >
 
@@ -58,9 +59,19 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
+            <ImageButton
+                android:id="@+id/heart"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintWidth_percent="0.15"
+                android:src="@drawable/ic_heart"
+                android:background="#fff"
+                app:layout_constraintLeft_toRightOf="@id/search_layout"
+                app:layout_constraintRight_toRightOf="parent"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -79,6 +90,7 @@
                 android:id="@+id/homeRecyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:padding="12sp"
                 />
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         </LinearLayout>

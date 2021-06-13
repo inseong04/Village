@@ -2,14 +2,14 @@ package com.example.village.home;
 
 import android.net.Uri;
 
-public class HomeData {
-    Uri HomeImageuri;
-    int postNum;
-    String title;
-    String location;
-    String price;
+public class PreviewPostData {
+    public Uri HomeImageuri;
+    public int postNum;
+    public String title;
+    public String location;
+    public String price;
 
-    public HomeData(Uri homeImageuri, int postNum, String title, String location, String price) {
+    public PreviewPostData(Uri homeImageuri, int postNum, String title, String location, String price) {
         HomeImageuri = homeImageuri;
         this.postNum = postNum;
         this.title = title;

@@ -11,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -28,7 +29,6 @@ public class Post extends AppCompatActivity {
 
     private ActivityPostBinding binding;
     FirebaseFirestore db;
-    LinearLayout layoutIndicator;
     PostViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,8 @@ public class Post extends AppCompatActivity {
         final String postNumber = String.valueOf(getIntent().getIntExtra("postNumber",1));
         db = FirebaseFirestore.getInstance();
         viewModel = new ViewModelProvider(this).get(PostViewModel.class);
+
+        binding.descriptionTv.setMovementMethod(new ScrollingMovementMethod());
 
 
         db.collection("post")
@@ -47,25 +49,24 @@ public class Post extends AppCompatActivity {
 
                     PostViewModel viewModel = new ViewModelProvider(this).get(PostViewModel.class);
                     int imageNumber = Integer.parseInt(String.valueOf(documentSnapshot.get("imageNumber")));
-                    GetPostImgThread getPostImgThread = new GetPostImgThread(viewModel, Integer.parseInt(postNumber), imageNumber);
-                    getPostImgThread.start();
-/*                    GetPostImgAsyncTask getPostImgAsyncTask = new GetPostImgAsyncTask(getApplicationContext(), binding,Integer.parseInt(postNumber), imageNumber);
-
+                    GetPostImgAsyncTask getPostImgAsyncTask = new GetPostImgAsyncTask(this, viewModel, binding, Integer.parseInt(postNumber), imageNumber);
+/*                    GetPostImgThread getPostImgThread = new GetPostImgThread(viewModel, Integer.parseInt(postNumber), imageNumber);
+                    getPostImgThread.start();*/
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                         getPostImgAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
                     } else {
                         getPostImgAsyncTask.execute();
-                    }*/
+                    }
                     binding.setUserName(String.valueOf(documentSnapshot.get("userName")));
                     binding.setTitle(String.valueOf(documentSnapshot.get("productName")));
                     binding.setDescription(String.valueOf(documentSnapshot.get("description")));
                     binding.setHashTag(String.valueOf(documentSnapshot.get("hashTag")));
                     binding.setPeriod(String.valueOf(documentSnapshot.get("period")));
                     binding.setPrice(String.valueOf(documentSnapshot.get("price")));
-                    binding.setTime(GetTime.getTime());
+                    binding.setTime(GetTime.getTime(Long.parseLong(String.valueOf(documentSnapshot.get("productTime")))));
 
-                    try {
+/*                    try {
                         Log.i("zxcvzcxv","join");
                         getPostImgThread.join();
                         Log.i("her","after join");
@@ -73,11 +74,8 @@ public class Post extends AppCompatActivity {
                         Log.e("error",e.toString());
                         e.printStackTrace();
                     }
-                    Log.e("agwe","run");
-                    binding.viewPager2.setOffscreenPageLimit(1);
-                    binding.viewPager2.setAdapter(new PostPagerAdapter(viewModel));
-                    Log.e("view",String.valueOf(viewModel.uriArrayList.size()));
-                    setupIndicators(1);
+                    Log.e("agwe","run");*/
+
                 });
 
         binding.viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -93,32 +91,10 @@ public class Post extends AppCompatActivity {
 
     }
 
-    private void setupIndicators(int count) {
-        ImageView[] indicators = new ImageView[count];
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        params.setMargins(16, 8, 16, 8);
-
-        try {
-            for (int i = 0; i < indicators.length; i++) {
-                indicators[i] = new ImageView(this);
-                indicators[i].setImageDrawable(ContextCompat.getDrawable(this,
-                        R.drawable.indicatior_not_focus));
-                indicators[i].setLayoutParams(params);
-                Log.e("indi", String.valueOf((indicators[i] == null)));
-                layoutIndicator.addView(indicators[i]);
-            }
-            setCurrentIndicator(0);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-    }
-
     private void setCurrentIndicator(int position) {
-        int childCount = layoutIndicator.getChildCount();
+        int childCount = binding.layoutIndicator.getChildCount();
         for (int i = 0; i < childCount; i++) {
-            ImageView imageView = (ImageView) layoutIndicator.getChildAt(i);
+            ImageView imageView = (ImageView) binding.layoutIndicator.getChildAt(i);
             if (i == position) {
                 imageView.setImageDrawable(ContextCompat.getDrawable(
                         this,

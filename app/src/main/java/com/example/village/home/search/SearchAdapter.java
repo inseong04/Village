@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -62,7 +63,7 @@ public class SearchAdapter extends RecyclerView.Adapter<Holder> {
     }
 
     public void removeItem(int position) {
-        if(position == 0) {
+        if(position == 0 && viewModel.searchWord.getValue().size() == 0) {
             viewModel.searchWordDeleteIndex0.setValue(true);
             viewModel.emptyAlarm.setValue(true);
             viewModel.first = true;
@@ -77,7 +78,7 @@ public class SearchAdapter extends RecyclerView.Adapter<Holder> {
 
 class Holder extends RecyclerView.ViewHolder {
     TextView text;
-    Button delete_btn;
+    ImageButton delete_btn;
 
     public Holder(@NonNull View itemView) {
         super(itemView);

@@ -22,11 +22,6 @@ public class SearchViewModel extends ViewModel {
         first = false;
     }
 
-
-    public void setPosition(int externalPosition) {
-        position.setValue(externalPosition);
-    }
-
     public void setSearchWord(String word) {
         arrayList.add(word);
         searchWord.setValue(arrayList);

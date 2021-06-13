@@ -1,4 +1,4 @@
-package com.example.village.home;
+package com.example.village.home.searchresult;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,53 +18,57 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.village.R;
+import com.example.village.home.HomeAdapter;
 import com.example.village.post.Post;
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
+public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapter.ViewHolder> {
 
-    HomeViewModel viewModel;
-    Context context;
-    public HomeAdapter(Context context) {
-        this.viewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(HomeViewModel.class);
+    Context mContext;
+    SearchResultViewModel viewModel;
+
+    public SearchResultAdapter(Context mContext) {
+        this.mContext = mContext;
+        viewModel = new ViewModelProvider((ViewModelStoreOwner) mContext).get(SearchResultViewModel.class);
     }
+
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        context = parent.getContext();
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mContext = parent.getContext();
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.post_item,parent,false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.productTitleTv.setText(viewModel.getProductArray().get(position).title);
-        holder.sellerLocationTv.setText(viewModel.getProductArray().get(position).location);
-        holder.productPriceTv.setText(viewModel.getProductArray().get(position).price);
-        holder.homeImageIv.setImageURI(viewModel.getProductArray().get(position).HomeImageuri);
+        holder.productTitleTv.setText(viewModel.getPostArrayList().get(position).title);
+        holder.sellerLocationTv.setText(viewModel.getPostArrayList().get(position).location);
+        holder.productPriceTv.setText(viewModel.getPostArrayList().get(position).price);
+        holder.homeImageIv.setImageURI(viewModel.getPostArrayList().get(position).HomeImageuri);
         Glide.with(holder.itemView)
-                .load(viewModel.getProductArray().get(position).HomeImageuri)
+                .load(viewModel.getPostArrayList().get(position).HomeImageuri)
                 .into(holder.homeImageIv);
         holder.wholeLayout.setOnClickListener(v -> {
-            Intent intent = new Intent(context, Post.class);
-            Log.e("select","selected position : "+String.valueOf(position+1)+"real position"+viewModel.getProductArray().get(position).postNum);
-            intent.putExtra("postNumber",viewModel.getProductArray().get(position).postNum);
-            context.startActivity(intent);
+            Intent intent = new Intent(mContext, Post.class);
+            intent.putExtra("postNumber",viewModel.getPostArrayList().get(position).postNum);
+            mContext.startActivity(intent);
         });
     }
 
     @Override
     public int getItemCount() {
-        return viewModel.getProductArray() != null ? viewModel.getProductArray().size() : 0;
+        return viewModel.postArrayList != null ? viewModel.postArrayList.size() : 0;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    protected class ViewHolder extends RecyclerView.ViewHolder {
         ConstraintLayout wholeLayout;
         ImageView homeImageIv;
         TextView productTitleTv;
         TextView sellerLocationTv;
         TextView productPriceTv;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 

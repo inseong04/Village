@@ -79,12 +79,12 @@ public class Home extends Fragment {
                     DocumentSnapshot documentSnapshot = task.getResult();
                     try {
                         int postNumber = Integer.parseInt(String.valueOf(documentSnapshot.get("postNumbers")));
-                        GetHomePostAsyncTask getHomePostAsyncTask = new GetHomePostAsyncTask(mContext, binding, postNumber);
+                        SetHomePostAsyncTask setHomePostAsyncTask = new SetHomePostAsyncTask(mContext, binding, postNumber);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                            getHomePostAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                            setHomePostAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
                         } else {
-                            getHomePostAsyncTask.execute();
+                            setHomePostAsyncTask.execute();
                         }
                     } catch (NullPointerException e) {
 

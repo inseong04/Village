@@ -12,7 +12,7 @@
 
         <TextView
             android:id="@+id/text"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="9"
             android:fontFamily="@font/ns_r"
@@ -21,13 +21,14 @@
             android:text="SearchWord"
             android:textSize="20dp" />
 
-        <Button
+        <ImageButton
             android:id="@+id/delete_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:src="@drawable/delete"
             android:background="#fff"
-            android:text="X" />
+            />
     </LinearLayout>
 
     <View

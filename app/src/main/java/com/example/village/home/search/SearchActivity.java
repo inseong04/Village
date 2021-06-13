@@ -58,7 +58,7 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         viewModel.searchWordDeleteIndex0.observe(this, bl -> {
-            if (bl) {
+            if (bl && viewModel.searchWord.getValue().size() <= 0) {
                 deleteAll(viewModel.searchWord.getValue());
             }
         });
@@ -96,6 +96,7 @@ public class SearchActivity extends AppCompatActivity {
                 Log.e("add searchword Line 93", "add : " + binding.searchEtv.getText().toString());
                 viewModel.setSearchWord(binding.searchEtv.getText().toString());
                 Intent intent = new Intent(getApplicationContext(), SearchResult.class);
+                intent.putExtra("searchWord",binding.searchEtv.getText().toString());
                 startActivity(intent);
                 finish();
                 return true;
@@ -104,6 +105,7 @@ public class SearchActivity extends AppCompatActivity {
 
         binding.deleteAllTv.setOnClickListener(v -> {
             deleteAll(viewModel.searchWord.getValue());
+            Log.e("test","click");
             viewModel.first = true;
             viewModel.emptyAlarm.setValue(true);
             viewModel.arrayList = new ArrayList<>();

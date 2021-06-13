@@ -10,10 +10,10 @@ public class HomeViewModel extends ViewModel {
     public MutableLiveData<Boolean> notFocusVisible = new MutableLiveData<>();
     public MutableLiveData<Boolean> focusVisible = new MutableLiveData<>();
 /*    public ArrayList<HomeData> arrayList;*/
-    protected ArrayList<HomeData> productArray;
+    protected ArrayList<PreviewPostData> productArray;
     /*    public MutableLiveData<ArrayList<HomeData>> product = new MutableLiveData<>();*/
-    public MutableLiveData<ArrayList<HomeData>> arrayListMutableLiveData = new MutableLiveData<>();
-    private ArrayList<HomeData> arrayList = new ArrayList<>();
+    public MutableLiveData<ArrayList<PreviewPostData>> arrayListMutableLiveData = new MutableLiveData<>();
+    private ArrayList<PreviewPostData> arrayList = new ArrayList<>();
     protected int postNumber;
 /*    public ArrayList<HomeData> getArrayList() {
         return arrayList;
@@ -27,11 +27,11 @@ public class HomeViewModel extends ViewModel {
         this.postNumber = postNumber;
     }
 
-    public ArrayList<HomeData> getProductArray() {
+    public ArrayList<PreviewPostData> getProductArray() {
         return productArray;
     }
 
-    public void setProductArray(ArrayList<HomeData> productArray) {
+    public void setProductArray(ArrayList<PreviewPostData> productArray) {
         this.productArray = productArray;
     }
 /*    public void setProduct() {
@@ -42,8 +42,8 @@ public class HomeViewModel extends ViewModel {
         return product;
     }*/
 
-    public void setArrayListMutableLiveData(HomeData homeData) {
-        arrayList.add(homeData);
+    public void setArrayListMutableLiveData(PreviewPostData previewPostData) {
+        arrayList.add(previewPostData);
         this.arrayListMutableLiveData.setValue(arrayList);
     }
 

@@ -5,7 +5,6 @@
     tools:context=".post.Post">
 
     <data>
-
         <variable
             name="userName"
             type="String" />
@@ -74,6 +73,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="15dp"
+                android:src="@drawable/profile_icon"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -115,13 +115,15 @@
             <TextView
                 android:id="@+id/descriptionTv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_margin="20sp"
                 android:fontFamily="@font/ns_r"
                 android:text="@{description}"
+                android:scrollbars="vertical"
                 android:textColor="#000"
                 android:textSize="16sp"
                 app:layout_constraintTop_toBottomOf="@id/titleTv"
+                app:layout_constraintBottom_toTopOf="@id/hashTagTv"
                 tools:text="구매 후 보관 중이던 기기입니다. 4차산업 혁명 시대에 아이
 들 교육용, 게임용 등 다양한 용도로 활용하여도 손색없습니
 다. VR 영상을 통해 유명 테마파크를 집에서 즐겨실 수 있습

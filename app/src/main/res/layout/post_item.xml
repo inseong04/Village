@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:text="테스트"
             android:ellipsize="end"
-            android:textSize="30sp"
+            android:textSize="27sp"
             android:textColor="#000"
             android:fontFamily="@font/ns_b"
             app:layout_constraintTop_toTopOf="parent"

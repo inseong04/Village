@@ -37,6 +37,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -51,6 +53,7 @@ public class ProductWriting extends AppCompatActivity {
     private Boolean uploadSuccess;
     int hashTagCount = 0;
     int postNumber;
+    SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd a hh:mm:ss.SS");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -257,12 +260,14 @@ public class ProductWriting extends AppCompatActivity {
         String hashTag = binding.hashtagEtv.getText().toString();
         String descripton = binding.descriptionEtv.getText().toString();
         int imageNumber = adapter.getItemCount();
+        long productTime = System.currentTimeMillis();
         post.put("productName", productName);
         post.put("price", price);
         post.put("period", period);
         post.put("hashTag", hashTag);
         post.put("description", descripton);
         post.put("imageNumber", imageNumber);
+        post.put("productTime", productTime);
 
         db.collection("post") // 포스트 생성
                 .document(String.valueOf(postNumber))
