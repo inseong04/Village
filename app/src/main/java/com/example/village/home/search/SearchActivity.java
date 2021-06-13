@@ -58,7 +58,7 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         viewModel.searchWordDeleteIndex0.observe(this, bl -> {
-            if (bl && viewModel.searchWord.getValue().size() <= 0) {
+            if (bl) {
                 deleteAll(viewModel.searchWord.getValue());
             }
         });
@@ -79,7 +79,10 @@ public class SearchActivity extends AppCompatActivity {
             viewModel.setSearchWord(word);
         }
         SearchAdapter adapter = new SearchAdapter(this);
-        binding.mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+        binding.mRecyclerView.setLayoutManager(linearLayoutManager);
         binding.mRecyclerView.setAdapter(adapter);
 
         if (viewModel.searchWord.getValue() == null) {

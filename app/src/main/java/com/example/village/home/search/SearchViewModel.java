@@ -35,12 +35,4 @@ public class SearchViewModel extends ViewModel {
     public void setSearchEtvText(String word) {
         searchEtvText.setValue(word);
     }
-
-    public void setWorkRemoveTrue() {
-        workRemove.setValue(true);
-    }
-
-    public void setWorkRemoveFalse() {
-        workRemove.setValue(false);
-    }
 }

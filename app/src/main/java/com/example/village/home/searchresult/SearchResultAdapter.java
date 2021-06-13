@@ -52,7 +52,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                 .into(holder.homeImageIv);
         holder.wholeLayout.setOnClickListener(v -> {
             Intent intent = new Intent(mContext, Post.class);
-            intent.putExtra("postNumber",viewModel.getPostArrayList().get(position).postNum);
+            intent.putExtra("postNumber",viewModel.matchingPostNum.get(position));
             mContext.startActivity(intent);
         });
     }

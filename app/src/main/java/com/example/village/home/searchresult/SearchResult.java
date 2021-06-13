@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.View;
 
 import com.example.village.R;
 import com.example.village.databinding.ActivitySearchResultBinding;
+import com.example.village.home.search.SearchActivity;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -64,7 +66,6 @@ public class SearchResult extends AppCompatActivity {
 
                     SetSearchPostAsyncTask setSearchPostAsyncTask = new SetSearchPostAsyncTask(mContext, binding);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                        Log.e("awegwae","weewqwwwwwwwwwwwwawerbddawersghwrsbghwsdbhwsedgbwerdfweadsabfehwgderfvfbrth4eqgwedffgnrtesfehsfewfghmgdgrdteswf");
                         setSearchPostAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
                     } else {
@@ -77,6 +78,12 @@ public class SearchResult extends AppCompatActivity {
     }
 
     public void goHome(View view) {
+        finish();
+    }
+
+    public void goSearch(View view) {
+        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+        startActivity(intent);
         finish();
     }
 }

@@ -50,7 +50,6 @@ public class SearchAdapter extends RecyclerView.Adapter<Holder> {
         holder.text.setOnClickListener(v -> {
             viewModel.setSearchEtvText(viewModel.searchWord.getValue().get(position));
         });
-
     }
 
     @Override
@@ -63,15 +62,18 @@ public class SearchAdapter extends RecyclerView.Adapter<Holder> {
     }
 
     public void removeItem(int position) {
-        if(position == 0 && viewModel.searchWord.getValue().size() == 0) {
+        Log.e("aa", String.valueOf(viewModel.searchWord.getValue().size()));
+        Log.e("bb", String.valueOf((position == 0 && viewModel.searchWord.getValue().size() == 1)));
+        if(position == 0 && viewModel.searchWord.getValue().size() == 1) {
             viewModel.searchWordDeleteIndex0.setValue(true);
             viewModel.emptyAlarm.setValue(true);
             viewModel.first = true;
         }
-        viewModel.removeSearchWord(position);
-        notifyItemRemoved(position);
-        notifyDataSetChanged();
-
+        else {
+            viewModel.removeSearchWord(position);
+            notifyItemRemoved(position);
+            notifyDataSetChanged();
+        }
     }
 
 }
