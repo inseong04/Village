@@ -10,7 +10,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="74dp"
+        android:layout_height="64dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -36,7 +36,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
@@ -45,6 +45,7 @@
             android:id="@+id/image_profile"
             android:layout_width="137.2dp"
             android:layout_height="137.2dp"
+            android:layout_marginStart="24dp"
             android:src="@drawable/ic_baseline_account_circle_24"
             app:layout_constraintBottom_toTopOf="@+id/const_prifile_text"
             app:layout_constraintEnd_toStartOf="@+id/text_profile_username"
@@ -55,6 +56,7 @@
             android:id="@+id/text_profile_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
             android:text="USER NAME"
             android:textColor="@color/black"
             android:textSize="28sp"
@@ -68,7 +70,6 @@
             android:layout_width="158dp"
             android:layout_height="wrap_content"
             android:background="@drawable/line_box"
-            android:backgroundTint="@color/white"
             android:stateListAnimator="@null"
             android:text="프로필 변경"
             android:textColor="#707070"
@@ -182,5 +183,19 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:padding="10dp"
+        android:visibility="invisible"
+        app:itemIconTint="@drawable/menu_selector_color"
+        app:itemTextColor="#7a7a7a"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_bottom" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
