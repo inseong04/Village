@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".screen.home.Home">
 
     <data>
+
         <variable
             name="ViewModel"
-            type="com.example.village.home.HomeViewModel" />
+            type="com.example.village.screen.home.HomeViewModel" />
+
         <variable
             name="activity"
-            type="com.example.village.home.Home" />
+            type="com.example.village.screen.home.Home" />
     </data>
-    
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -24,41 +26,37 @@
             android:layout_height="0dp"
             android:background="@drawable/search_border"
             app:layout_constraintHeight_percent="0.08"
-            app:layout_constraintTop_toTopOf="parent"
-            >
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/search_layout"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                app:layout_constraintWidth_percent="0.83"
                 android:onClick="@{activity.go_searchActivity}"
                 app:layout_constraintLeft_toLeftOf="parent"
-                >
+                app:layout_constraintWidth_percent="0.83">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintWidth_percent="0.85"
-                    android:text="찾고 싶은 상품을 검색해보세요."
-                    android:textSize="17dp"
-                    android:textColor="#8a8a8a"
                     android:fontFamily="@font/ns_r"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:padding="20dp"
+                    android:text="찾고 싶은 상품을 검색해보세요."
+                    android:textColor="#8a8a8a"
+                    android:textSize="17dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    android:padding="20dp"
-                    />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.85" />
 
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintWidth_percent="0.15"
                     android:src="@drawable/search"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    />
+                    app:layout_constraintWidth_percent="0.15" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -66,12 +64,11 @@
                 android:id="@+id/heart"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                app:layout_constraintWidth_percent="0.15"
-                android:src="@drawable/ic_heart"
                 android:background="#fff"
+                android:src="@drawable/ic_heart"
                 app:layout_constraintLeft_toRightOf="@id/search_layout"
                 app:layout_constraintRight_toRightOf="parent"
-                />
+                app:layout_constraintWidth_percent="0.15" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -79,19 +76,18 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@id/bottomView"
-            app:layout_constraintTop_toBottomOf="@id/top"
-            >
+            app:layout_constraintTop_toBottomOf="@id/top">
+
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/swipeRefreshLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/homeRecyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="12sp"
-                />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/homeRecyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="12sp" />
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         </LinearLayout>
 
@@ -99,28 +95,26 @@
             android:id="@+id/floating_writing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="20dp"
             android:backgroundTint="#2962ff"
-            app:maxImageSize="40dp"
-            android:src="@drawable/ic_action_name"
             android:elevation="0dp"
             android:onClick="@{activity.go_productWriting}"
+            android:src="@drawable/ic_action_name"
             app:layout_constraintBottom_toTopOf="@id/bottomView"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="20dp"
-            />
+            app:maxImageSize="40dp" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#fff"
+            android:padding="10dp"
+            android:visibility="invisible"
             app:itemIconTint="@drawable/menu_selector_color"
             app:itemTextColor="#7a7a7a"
-            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:menu="@menu/menu_bottom"
-            android:padding="10dp"
-            />
+            app:menu="@menu/menu_bottom" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
