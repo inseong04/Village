@@ -16,13 +16,13 @@ import com.google.firebase.storage.StorageReference;
 
 public class GetPostImgAsyncTask extends AsyncTask {
 
-    private  ActivityPostBinding binding;
+    private ActivityPostBinding binding;
     Context mContext;
     PostViewModel viewModel;
     StorageReference storageReference;
     int postNumber;
     int imageNumber;
-    int i=0;
+    int i = 0;
 
     public GetPostImgAsyncTask(Context mContext, PostViewModel viewModel, ActivityPostBinding binding, int postNumber, int imageNumber) {
         this.mContext = mContext;
@@ -42,18 +42,16 @@ public class GetPostImgAsyncTask extends AsyncTask {
     protected Object doInBackground(Object[] objects) {
 
         if (i < imageNumber) {
-            Log.e("download","postImg/" + "img" + "-" + postNumber + "-" + i);
+            Log.e("download", "postImg/" + "img" + "-" + postNumber + "-" + i);
             storageReference.child("postImg/" + "img" + "-" + postNumber + "-" + i).getDownloadUrl().
                     addOnSuccessListener(uri -> {
                         viewModel.uriArrayList.add(uri);
                         i++;
                         doInBackground(null);
                     });
-        }
-        else {
+        } else {
             publishProgress(null);
         }
-
 
 
         return null;

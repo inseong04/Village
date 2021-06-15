@@ -22,10 +22,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.village.R;
 import com.example.village.databinding.ActivityProductWritingBinding;
+import com.example.village.databinding.SpinnerView1Binding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -38,6 +40,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -45,6 +48,7 @@ import java.util.Objects;
 public class ProductWriting extends AppCompatActivity {
 
     private ActivityProductWritingBinding binding;
+    private SpinnerView1Binding spinnerView1Binding;
     private ProductViewModel viewModel;
     private ProductAdapter adapter;
     FirebaseFirestore db;
@@ -58,6 +62,7 @@ public class ProductWriting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_writing);
+
         binding.setActivity(this);
 
         viewModel = new ViewModelProvider(this).get(ProductViewModel.class);
@@ -101,31 +106,10 @@ public class ProductWriting extends AppCompatActivity {
             }
         });
 
-/*        binding.hashtagEtv.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                if (count > 0 && String.valueOf(s.charAt(count-1)).equals(" ")) {
-                    Log.e("xc"," serhnfxrhjsfewdc");
-                    binding.hashtagEtv.setText(s.toString() + "#");
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });*/
-
         binding.periodSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                Toast.makeText(getApplicationContext(),(String)binding.periodSpinner.getItemAtPosition(position)+"이 선택되었습니다.",Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -133,12 +117,15 @@ public class ProductWriting extends AppCompatActivity {
 
             }
         });
+
     }
 
     protected void setUi() {
-        String[] period = getResources().getStringArray(R.array.period);
-        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.spinner_item, period);
-        adapter.setDropDownViewResource(R.layout.spinner_item);
+        ArrayList<String> period = new ArrayList<>();
+        period.add("월");
+        period.add("주");
+        period.add("일");
+        SpinnerAdapter adapter = new SpinnerAdapter(this, period);
         binding.periodSpinner.setAdapter(adapter);
     }
 

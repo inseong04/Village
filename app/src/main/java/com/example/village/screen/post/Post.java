@@ -24,11 +24,12 @@ public class Post extends AppCompatActivity {
     private ActivityPostBinding binding;
     FirebaseFirestore db;
     PostViewModel viewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_post);
-        final String postNumber = String.valueOf(getIntent().getIntExtra("postNumber",1));
+        final String postNumber = String.valueOf(getIntent().getIntExtra("postNumber", 1));
         db = FirebaseFirestore.getInstance();
         viewModel = new ViewModelProvider(this).get(PostViewModel.class);
 
@@ -60,16 +61,6 @@ public class Post extends AppCompatActivity {
                     binding.setPrice(String.valueOf(documentSnapshot.get("price")));
                     binding.setTime(GetTime.getTime(Long.parseLong(String.valueOf(documentSnapshot.get("productTime")))));
 
-/*                    try {
-                        Log.i("zxcvzcxv","join");
-                        getPostImgThread.join();
-                        Log.i("her","after join");
-                    } catch (InterruptedException e) {
-                        Log.e("error",e.toString());
-                        e.printStackTrace();
-                    }
-                    Log.e("agwe","run");*/
-
                 });
 
         binding.viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -80,10 +71,10 @@ public class Post extends AppCompatActivity {
                 setCurrentIndicator(position);
             }
         });
-        Log.e("size",String.valueOf(viewModel.uriArrayList.size()));
-
 
     }
+
+
 
     private void setCurrentIndicator(int position) {
         int childCount = binding.layoutIndicator.getChildCount();

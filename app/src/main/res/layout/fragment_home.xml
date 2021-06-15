@@ -7,10 +7,10 @@
     <data>
         <variable
             name="ViewModel"
-            type="com.example.village.home.HomeViewModel" />
+            type="com.example.village.screen.home.HomeViewModel" />
         <variable
             name="activity"
-            type="com.example.village.home.Home" />
+            type="com.example.village.screen.home.Home" />
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,7 +38,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     app:layout_constraintWidth_percent="0.85"
                     android:text="찾고 싶은 상품을 검색해보세요."
                     android:textSize="17dp"
@@ -78,6 +78,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+
             app:layout_constraintBottom_toTopOf="@id/bottomView"
             app:layout_constraintTop_toBottomOf="@id/top"
             >
@@ -103,7 +104,7 @@
             app:maxImageSize="40dp"
             android:src="@drawable/ic_action_name"
             android:elevation="0dp"
-            android:onClick="@{activity.go_productWriting}"
+            android:onClick="@{activity::go_productWriting}"
             app:layout_constraintBottom_toTopOf="@id/bottomView"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="20dp"

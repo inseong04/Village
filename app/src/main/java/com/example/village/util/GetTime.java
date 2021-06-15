@@ -10,7 +10,6 @@ public class GetTime{
 
     public static String getTime(long productTime) {
         long currentTime = System.currentTimeMillis();
-        Log.e("getTime",String.valueOf((currentTime-productTime)/60000));
         if (currentTime- productTime < 60000) {
             return String.valueOf((currentTime- productTime) /1000)+"초 전";
         }

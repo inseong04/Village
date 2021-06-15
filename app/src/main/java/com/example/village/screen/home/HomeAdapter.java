@@ -23,6 +23,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     HomeViewModel viewModel;
     Context context;
+
     public HomeAdapter(Context context) {
         this.viewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(HomeViewModel.class);
     }
@@ -32,7 +33,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.post_item,parent,false);
+        View view = inflater.inflate(R.layout.post_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -47,8 +48,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                 .into(holder.homeImageIv);
         holder.wholeLayout.setOnClickListener(v -> {
             Intent intent = new Intent(context, Post.class);
-            Log.e("select","selected position : "+String.valueOf(position+1)+"real position"+viewModel.getProductArray().get(position).postNum);
-            intent.putExtra("postNumber",viewModel.getProductArray().get(position).postNum);
+            Log.e("select", "selected position : " + String.valueOf(position + 1) + "real position" + viewModel.getProductArray().get(position).postNum);
+            intent.putExtra("postNumber", viewModel.getProductArray().get(position).postNum);
             context.startActivity(intent);
         });
     }
@@ -64,6 +65,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         TextView productTitleTv;
         TextView sellerLocationTv;
         TextView productPriceTv;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 

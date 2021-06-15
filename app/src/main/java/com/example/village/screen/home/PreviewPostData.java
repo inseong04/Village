@@ -16,23 +16,6 @@ public class PreviewPostData {
         this.location = location;
         this.price = price;
     }
-
-    public Uri getHomeImageuri() {
-        return HomeImageuri;
-    }
-
-    public void setHomeImageuri(Uri homeImageuri) {
-        HomeImageuri = homeImageuri;
-    }
-
-    public int getPostNum() {
-        return postNum;
-    }
-
-    public void setPostNum(int postNum) {
-        this.postNum = postNum;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -40,15 +23,6 @@ public class PreviewPostData {
     public void setTitle(String title) {
         this.title = title;
     }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     public String getPrice() {
         return price;
     }

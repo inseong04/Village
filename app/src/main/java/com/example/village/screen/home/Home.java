@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class Home extends Fragment {
     private HomeViewModel viewModel;
     protected FirebaseFirestore db;
     private Context mContext;
+
     public Home() {
         // Required empty public constructor
     }
@@ -54,8 +56,8 @@ public class Home extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         binding.setActivity(this);
 
-        binding.swipeRefreshLayout.setOnRefreshListener( () -> {
-           // onRefresh
+        binding.swipeRefreshLayout.setOnRefreshListener(() -> {
+            // onRefresh
             viewModel.productArray.clear();
             getPost();
             binding.swipeRefreshLayout.setRefreshing(false);
@@ -65,7 +67,7 @@ public class Home extends Fragment {
     }
 
     @Override
-        public void onDestroyView() {
+    public void onDestroyView() {
         super.onDestroyView();
         viewModel.productArray.clear();
     }
@@ -75,7 +77,7 @@ public class Home extends Fragment {
         db.collection("post")
                 .document("information")
                 .get()
-                .addOnCompleteListener( task -> {
+                .addOnCompleteListener(task -> {
                     DocumentSnapshot documentSnapshot = task.getResult();
                     try {
                         int postNumber = Integer.parseInt(String.valueOf(documentSnapshot.get("postNumbers")));
@@ -101,8 +103,6 @@ public class Home extends Fragment {
         Intent intent = new Intent(getContext(), ProductWriting.class);
         startActivity(intent);
     }
-
-
 
 
 }

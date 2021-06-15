@@ -6,8 +6,6 @@ import androidx.lifecycle.ViewModel;
 import java.util.ArrayList;
 
 public class SearchViewModel extends ViewModel {
-    protected MutableLiveData<Integer> position = new MutableLiveData<>();
-    protected MutableLiveData<Boolean> workRemove = new MutableLiveData<>();
     protected MutableLiveData<ArrayList<String>> searchWord = new MutableLiveData<>();
     protected MutableLiveData<String> searchEtvText = new MutableLiveData<>();
     protected MutableLiveData<Boolean> searchWordDeleteIndex0 = new MutableLiveData<>();
@@ -15,9 +13,8 @@ public class SearchViewModel extends ViewModel {
     protected Boolean first;
 
     ArrayList<String> arrayList = new ArrayList<>();
+
     public SearchViewModel() {
-        position.setValue(0);
-        workRemove.setValue(false);
         searchWordDeleteIndex0.setValue(false);
         first = false;
     }

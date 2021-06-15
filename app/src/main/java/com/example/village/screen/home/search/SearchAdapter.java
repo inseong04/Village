@@ -28,17 +28,16 @@ public class SearchAdapter extends RecyclerView.Adapter<Holder> {
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.searchword_item,parent,false);
+        View view = inflater.inflate(R.layout.searchword_item, parent, false);
         return new Holder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-        Log.e("aa","position"+position+":  "+viewModel.searchWord.getValue().get(position));
         holder.text.setText(viewModel.searchWord.getValue().get(position));
 
         holder.delete_btn.setOnClickListener(v -> {
-                removeItem(position);
+            removeItem(position);
         });
 
         holder.text.setOnClickListener(v -> {
@@ -56,14 +55,11 @@ public class SearchAdapter extends RecyclerView.Adapter<Holder> {
     }
 
     public void removeItem(int position) {
-        Log.e("aa", String.valueOf(viewModel.searchWord.getValue().size()));
-        Log.e("bb", String.valueOf((position == 0 && viewModel.searchWord.getValue().size() == 1)));
-        if(position == 0 && viewModel.searchWord.getValue().size() == 1) {
+        if (position == 0 && viewModel.searchWord.getValue().size() == 1) {
             viewModel.searchWordDeleteIndex0.setValue(true);
             viewModel.emptyAlarm.setValue(true);
             viewModel.first = true;
-        }
-        else {
+        } else {
             viewModel.removeSearchWord(position);
             notifyItemRemoved(position);
             notifyDataSetChanged();

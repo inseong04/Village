@@ -14,8 +14,8 @@ import com.example.village.R;
 public class PostPagerAdapter extends RecyclerView.Adapter<PostPagerAdapter.PagerViewHolder> {
 
     PostViewModel viewModel;
-    public PostPagerAdapter(PostViewModel viewModel)
-    {
+
+    public PostPagerAdapter(PostViewModel viewModel) {
         this.viewModel = viewModel;
     }
 

@@ -24,9 +24,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SearchActivity extends AppCompatActivity {
-    //삭제 만들어야함
+
     ActivitySearchBinding binding;
-    private UserDatabase db;
     private SearchViewModel viewModel;
 
     @Override
@@ -39,15 +38,12 @@ public class SearchActivity extends AppCompatActivity {
 
         viewModel.searchWord.observe(this, arrayList -> {
             if (viewModel.first) {
-                Log.e("beforeInsert", arrayList.toString());
-                Log.e("searchwordDelte", viewModel.searchWordDeleteIndex0.toString());
                 if (!viewModel.searchWordDeleteIndex0.getValue())
                     insertDB(arrayList);
                 else
                     viewModel.searchWordDeleteIndex0.setValue(false);
 
             } else {
-                Log.e("beforeUpdate", arrayList.toString());
                 updateDB(arrayList);
             }
         });
@@ -70,9 +66,9 @@ public class SearchActivity extends AppCompatActivity {
         for (String word : converWord(getRoom())) {
             if (word.equals(""))
                 break;
-            Log.e("add searchword Line 75", "add : " + word);
             viewModel.setSearchWord(word);
         }
+
         SearchAdapter adapter = new SearchAdapter(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setReverseLayout(true);
@@ -81,7 +77,6 @@ public class SearchActivity extends AppCompatActivity {
         binding.mRecyclerView.setAdapter(adapter);
 
         if (viewModel.searchWord.getValue() == null) {
-            Log.e("vvvvv", "adwegaehwdbsxczsderf");
             viewModel.first = true;
             viewModel.emptyAlarm.setValue(true);
         } else {
@@ -91,10 +86,9 @@ public class SearchActivity extends AppCompatActivity {
         binding.searchEtv.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                Log.e("add searchword Line 93", "add : " + binding.searchEtv.getText().toString());
                 viewModel.setSearchWord(binding.searchEtv.getText().toString());
                 Intent intent = new Intent(getApplicationContext(), SearchResult.class);
-                intent.putExtra("searchWord",binding.searchEtv.getText().toString());
+                intent.putExtra("searchWord", binding.searchEtv.getText().toString());
                 startActivity(intent);
                 finish();
                 return true;
@@ -103,7 +97,6 @@ public class SearchActivity extends AppCompatActivity {
 
         binding.deleteAllTv.setOnClickListener(v -> {
             deleteAll(viewModel.searchWord.getValue());
-            Log.e("test","click");
             viewModel.first = true;
             viewModel.emptyAlarm.setValue(true);
             viewModel.arrayList = new ArrayList<>();

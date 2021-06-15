@@ -119,6 +119,7 @@
             android:text="Google 계정으로 로그인"
             android:fontFamily="@font/ns_r"
             android:background="@drawable/login_box2"
+            android:stateListAnimator="@null"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias="0.75"
@@ -127,12 +128,14 @@
             android:layout_marginLeft="52dp"
             android:layout_marginRight="52dp"
             />
+
         <Button
             android:id="@+id/btn_signup"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:text="회원가입"
             android:fontFamily="@font/ns_r"
+            android:stateListAnimator="@null"
             android:background="@drawable/login_box2"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

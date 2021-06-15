@@ -21,9 +21,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_margin="10dp"
             />
+
         <TextView
             android:id="@+id/productTitleTv"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="테스트"
             android:ellipsize="end"
@@ -32,6 +33,7 @@
             android:fontFamily="@font/ns_b"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toRightOf="@id/homeImageIv"
+            app:layout_constraintRight_toRightOf="parent"
             android:layout_margin="10dp"
             />
 

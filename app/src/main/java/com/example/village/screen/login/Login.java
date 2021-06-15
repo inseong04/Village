@@ -33,7 +33,6 @@ public class Login extends AppCompatActivity {
 
     protected void onResume() {
         super.onResume();
-        // Issue : Layout이 먼저 보여짐
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
         final LoginDatabase db = Room.databaseBuilder(this, LoginDatabase.class,
                 "village-login-db")
@@ -49,32 +48,24 @@ public class Login extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
+
                                 Log.d("firebase", "signInWithEmail:success");
                                 insertDB(db, email, password);
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intent);
                                 finish();
                             } else {
-                                // If sign in fails, display a message to the user.
                                 Log.e("firebase", "signInWithEmail:failure", task.getException());
-
-                                // ...
                             }
-
-                            // ...
                         }
                     });
 
         });
 
-        binding.btnSignup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        binding.btnSignup.setOnClickListener(v -> {
                 Intent intent = new Intent(getApplicationContext(), Name.class);
                 startActivity(intent);
-            }
-        });
+            });
     }
 
     private void insertDB(LoginDatabase db, String id, String password) {

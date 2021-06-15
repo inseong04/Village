@@ -4,9 +4,11 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
+
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.example.village.databinding.FragmentHomeBinding;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -61,15 +63,15 @@ public class SetHomePostAsyncTask extends AsyncTask {
                                 .document(String.valueOf(finalI))
                                 .get()
                                 .addOnCompleteListener(task -> {
-                                        DocumentSnapshot documentSnapshot = task.getResult();
-                                        int postNum = finalI;
-                                        title[finalI-1] = String.valueOf(documentSnapshot.get("productName"));
-                                        location[finalI-1] = String.valueOf(documentSnapshot.get("location"));
-                                        price[finalI-1] = String.valueOf(documentSnapshot.get("price"));
-                                        PreviewPostData previewPostData = new PreviewPostData(postUri[finalI - 1], postNum, title[finalI - 1], location[finalI - 1], price[finalI - 1]);
-                                        viewModel.productArray.add(previewPostData);
-                                        publishProgress("");
-                                    });
+                                    DocumentSnapshot documentSnapshot = task.getResult();
+                                    int postNum = finalI;
+                                    title[finalI - 1] = String.valueOf(documentSnapshot.get("productName"));
+                                    location[finalI - 1] = String.valueOf(documentSnapshot.get("location"));
+                                    price[finalI - 1] = String.valueOf(documentSnapshot.get("price"));
+                                    PreviewPostData previewPostData = new PreviewPostData(postUri[finalI - 1], postNum, title[finalI - 1], location[finalI - 1], price[finalI - 1]);
+                                    viewModel.productArray.add(previewPostData);
+                                    publishProgress("");
+                                });
                     });
 
         }
@@ -77,12 +79,12 @@ public class SetHomePostAsyncTask extends AsyncTask {
     }
 
     @Override
-    protected void onProgressUpdate (Object[] values) {
+    protected void onProgressUpdate(Object[] values) {
         super.onProgressUpdate(values);
         adapter = new HomeAdapter(mContext);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         binding.homeRecyclerview.setLayoutManager(linearLayoutManager);
-        Log.e("view",viewModel.getProductArray().toString());
+        Log.e("view", viewModel.getProductArray().toString());
         adapter.notifyDataSetChanged();
         binding.homeRecyclerview.setAdapter(adapter);
     }
