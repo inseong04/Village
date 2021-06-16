@@ -7,6 +7,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.village.ChangeprofileFragment;
+import com.example.village.ProfileFragment;
 import com.example.village.R;
 import com.example.village.screen.chat.Chat;
 import com.example.village.databinding.ActivityMainBinding;
@@ -20,7 +22,9 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
 
-
+    My myFragment;
+    ProfileFragment profileFragment;
+    ChangeprofileFragment changeprofileFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +37,13 @@ public class MainActivity extends AppCompatActivity {
         Fragment Home = new Home();
         Fragment My = new My();
 
-        if(networkStatus == TYPE_NOT_CONNECTED) {
+        myFragment = new My();
+        profileFragment = new ProfileFragment();
+        changeprofileFragment = new ChangeprofileFragment();
+
+        if (networkStatus == TYPE_NOT_CONNECTED) {
             Toast.makeText(mContext, "빌리지를 이용하려면 Wifi연결이 필요합니다.", Toast.LENGTH_SHORT).show();
         }
-
-
 
         getSupportFragmentManager().beginTransaction().replace(R.id.layout_main_frame, Home).commitAllowingStateLoss();
         binding.bottomBar.setSelectedItemId(R.id.home);
@@ -66,6 +72,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
     }
+
+    public void onFragmentChange(int index) {
+        if (index == 0) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.layout_main_frame, myFragment).commit();
+        } else if (index == 1) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.layout_main_frame, profileFragment).commit();
+        } else if (index == 2) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.layout_main_frame, changeprofileFragment).commit();
+        }
+    }
+
 }

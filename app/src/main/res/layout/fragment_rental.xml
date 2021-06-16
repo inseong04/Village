@@ -18,7 +18,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="차단 중인 사용자"
+            android:fontFamily="@font/ns_r"
+            android:text="대여 중인 상품"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
