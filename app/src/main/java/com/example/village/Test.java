@@ -1,23 +1,25 @@
-package com.example.village.screen.signup;
+package com.example.village;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import com.example.village.screen.login.Login;
-import com.example.village.R;
 
-public class SignupSuccess extends AppCompatActivity {
+public class Test extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup_success);
+        setContentView(R.layout.activity_test);
 
-        findViewById(R.id.signupBtn).setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), Login.class);
+        findViewById(R.id.goLogin).setOnClickListener(v ->{
+            Intent intent = new Intent(this, Login.class);
             startActivity(intent);
+            finish();
         });
+
     }
 }

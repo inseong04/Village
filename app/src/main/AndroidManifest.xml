@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_app_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Village">
-        <activity android:name=".screen.signup.SignupSuccess"></activity>
+        <activity android:name=".screen.signup.SignupActivity"></activity>
+        <activity android:name=".Test" />
         <activity android:name=".screen.post.Post" />
         <activity
             android:name=".screen.productwriting.ProductWriting"
@@ -29,9 +30,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".screen.signup.Name" />
-        <activity android:name=".screen.signup.Password" />
-        <activity android:name=".screen.signup.Id" />
         <activity android:name=".screen.login.Login" />
         <activity android:name=".screen.MainActivity" />
         <activity

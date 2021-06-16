@@ -13,7 +13,7 @@ import com.example.village.screen.MainActivity;
 import com.example.village.databinding.ActivityLoginBinding;
 import com.example.village.rdatabase.LoginData;
 import com.example.village.rdatabase.LoginDatabase;
-import com.example.village.screen.signup.Name;
+import com.example.village.screen.signup.SignupActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -55,6 +55,7 @@ public class Login extends AppCompatActivity {
                                 startActivity(intent);
                                 finish();
                             } else {
+                                errorAlarm();
                                 Log.e("firebase", "signInWithEmail:failure", task.getException());
                             }
                         }
@@ -63,9 +64,13 @@ public class Login extends AppCompatActivity {
         });
 
         binding.btnSignup.setOnClickListener(v -> {
-                Intent intent = new Intent(getApplicationContext(), Name.class);
+                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
                 startActivity(intent);
             });
+    }
+
+    private void errorAlarm() {
+        binding.errorText.setVisibility(View.VISIBLE);
     }
 
     private void insertDB(LoginDatabase db, String id, String password) {

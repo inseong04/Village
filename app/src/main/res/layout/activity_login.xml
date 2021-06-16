@@ -58,6 +58,19 @@
         android:layout_marginRight="52dp"
         />
 
+        <TextView
+            android:id="@+id/errorText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ns_r"
+            android:textColor="#ff1616"
+            android:text="존재하지 않는 아이디이거나, 잘못된 비밀번호입니다."
+            android:visibility="gone"
+            android:gravity="center"
+            android:layout_marginTop="15sp"
+            app:layout_constraintTop_toBottomOf="@id/etv_password"
+            />
+
     <Button
         android:id="@+id/login_btn"
         android:layout_width="match_parent"
@@ -66,8 +79,8 @@
         android:fontFamily="@font/ns_r"
         android:textColor="#fff"
         android:background="@drawable/login_button"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/errorText"
+        app:layout_constraintBottom_toBottomOf="@id/view"
         app:layout_constraintVertical_bias="0.57"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,6 +89,7 @@
         />
 
         <View
+            android:id="@+id/view"
             android:layout_width="128dp"
             android:layout_height="1dp"
             android:background="#707070"

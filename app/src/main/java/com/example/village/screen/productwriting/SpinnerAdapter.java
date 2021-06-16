@@ -25,7 +25,6 @@ public class SpinnerAdapter extends BaseAdapter {
     Context mContext;
     List<String> data;
     LayoutInflater layoutInflater;
-    Boolean initialRun = true;
     public SpinnerAdapter(Context mContext, List<String> data) {
         this.mContext = mContext;
         this.data = data;
@@ -36,26 +35,10 @@ public class SpinnerAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView == null)
             convertView = layoutInflater.inflate(R.layout.spinner_view1, parent, false);
-        Log.e("version","version 1.3");
-        Log.e("initialRun",String.valueOf(initialRun));
-            if (initialRun){
-                Log.e("zxcv","ttt");
-                ((TextView) convertView.findViewById(R.id.spinnerText)).setTextColor(Color.parseColor("#b8b8b8"));
-                ((TextView) convertView.findViewById(R.id.spinnerText)).setText("기간");
-                initialRun = false;
-            }
-            else {
-                Log.e("test","cccbzeeg");
-                String text;
-                if (position == 0) {
-                    Log.e("aa","Cc");
-                    text = "월";
-                }
-                else
-                    text = data.get(position);
-
-                ((TextView) convertView.findViewById(R.id.spinnerText)).setText(text);
-
+        Log.e("version","version 1");
+        if(data!= null) {
+            String text = data.get(position);
+            ((TextView) convertView.findViewById(R.id.spinnerText)).setText(text);
 
             }
         return convertView;

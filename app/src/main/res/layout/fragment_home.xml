@@ -78,7 +78,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-
             app:layout_constraintBottom_toTopOf="@id/bottomView"
             app:layout_constraintTop_toBottomOf="@id/top"
             >
@@ -101,8 +100,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#2962ff"
-            app:maxImageSize="40dp"
-            android:src="@drawable/ic_action_name"
+            app:maxImageSize="25sp"
+            android:src="@drawable/ic_plus"
             android:elevation="0dp"
             android:onClick="@{activity::go_productWriting}"
             app:layout_constraintBottom_toTopOf="@id/bottomView"

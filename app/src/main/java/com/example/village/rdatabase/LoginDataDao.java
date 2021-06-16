@@ -18,8 +18,8 @@ public interface LoginDataDao {
     @Update
     public void updataLogin(LoginData logindata);
 
-    @Delete
-    public void deleteLogin(LoginData logindata);
+    @Query("DELETE from LoginData")
+    public void deleteLogin();
 
     @Query("SELECT id FROM LoginData")
     String RgetId();

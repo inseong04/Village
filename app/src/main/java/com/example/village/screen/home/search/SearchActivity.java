@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.village.R;
 import com.example.village.databinding.ActivitySearchBinding;
+import com.example.village.rdatabase.LoginDatabase;
 import com.example.village.screen.home.searchresult.SearchResult;
 import com.example.village.rdatabase.UserDatabase;
 import com.example.village.rdatabase.UsersSearchData;
@@ -102,7 +103,6 @@ public class SearchActivity extends AppCompatActivity {
             viewModel.arrayList = new ArrayList<>();
         });
 
-
     }
 
     public ArrayList<String> converWord(UsersSearchDatabase usersSearchDatabase) {
@@ -141,6 +141,7 @@ public class SearchActivity extends AppCompatActivity {
         Log.w("Search::Room", "deleteAll");
         db.usersSearchDao().deleteUsers(new UsersSearchData(searchWords));
     }
+
 
 
     public void updateDB(ArrayList<String> searchWords) {

@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.village.R;
+import com.example.village.Test;
 import com.example.village.databinding.FragmentHomeBinding;
 import com.example.village.screen.home.search.SearchActivity;
 import com.example.village.screen.productwriting.ProductWriting;
@@ -56,6 +57,11 @@ public class Home extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         binding.setActivity(this);
 
+        binding.heart.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), Test.class);
+            startActivity(intent);
+        });
+
         binding.swipeRefreshLayout.setOnRefreshListener(() -> {
             // onRefresh
             viewModel.productArray.clear();
@@ -84,7 +90,6 @@ public class Home extends Fragment {
                         SetHomePostAsyncTask setHomePostAsyncTask = new SetHomePostAsyncTask(mContext, binding, postNumber);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                             setHomePostAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
                         } else {
                             setHomePostAsyncTask.execute();
                         }
@@ -95,12 +100,12 @@ public class Home extends Fragment {
     }
 
     public void go_searchActivity(View view) {
-        Intent intent = new Intent(getContext(), SearchActivity.class);
+        Intent intent = new Intent(mContext, SearchActivity.class);
         startActivity(intent);
     }
 
     public void go_productWriting(View view) {
-        Intent intent = new Intent(getContext(), ProductWriting.class);
+        Intent intent = new Intent(mContext, ProductWriting.class);
         startActivity(intent);
     }
 

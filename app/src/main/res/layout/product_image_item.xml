@@ -22,8 +22,8 @@
             />
         <Button
             android:id="@+id/deleteItem"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
             android:background="@drawable/image_delete"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
