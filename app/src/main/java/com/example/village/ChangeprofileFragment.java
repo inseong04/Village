@@ -1,64 +1,71 @@
 package com.example.village;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ChangeprofileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.village.databinding.FragmentChangeprofileBinding;
+import com.example.village.screen.MainActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class ChangeprofileFragment extends Fragment {
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    MainActivity activity;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String TAG = "MainActivity";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Context mContext;
 
-    public ChangeprofileFragment() {
-        // Required empty public constructor
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+        activity = (MainActivity) getActivity();
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ChangeprofileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ChangeprofileFragment newInstance(String param1, String param2) {
-        ChangeprofileFragment fragment = new ChangeprofileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        activity = null;
     }
+
+    private FragmentChangeprofileBinding binding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_changeprofile, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_changeprofile, container, false);
+
+        FirebaseUser curuser = auth.getCurrentUser();
+        String useruid = auth.getUid();
+
+        db.collection("users").document(user.getUid()).get()
+                .addOnCompleteListener(it->{
+                    String username = it.getResult().get("name").toString();
+                    binding.editText.setHint(username);
+                });
+
+        binding.changebtn.setOnClickListener(view -> {
+            db.collection("users").document(useruid).update("name", binding.editText.getText().toString());
+            binding.editText.setText("");
+            activity.onFragmentChange(1);
+        });
+
+        return binding.getRoot();
     }
 }

@@ -1,66 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/wholeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        >
+        android:layout_marginBottom="5dp">
+
         <ImageView
             android:id="@+id/homeImageIv"
             android:layout_width="104dp"
             android:layout_height="104dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_margin="10dp"
-            />
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/productTitleTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="테스트"
-            android:ellipsize="end"
-            android:textSize="27sp"
-            android:textColor="#000"
-            android:fontFamily="@font/ns_b"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/homeImageIv"
             android:layout_margin="10dp"
-            />
+            android:ellipsize="end"
+            android:fontFamily="@font/ns_b"
+            android:text="테스트"
+            android:textColor="#000"
+            android:textSize="27sp"
+            app:layout_constraintLeft_toRightOf="@id/homeImageIv"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/sellerLocationTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="용산구 청파동"
-            android:textSize="20sp"
-            android:textColor="#545454"
-            android:fontFamily="@font/ns_r"
-            app:layout_constraintTop_toBottomOf="@id/productTitleTv"
-            app:layout_constraintLeft_toRightOf="@id/homeImageIv"
             android:layout_margin="10dp"
-            />
+            android:fontFamily="@font/ns_r"
+            android:text="용산구 청파동"
+            android:textColor="#545454"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toRightOf="@id/homeImageIv"
+            app:layout_constraintTop_toBottomOf="@id/productTitleTv" />
 
         <TextView
             android:id="@+id/productPriceTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10,000"
-            android:textSize="20sp"
-            android:textColor="#000"
-            android:fontFamily="@font/ns_b"
-            app:layout_constraintTop_toBottomOf="@id/sellerLocationTv"
-            app:layout_constraintLeft_toRightOf="@id/homeImageIv"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_margin="10dp"
-            />
+            android:fontFamily="@font/ns_b"
+            android:text="10,000"
+            android:textColor="#000"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/homeImageIv"
+            app:layout_constraintTop_toBottomOf="@id/sellerLocationTv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

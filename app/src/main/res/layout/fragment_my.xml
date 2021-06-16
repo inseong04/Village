@@ -1,211 +1,221 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".screen.my.My">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="MY"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-    </androidx.appcompat.widget.Toolbar>
-
-    <View
-        android:layout_width="405dp"
-        android:layout_height="1dp"
-        android:background="@color/gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
-        <ImageView
-            android:id="@+id/image_my_profile"
-            android:layout_width="137.2dp"
-            android:layout_height="137.2dp"
-            android:layout_marginTop="32dp"
-            android:src="@drawable/ic_baseline_account_circle_24"
-            app:layout_constraintBottom_toTopOf="@+id/text_my_username"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="spread" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/text_my_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="USER NAME"
-            android:textColor="@color/black"
-            android:textSize="28sp"
-            app:layout_constraintBottom_toTopOf="@+id/text_my_useremail"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ns_r"
+                android:text="MY"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <View
+            android:layout_width="405dp"
+            android:layout_height="1dp"
+            android:background="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_my_profile" />
-
-        <TextView
-            android:id="@+id/text_my_useremail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="sunrin115@sunrint.hs.kr"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/const_my_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_my_username" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/const_my_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="63.6dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="48dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottomView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_my_useremail">
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-            <Button
-                android:id="@+id/button_my_profile"
+            <ImageView
+                android:id="@+id/image_my_profile"
+                android:layout_width="137.2dp"
+                android:layout_height="137.2dp"
+                android:layout_marginTop="32dp"
+                android:src="@drawable/ic_baseline_account_circle_24"
+                app:layout_constraintBottom_toTopOf="@+id/text_my_username"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="spread" />
+
+            <TextView
+                android:id="@+id/text_my_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:stateListAnimator="@null"
-                android:text="프로필 보기"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/ns_r"
+                android:text="USER NAME"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/view1"
+                android:textSize="28sp"
+                app:layout_constraintBottom_toTopOf="@+id/text_my_useremail"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/image_my_profile" />
 
-            <View
-                android:id="@+id/view1"
-                android:layout_width="244.4dp"
-                android:layout_height="3dp"
-                android:background="@color/gray"
-                app:layout_constraintBottom_toTopOf="@+id/button_my_local"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button_my_profile" />
-
-            <Button
-                android:id="@+id/button_my_local"
+            <TextView
+                android:id="@+id/text_my_useremail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:stateListAnimator="@null"
-                android:text="지역 변경"
+                android:fontFamily="@font/ns_r"
+                android:text="sunrin115@sunrint.hs.kr"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/view2"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/const_my_button"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view1" />
+                app:layout_constraintTop_toBottomOf="@+id/text_my_username" />
 
-            <View
-                android:id="@+id/view2"
-                android:layout_width="244.4dp"
-                android:layout_height="3dp"
-                android:background="@color/gray"
-                app:layout_constraintBottom_toTopOf="@id/button_my_password"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button_my_local" />
-
-            <Button
-                android:id="@+id/button_my_password"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/const_my_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:stateListAnimator="@null"
-                android:text="비밀번호 변경"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/view3"
+                android:layout_marginHorizontal="63.6dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="48dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view2" />
+                app:layout_constraintTop_toBottomOf="@+id/text_my_useremail">
 
-            <View
-                android:id="@+id/view3"
-                android:layout_width="244.4dp"
-                android:layout_height="3dp"
-                android:background="@color/gray"
-                app:layout_constraintBottom_toTopOf="@+id/button_my_logout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/button_my_password" />
+                <Button
+                    android:id="@+id/button_my_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:fontFamily="@font/ns_r"
+                    android:stateListAnimator="@null"
+                    android:text="프로필 보기"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/view1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/button_my_logout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:stateListAnimator="@null"
-                android:text="로그아웃"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@id/view4"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view3" />
+                <View
+                    android:id="@+id/view1"
+                    android:layout_width="244.4dp"
+                    android:layout_height="3dp"
+                    android:background="@color/gray"
+                    app:layout_constraintBottom_toTopOf="@+id/button_my_local"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/button_my_profile" />
 
-            <View
-                android:id="@+id/view4"
-                android:layout_width="244.4dp"
-                android:layout_height="3dp"
-                android:background="@color/gray"
-                app:layout_constraintBottom_toTopOf="@+id/button_my_end"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/button_my_logout" />
+                <Button
+                    android:id="@+id/button_my_local"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:fontFamily="@font/ns_r"
+                    android:stateListAnimator="@null"
+                    android:text="지역 변경"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/view2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view1" />
 
-            <Button
-                android:id="@+id/button_my_end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:stateListAnimator="@null"
-                android:text="회원탈퇴"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view4" />
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="244.4dp"
+                    android:layout_height="3dp"
+                    android:background="@color/gray"
+                    app:layout_constraintBottom_toTopOf="@id/button_my_password"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/button_my_local" />
+
+                <Button
+                    android:id="@+id/button_my_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:fontFamily="@font/ns_r"
+                    android:stateListAnimator="@null"
+                    android:text="비밀번호 변경"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/view3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="244.4dp"
+                    android:layout_height="3dp"
+                    android:background="@color/gray"
+                    app:layout_constraintBottom_toTopOf="@+id/button_my_logout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/button_my_password" />
+
+                <Button
+                    android:id="@+id/button_my_logout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:fontFamily="@font/ns_r"
+                    android:stateListAnimator="@null"
+                    android:text="로그아웃"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@id/view4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view3" />
+
+                <View
+                    android:id="@+id/view4"
+                    android:layout_width="244.4dp"
+                    android:layout_height="3dp"
+                    android:background="@color/gray"
+                    app:layout_constraintBottom_toTopOf="@+id/button_my_end"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/button_my_logout" />
+
+                <Button
+                    android:id="@+id/button_my_end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:stateListAnimator="@null"
+                    android:text="회원탈퇴"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:padding="10dp"
+            android:visibility="invisible"
+            app:itemIconTint="@drawable/menu_selector_color"
+            app:itemTextColor="#7a7a7a"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/menu_bottom" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#fff"
-        android:padding="10dp"
-        android:visibility="invisible"
-        app:itemIconTint="@drawable/menu_selector_color"
-        app:itemTextColor="#7a7a7a"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu_bottom" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
