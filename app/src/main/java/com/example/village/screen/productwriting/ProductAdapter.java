@@ -28,7 +28,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View itemView = inflater.inflate(R.layout.product_image_item,parent,false);
+        View itemView = inflater.inflate(R.layout.product_image_item, parent, false);
 
         return new ViewHolder(itemView);
     }
@@ -48,16 +48,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        try {
-            return viewModel.arrayList.size();
-        } catch(NullPointerException e) {
-            return 0;
-        }
+        return viewModel.arrayList != null ? viewModel.arrayList.size() : 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ItemIv;
         Button deleteItem;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ItemIv = itemView.findViewById(R.id.itemIv);

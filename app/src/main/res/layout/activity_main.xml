@@ -3,29 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".screen.MainActivity">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
 
-    <FrameLayout
-        android:id="@+id/layout_main_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="@id/bottomBar"
-        />
+        <FrameLayout
+            android:id="@+id/layout_main_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/bottomBar" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#fff"
-        app:itemIconTint="@drawable/menu_selector_color"
-        app:itemTextColor="#7a7a7a"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/menu_bottom"
-        android:padding="10dp"
-        />
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:padding="10dp"
+            app:itemIconTint="@drawable/menu_selector_color"
+            app:itemTextColor="#7a7a7a"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:menu="@menu/menu_bottom" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

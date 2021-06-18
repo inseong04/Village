@@ -18,29 +18,22 @@ import android.text.Editable;
 import android.text.Selection;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.village.R;
 import com.example.village.databinding.ActivityProductWritingBinding;
-import com.example.village.databinding.SpinnerView1Binding;
+import com.example.village.util.WarningDialogFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -48,41 +41,37 @@ import java.util.Objects;
 public class ProductWriting extends AppCompatActivity {
 
     private ActivityProductWritingBinding binding;
-    private SpinnerView1Binding spinnerView1Binding;
     private ProductViewModel viewModel;
     private ProductAdapter adapter;
-    FirebaseFirestore db;
+    private ProductWritingHelper productWritingHelper;
+    private FirebaseFirestore db;
     private final int PICK_IMAGE = 1;
     private Boolean uploadSuccess;
-    int hashTagCount = 0;
     int postNumber;
+    String userToken;
     SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd a hh:mm:ss.SS");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_writing);
-
+        productWritingHelper = new ProductWritingHelper(binding, this);
         binding.setActivity(this);
 
         viewModel = new ViewModelProvider(this).get(ProductViewModel.class);
-        String price;
         final String[] strAmount = {""};
 
         checkSelfPermission();
-        setUi();
+        productWritingHelper.setUi();
         getPostNumber();
-/*        binding.goHomeBtn.setOnClickListener(v -> {
-            finish();
-        });*/
+        getFcmToken();
 
-/*        viewModel.hashtagEtvText.observe(this, text -> {
-            Log.e("z","observe run12412");
-            if(text.substring(text.length()-1).equals(" ")) {
-                Log.e("z","observe run");
-                viewModel.hashtagEtvText.setValue(text+"#");
+        binding.writingBtn.setOnClickListener(v -> {
+
+            if (productWritingHelper.isNotNullValue()) {
+                uploadPost();
             }
-        });*/
+        });
 
         binding.priceEtv.addTextChangedListener(new TextWatcher() {
             @Override
@@ -93,7 +82,7 @@ public class ProductWriting extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!TextUtils.isEmpty(s.toString()) && !s.toString().equals(strAmount[0])) {
-                    strAmount[0] = toComma(s.toString().replace(",", ""));
+                    strAmount[0] = productWritingHelper.toComma(s.toString().replace(",", ""));
                     binding.priceEtv.setText(strAmount[0]);
                     Editable editable = binding.priceEtv.getText();
                     Selection.setSelection(editable, strAmount[0].length());
@@ -106,39 +95,6 @@ public class ProductWriting extends AppCompatActivity {
             }
         });
 
-        binding.periodSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(),(String)binding.periodSpinner.getItemAtPosition(position)+"이 선택되었습니다.",Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-    }
-
-    protected void setUi() {
-        ArrayList<String> period = new ArrayList<>();
-        period.add("월");
-        period.add("주");
-        period.add("일");
-        SpinnerAdapter adapter = new SpinnerAdapter(this, period);
-        binding.periodSpinner.setAdapter(adapter);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == 1) {
-            int length = permissions.length;
-            for (int i = 0; i < length; i++) {
-                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                    Log.d("MainActivity", "권한 허용 : " + permissions[i]);
-                }
-            }
-        }
     }
 
     public void checkSelfPermission() {
@@ -165,8 +121,8 @@ public class ProductWriting extends AppCompatActivity {
             if (data.getClipData() != null) {
                 int count = data.getClipData().getItemCount();
                 if (count > 9) {
-                    Toast.makeText(getApplicationContext(), "최대 9개까지 업로드 가능합니다.",
-                            Toast.LENGTH_LONG).show();
+                    WarningDialogFragment warningDialogFragment = new WarningDialogFragment("상품등록","최대 9개까지 \n업로드 가능합니다.");
+                    warningDialogFragment.show(getSupportFragmentManager(), "waringDialog");
                     return;
                 }
                 for (int i = 0; i < count; i++) {
@@ -186,29 +142,42 @@ public class ProductWriting extends AppCompatActivity {
         binding.imageRecycleView.setAdapter(adapter);
 
     }
+
     public void getPostNumber() {
         db = FirebaseFirestore.getInstance();
         db.collection("post")
                 .document("information")
                 .get()
                 .addOnCompleteListener(task -> {
-                        Log.e("zb","before");
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot documentSnapshot = task.getResult();
-                            postNumber = Integer.parseInt(String.valueOf(documentSnapshot.get("postNumbers")))+1;
-                        }
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot documentSnapshot = task.getResult();
+                        postNumber = Integer.parseInt(String.valueOf(documentSnapshot.get("postNumbers"))) + 1;
+                    }
                 });
     }
 
-    public void uploadPost(View view) {
+    public void getFcmToken( ){
+        db = FirebaseFirestore.getInstance();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        db.collection("users")
+                .document(uid)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot documentSnapshot = task.getResult();
+                        userToken = String.valueOf(documentSnapshot.get("fcmToken"));
+                    }
+                });
+    }
 
-/*        int postNumber = getPostNumber() + 1;*/
+    public void uploadPost() {
+
         db = FirebaseFirestore.getInstance();
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         StorageReference storageReference = firebaseStorage.getReference();
         String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         final String[] writtenPost = new String[1];
-        /*Log.e("postNumber", String.valueOf(getPostNumber())+"+"+"1");*/
 
         db.collection("post") // 서버의 포스트 Count 증가
                 .document("information")
@@ -216,7 +185,6 @@ public class ProductWriting extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.e("xzcv","server post count");
                     }
                 });
 
@@ -228,8 +196,7 @@ public class ProductWriting extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         DocumentSnapshot documentSnapshot = task.getResult();
                         try {
-                            Log.e("test", ": : : " + documentSnapshot.get("writtenPost").toString());
-                            writtenPost[0] = (String) documentSnapshot.get("writtenPost") + "-" + String.valueOf(postNumber);//String.valueOf(postNumber);
+                            writtenPost[0] = (String) documentSnapshot.get("writtenPost") + "-" + String.valueOf(postNumber);
                         } catch (NullPointerException e) {
                             writtenPost[0] = String.valueOf(postNumber);
                         }
@@ -247,23 +214,19 @@ public class ProductWriting extends AppCompatActivity {
         String descripton = binding.descriptionEtv.getText().toString();
         int imageNumber = adapter.getItemCount();
         long productTime = System.currentTimeMillis();
+        post.put("rental",false);
         post.put("productName", productName);
-        post.put("price", price);
+        post.put("price", price + "원");
         post.put("period", period);
         post.put("hashTag", hashTag);
         post.put("description", descripton);
         post.put("imageNumber", imageNumber);
         post.put("productTime", productTime);
+        post.put("fcmToken", userToken);
 
         db.collection("post") // 포스트 생성
                 .document(String.valueOf(postNumber))
-                .set(post)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.e("uploadPost", "postUpload Success");
-                    }
-                });
+                .set(post);
 
         for (int i = 0; i < imageNumber; i++) {
             String filename = "img-" + String.valueOf(postNumber) + "-" + i;
@@ -275,7 +238,6 @@ public class ProductWriting extends AppCompatActivity {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     uploadSuccess = true;
-                    Log.e("uploadPost", "Image upload Success");
                 }
             });
         }
@@ -284,19 +246,12 @@ public class ProductWriting extends AppCompatActivity {
     }
 
 
-
     public void callGallery(View view) {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         intent.setType("image/*");
         startActivityForResult(intent, PICK_IMAGE);
-        Log.e("a", "79line");
     }
 
 
-    protected String toComma(String str) {
-        Double value = Double.parseDouble(str);
-        DecimalFormat decimalFormat = new DecimalFormat("#,###");
-        return decimalFormat.format(value);
-    }
 }

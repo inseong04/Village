@@ -27,6 +27,7 @@ public class SetSearchPostAsyncTask extends AsyncTask {
     String[] title;
     String[] location;
     String[] price;
+    Boolean[] rental;
     Uri[] postUri;
     private int postNumber;
     SearchResultAdapter adapter;
@@ -49,17 +50,15 @@ public class SetSearchPostAsyncTask extends AsyncTask {
         this.location = new String[postNumber];
         this.price = new String[postNumber];
         this.postUri = new Uri[postNumber];
+        this.rental = new Boolean[postNumber];
 
     }
 
     @Override
     protected Object doInBackground(Object[] objects) {
 
-        Log.e("doIn","testtttttttttttttttttttttt");
         for (int i = 0; i < viewModel.matchingPostNum.size(); i++) {
             int finalI = i;
-            Log.e("tesxxx","postImg/" + "img" + "-" + viewModel.matchingPostNum.get(i) + "-0");
-
             storageReference.child("postImg/" + "img" + "-" + viewModel.matchingPostNum.get(i) + "-0").getDownloadUrl().
                     addOnSuccessListener(uri -> {
                         postUri[finalI] = uri;
@@ -72,12 +71,10 @@ public class SetSearchPostAsyncTask extends AsyncTask {
                                         DocumentSnapshot documentSnapshot = task.getResult();
                                         int postNum = finalI;
                                         title[finalI] = String.valueOf(documentSnapshot.get("productName"));
-                                        Log.e("title",title[finalI]);
                                         location[finalI] = String.valueOf(documentSnapshot.get("location"));
-                                        Log.e("location",location[finalI]);
                                         price[finalI] = String.valueOf(documentSnapshot.get("price"));
-                                        Log.e("price",price[finalI]);
-                                        PreviewPostData previewPostData = new PreviewPostData(postUri[finalI], postNum, title[finalI], location[finalI], price[finalI]);
+
+                                        PreviewPostData previewPostData = new PreviewPostData(postUri[finalI], postNum, title[finalI], location[finalI], price[finalI], rental[finalI]);
                                         viewModel.postArrayList.add(previewPostData);
                                         publishProgress("");
                                     });

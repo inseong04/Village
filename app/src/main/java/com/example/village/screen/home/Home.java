@@ -11,13 +11,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.village.R;
-import com.example.village.Test;
 import com.example.village.databinding.FragmentHomeBinding;
 import com.example.village.screen.home.search.SearchActivity;
 import com.example.village.screen.productwriting.ProductWriting;
@@ -32,10 +30,6 @@ public class Home extends Fragment {
     private HomeViewModel viewModel;
     protected FirebaseFirestore db;
     private Context mContext;
-
-    public Home() {
-        // Required empty public constructor
-    }
 
     @Override
     public void onAttach(@NotNull Context context) {
@@ -57,13 +51,7 @@ public class Home extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         binding.setActivity(this);
 
-        binding.heart.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), Test.class);
-            startActivity(intent);
-        });
-
         binding.swipeRefreshLayout.setOnRefreshListener(() -> {
-            // onRefresh
             viewModel.productArray.clear();
             getPost();
             binding.swipeRefreshLayout.setRefreshing(false);

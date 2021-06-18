@@ -4,16 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screen.splash.Splash"
-    android:background="#2654a2">
+    android:background="#2654a2"
+    tools:context=".screen.splash.Splash">
 
     <ImageView
         android:id="@+id/logoIv"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:src="@drawable/logo_white"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

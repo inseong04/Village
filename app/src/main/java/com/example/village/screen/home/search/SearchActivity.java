@@ -15,9 +15,7 @@ import android.widget.TextView;
 
 import com.example.village.R;
 import com.example.village.databinding.ActivitySearchBinding;
-import com.example.village.rdatabase.LoginDatabase;
 import com.example.village.screen.home.searchresult.SearchResult;
-import com.example.village.rdatabase.UserDatabase;
 import com.example.village.rdatabase.UsersSearchData;
 import com.example.village.rdatabase.UsersSearchDatabase;
 

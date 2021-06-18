@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import com.example.village.util.GetTime;
 import com.example.village.R;
 import com.example.village.databinding.ActivityPostBinding;
+import com.example.village.util.WarningDialogFragment;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -45,15 +46,21 @@ public class Post extends AppCompatActivity {
                     PostViewModel viewModel = new ViewModelProvider(this).get(PostViewModel.class);
                     int imageNumber = Integer.parseInt(String.valueOf(documentSnapshot.get("imageNumber")));
                     GetPostImgAsyncTask getPostImgAsyncTask = new GetPostImgAsyncTask(this, viewModel, binding, Integer.parseInt(postNumber), imageNumber);
-/*                    GetPostImgThread getPostImgThread = new GetPostImgThread(viewModel, Integer.parseInt(postNumber), imageNumber);
-                    getPostImgThread.start();*/
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                         getPostImgAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
                     } else {
                         getPostImgAsyncTask.execute();
                     }
-                    binding.setUserName(String.valueOf(documentSnapshot.get("userName")));
+                    if((boolean)documentSnapshot.get("rental")) {
+                        binding.rentalTv1.setText("대여중");
+                        binding.rentalTv1.setBackground(ContextCompat.getDrawable(this, R.drawable.rental_true));
+                    }
+                    else {
+                        binding.rentalTv1.setText("대여가능");
+                        binding.rentalTv1.setBackground(ContextCompat.getDrawable(this, R.drawable.rental_false));
+                    }
+                    binding.setUserName(String.valueOf(documentSnapshot.get("name")));
                     binding.setTitle(String.valueOf(documentSnapshot.get("productName")));
                     binding.setDescription(String.valueOf(documentSnapshot.get("description")));
                     binding.setHashTag(String.valueOf(documentSnapshot.get("hashTag")));
@@ -70,6 +77,11 @@ public class Post extends AppCompatActivity {
                 super.onPageSelected(position);
                 setCurrentIndicator(position);
             }
+        });
+
+        binding.rentalBtn.setOnClickListener(v -> {
+            PostRentalDialogFragment postRentalDialogFragment = new PostRentalDialogFragment(this, binding.getTitle(), postNumber);
+            postRentalDialogFragment.show(getSupportFragmentManager(), "postRentalDialog");
         });
 
     }

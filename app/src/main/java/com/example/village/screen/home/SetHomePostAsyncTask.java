@@ -27,6 +27,7 @@ public class SetHomePostAsyncTask extends AsyncTask {
     String[] location;
     String[] price;
     Uri[] postUri;
+    Boolean[] rental;
     private int postNumber;
     HomeAdapter adapter;
 
@@ -47,6 +48,7 @@ public class SetHomePostAsyncTask extends AsyncTask {
         location = new String[postNumber];
         price = new String[postNumber];
         postUri = new Uri[postNumber];
+        rental = new Boolean[postNumber];
 
     }
 
@@ -55,22 +57,27 @@ public class SetHomePostAsyncTask extends AsyncTask {
 
         for (int i = 1; i <= postNumber; i++) {
             int finalI = i;
-            storageReference.child("postImg/" + "img" + "-" + i + "-0").getDownloadUrl().
-                    addOnSuccessListener(uri -> {
-                        postUri[finalI - 1] = uri;
 
-                        db.collection("post")
-                                .document(String.valueOf(finalI))
-                                .get()
-                                .addOnCompleteListener(task -> {
-                                    DocumentSnapshot documentSnapshot = task.getResult();
-                                    int postNum = finalI;
-                                    title[finalI - 1] = String.valueOf(documentSnapshot.get("productName"));
-                                    location[finalI - 1] = String.valueOf(documentSnapshot.get("location"));
-                                    price[finalI - 1] = String.valueOf(documentSnapshot.get("price"));
-                                    PreviewPostData previewPostData = new PreviewPostData(postUri[finalI - 1], postNum, title[finalI - 1], location[finalI - 1], price[finalI - 1]);
+            db.collection("post")
+                    .document(String.valueOf(finalI))
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        int postNum = finalI;
+                        DocumentSnapshot documentSnapshot = task.getResult();
+
+                        title[finalI - 1] = String.valueOf(documentSnapshot.get("productName"));
+                        location[finalI - 1] = String.valueOf(documentSnapshot.get("location"));
+                        price[finalI - 1] = String.valueOf(documentSnapshot.get("price"));
+                        rental[finalI - 1] = (Boolean) documentSnapshot.get("rental");
+
+                        storageReference.child("postImg/" + "img" + "-" + finalI + "-0").getDownloadUrl().
+                                addOnSuccessListener(uri -> {
+                                    postUri[finalI - 1] = uri;
+
+                                    PreviewPostData previewPostData = new PreviewPostData(postUri[finalI - 1], postNum, title[finalI - 1], location[finalI - 1], price[finalI - 1], rental[finalI - 1]);
                                     viewModel.productArray.add(previewPostData);
                                     publishProgress("");
+
                                 });
                     });
 

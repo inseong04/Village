@@ -8,14 +8,17 @@ public class PreviewPostData {
     public String title;
     public String location;
     public String price;
+    public Boolean rental;
 
-    public PreviewPostData(Uri homeImageuri, int postNum, String title, String location, String price) {
+    public PreviewPostData(Uri homeImageuri, int postNum, String title, String location, String price, Boolean rental) {
         HomeImageuri = homeImageuri;
         this.postNum = postNum;
         this.title = title;
         this.location = location;
         this.price = price;
+        this.rental = rental;
     }
+
     public String getTitle() {
         return title;
     }
@@ -23,6 +26,7 @@ public class PreviewPostData {
     public void setTitle(String title) {
         this.title = title;
     }
+
     public String getPrice() {
         return price;
     }

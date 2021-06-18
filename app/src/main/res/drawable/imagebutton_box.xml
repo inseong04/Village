@@ -10,11 +10,7 @@
         android:bottom="30dp"
         android:left="35dp"
         android:right="35dp"
-        >
-        <shape android:shape="oval" >
-            <solid android:color="#dcdcdc"/>
-            <size android:width="35sp" android:height="35sp"/>
-        </shape>
-    </item>
+        android:drawable="@drawable/ic_pluscircle"
+        />
 
 </layer-list>

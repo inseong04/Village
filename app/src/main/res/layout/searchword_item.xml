@@ -26,9 +26,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/delete"
             android:background="#fff"
-            />
+            android:src="@drawable/delete" />
     </LinearLayout>
 
     <View

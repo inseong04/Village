@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".screen.signup.SignupFragment2">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.village.screen.signup.SignupViewModel" />
@@ -17,58 +18,56 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="이메일을 입력해주세요"
-            android:textColor="#000"
-            android:fontFamily="@font/ns_eb"
-            android:textSize="24sp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.2"
-            app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginLeft="24dp"
-            />
+            android:fontFamily="@font/ns_eb"
+            android:text="전화번호를 입력해주세요"
+            android:textColor="#000"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.2" />
 
         <EditText
             android:id="@+id/etv_id"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:maxLines="1"
-            android:fontFamily="@font/ns_b"
-            android:text="@={viewModel.email}"
-            android:textSize="24sp"
-            android:hint="sunrin115@sunrint.hs.kr"
-            android:backgroundTint = "#b6cbfc"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.3"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
-            />
+            android:backgroundTint="#b6cbfc"
+            android:fontFamily="@font/ns_b"
+            android:inputType="phone"
+            android:hint="01012345678"
+            android:maxLines="1"
+            android:text="@={viewModel.phoneNumber}"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3" />
 
         <ImageView
             android:id="@+id/alarm2"
             android:layout_width="wrap_content"
             android:layout_height="50sp"
             android:src="@drawable/ic_signup_inactivation"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.3"
             app:layout_constraintRight_toRightOf="@id/etv_id"
-            />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3" />
 
         <Button
-            android:id="@+id/btn_id_next"
+            android:id="@+id/btn_phone_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="다음"
-            android:enabled="false"
-            android:textSize="18sp"
-            android:textColor="#fff"
-            android:fontFamily="@font/ns_r"
-            app:layout_constraintTop_toBottomOf="@id/etv_id"
-            app:layout_constraintRight_toRightOf="parent"
             android:layout_marginRight="24dp"
-            />
+            android:background="@drawable/btn_in_active"
+            android:enabled="false"
+            android:fontFamily="@font/ns_r"
+            android:text="다음"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etv_id" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

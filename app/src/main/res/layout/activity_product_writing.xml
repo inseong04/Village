@@ -5,13 +5,16 @@
     tools:context=".screen.productwriting.ProductWriting">
 
     <data>
+
         <variable
             name="activity"
             type="com.example.village.screen.productwriting.ProductWriting" />
+
         <variable
             name="viewModel"
             type="com.example.village.screen.productwriting.ProductViewModel" />
     </data>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -30,101 +33,101 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autoSizeTextType="uniform"
                 android:fontFamily="@font/ns_b"
                 android:gravity="center"
                 android:text="상품 등록"
                 android:textColor="#000000"
-                android:textSize="25dp" />
+                android:textSize="25sp" />
 
         </androidx.appcompat.widget.Toolbar>
 
         <ImageButton
             android:id="@+id/callGallery"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/ic_asdf"
+            android:layout_height="100sp"
+            android:layout_margin="10sp"
+            android:background="#00000000"
             android:onClick="@{activity::callGallery}"
+            android:src="@drawable/imagebutton_box"
             app:layout_constraintHeight_percent="0.15"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:layout_constraintWidth_percent="0.3" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="10dp"
+            android:layout_height="100sp"
+            android:layout_margin="10sp"
             app:layout_constraintHeight_percent="0.15"
-            app:layout_constraintWidth_percent="0.7"
             app:layout_constraintLeft_toRightOf="@id/callGallery"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
-            >
+            app:layout_constraintWidth_percent="0.7">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/imageRecycleView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
+                android:layout_height="match_parent" />
         </LinearLayout>
 
         <View
             android:id="@+id/view1"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="1sp"
+            android:layout_marginTop="10sp"
             android:background="#919191"
             app:layout_constraintTop_toBottomOf="@id/callGallery" />
 
         <EditText
             android:id="@+id/productNameEtv"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:autoSizeTextType="uniform"
             android:background="@drawable/writing_input_box"
             android:fontFamily="@font/ns_r"
             android:hint="상품명 입력"
-            android:padding="15dp"
             android:inputType="text"
+            android:padding="15sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view1"
-            app:layout_constraintWidth_percent="0.8"
-            app:layout_constraintHeight_percent="0.08"/>
+            app:layout_constraintWidth_percent="0.8" />
 
         <LinearLayout
             android:id="@+id/layout1"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
             android:orientation="horizontal"
             android:weightSum="1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/productNameEtv"
-            app:layout_constraintWidth_percent="0.8"
-            app:layout_constraintHeight_percent="0.08">
+            app:layout_constraintWidth_percent="0.8">
 
             <EditText
                 android:id="@+id/priceEtv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.65"
+                android:autoSizeTextType="uniform"
                 android:background="@drawable/writing_input_box"
                 android:fontFamily="@font/ns_r"
                 android:hint="가격 입력"
                 android:inputType="number"
-                android:padding="15dp" />
+                android:padding="15sp" />
 
             <Spinner
                 android:id="@+id/periodSpinner"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="10sp"
+                android:layout_weight="0.35"
+                android:autoSizeTextType="uniform"
                 android:background="@null"
-                android:spinnerMode="dropdown"
                 android:dropDownVerticalOffset="10sp"
                 android:overlapAnchor="false"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="0.35"
-                />
+                android:spinnerMode="dropdown" />
 
         </LinearLayout>
 
@@ -132,49 +135,53 @@
             android:id="@+id/hashtagEtv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="20sp"
+            android:autoSizeTextType="uniform"
             android:background="@drawable/writing_input_box"
             android:fontFamily="@font/ns_r"
             android:hint="#연관해시태그입력"
             android:maxLines="1"
-            android:padding="15dp"
+            android:padding="15sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout1"
-            app:layout_constraintWidth_percent="0.8"
-            app:layout_constraintHeight_percent="0.08"
-            />
+            app:layout_constraintWidth_percent="0.8" />
 
         <EditText
             android:id="@+id/descriptionEtv"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20sp"
+            android:layout_marginBottom="20sp"
+            android:autoSizeTextType="uniform"
             android:background="@drawable/writing_input_box"
             android:fontFamily="@font/ns_r"
             android:gravity="left"
             android:hint="상품 설명 입력"
             android:lineSpacingExtra="5sp"
-            android:padding="15dp"
-            app:layout_constraintBottom_toTopOf="@id/goHomeBtn"
+            android:padding="15sp"
+            app:layout_constraintBottom_toTopOf="@id/writingBtn"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/hashtagEtv"
             app:layout_constraintWidth_percent="0.8" />
 
         <Button
-            android:id="@+id/goHomeBtn"
+            android:id="@+id/writingBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20sp"
+            android:layout_marginBottom="20sp"
+            android:autoSizeTextType="uniform"
             android:background="@drawable/writing_button_box"
             android:fontFamily="@font/ns_r"
-            android:padding="24sp"
-            android:text="상품 등록하기"
+            android:paddingLeft="34sp"
+            android:paddingTop="14sp"
+            android:paddingRight="34sp"
+            android:paddingBottom="14sp"
+            android:text="상품 등록"
             android:textColor="#ffffff"
-            android:onClick="@{activity::uploadPost}"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

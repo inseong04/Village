@@ -6,10 +6,13 @@ import androidx.lifecycle.ViewModel
 class SignupViewModel : ViewModel() {
 
     var name = MutableLiveData("")
+    var phoneNumber = MutableLiveData("")
+    var location = MutableLiveData("")
     var email = MutableLiveData("")
     var password = MutableLiveData("")
-    var emailBtnEnable = false;
-    var nameBtnEnable = false;
-    var passwordBtnEnable = false;
+
+    public fun setPhoneNumber (text : String) {
+        phoneNumber.value = text
+    }
 
 }

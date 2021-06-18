@@ -25,34 +25,35 @@ public class SpinnerAdapter extends BaseAdapter {
     Context mContext;
     List<String> data;
     LayoutInflater layoutInflater;
+
     public SpinnerAdapter(Context mContext, List<String> data) {
         this.mContext = mContext;
         this.data = data;
-        this.layoutInflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if(convertView == null)
+        if (convertView == null)
             convertView = layoutInflater.inflate(R.layout.spinner_view1, parent, false);
-        Log.e("version","version 1");
-        if(data!= null) {
+        Log.e("version", "version 1");
+        if (data != null) {
             String text = data.get(position);
             ((TextView) convertView.findViewById(R.id.spinnerText)).setText(text);
 
-            }
+        }
         return convertView;
     }
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
 
-        if(convertView == null)
+        if (convertView == null)
             convertView = layoutInflater.inflate(R.layout.spinner_view2, parent, false);
-        Log.e("asdf","asdf");
-        if(position == 0)
+        Log.e("asdf", "asdf");
+        if (position == 0)
             ((LinearLayout) convertView.findViewById(R.id.view2LinearLayout)).setBackground(ContextCompat.getDrawable(mContext, R.drawable.spinner_dropdown_start));
-        else if (position == data.size()-1)
+        else if (position == data.size() - 1)
             ((LinearLayout) convertView.findViewById(R.id.view2LinearLayout)).setBackground(ContextCompat.getDrawable(mContext, R.drawable.spinner_dropdown_end));
         else
             ((LinearLayout) convertView.findViewById(R.id.view2LinearLayout)).setBackground(ContextCompat.getDrawable(mContext, R.drawable.spinner_dropdown_middle));

@@ -38,29 +38,34 @@ public class Login extends AppCompatActivity {
                 "village-login-db")
                 .allowMainThreadQueries()
                 .build();
-
+        Log.e("t","ss1s");
         binding.loginBtn.setOnClickListener(v -> {
+
             String email = binding.etvId.getText().toString();
             String password = binding.etvPassword.getText().toString();
+            if (email.equals("") || email == null)
+                errorAlarm("아이디를 입력해주세요.");
+             else if (password.equals("") || password == null)
+                errorAlarm("비밀번호를 입력해주세요.");
+            else {
+                mAuth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
 
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-
-                                Log.d("firebase", "signInWithEmail:success");
-                                insertDB(db, email, password);
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                errorAlarm();
-                                Log.e("firebase", "signInWithEmail:failure", task.getException());
+                                    Log.d("firebase", "signInWithEmail:success");
+                                    insertDB(db, email, password);
+                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    errorAlarm("존재하지 않는 아이디이거나, 잘못된 비밀번호입니다.");
+                                    Log.e("firebase", "signInWithEmail:failure", task.getException());
+                                }
                             }
-                        }
-                    });
-
+                        });
+            }
         });
 
         binding.btnSignup.setOnClickListener(v -> {
@@ -69,7 +74,8 @@ public class Login extends AppCompatActivity {
             });
     }
 
-    private void errorAlarm() {
+    private void errorAlarm(String text) {
+        binding.setWarning(text);
         binding.errorText.setVisibility(View.VISIBLE);
     }
 

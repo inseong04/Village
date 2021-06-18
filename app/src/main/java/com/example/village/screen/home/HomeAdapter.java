@@ -2,6 +2,7 @@ package com.example.village.screen.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,6 +45,18 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         holder.sellerLocationTv.setText(viewModel.getProductArray().get(position).location);
         holder.productPriceTv.setText(viewModel.getProductArray().get(position).price);
         holder.homeImageIv.setImageURI(viewModel.getProductArray().get(position).HomeImageuri);
+
+        if(viewModel.getProductArray().get(position).rental) {
+            holder.rentalTv.setText("대여중");
+            holder.rentalTv.setTextColor(Color.parseColor("#000000"));
+            holder.rentalTv.setBackground(ContextCompat.getDrawable(context, R.drawable.rental_true));
+        }
+        else {
+            holder.rentalTv.setText("대여가능");
+            holder.rentalTv.setTextColor(Color.parseColor("#ffffff"));
+            holder.rentalTv.setBackground(ContextCompat.getDrawable(context, R.drawable.rental_false));
+        }
+
         Glide.with(holder.itemView)
                 .load(viewModel.getProductArray().get(position).HomeImageuri)
                 .into(holder.homeImageIv);
@@ -61,6 +75,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ConstraintLayout wholeLayout;
+        TextView rentalTv;
         ImageView homeImageIv;
         TextView productTitleTv;
         TextView sellerLocationTv;
@@ -69,6 +84,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            rentalTv = itemView.findViewById(R.id.rentalTv);
             wholeLayout = itemView.findViewById(R.id.wholeLayout);
             homeImageIv = itemView.findViewById(R.id.homeImageIv);
             productTitleTv = itemView.findViewById(R.id.productTitleTv);
