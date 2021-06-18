@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ProfileFragment">
+    tools:context=".screen.my.ProfileFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
             android:fontFamily="@font/ns_r"
-            android:text="USER NAME"
+            tools:text = "USER NAME"
             android:textColor="@color/black"
             android:textSize="28sp"
             app:layout_constraintBottom_toTopOf="@+id/button_profile_changeprofile"
@@ -126,55 +126,9 @@
                 android:text="전화번호 변경"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/view3"
+                app:layout_constraintBottom_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
-
-            <View
-                android:id="@+id/view3"
-                android:layout_width="244.4dp"
-                android:layout_height="3dp"
-                android:background="@color/gray"
-                app:layout_constraintBottom_toTopOf="@+id/button_profile_rental"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/button_profile_phone" />
-
-            <Button
-                android:id="@+id/button_profile_rental"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:fontFamily="@font/ns_r"
-                android:stateListAnimator="@null"
-                android:text="대여 중인 상품"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@id/view4"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view3" />
-
-            <View
-                android:id="@+id/view4"
-                android:layout_width="244.4dp"
-                android:layout_height="3dp"
-                android:background="@color/gray"
-                app:layout_constraintBottom_toTopOf="@+id/button_profile_rentaled"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/button_profile_rental" />
-
-            <Button
-                android:id="@+id/button_profile_rentaled"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:fontFamily="@font/ns_r"
-                android:stateListAnimator="@null"
-                android:text="대여 등록한 상품"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view4" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

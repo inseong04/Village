@@ -1,4 +1,4 @@
-package com.example.village;
+package com.example.village.screen.my;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.village.R;
 import com.example.village.databinding.FragmentChangePhoneBinding;
 import com.example.village.screen.MainActivity;
 import com.example.village.util.Format;
@@ -45,7 +46,6 @@ public class ChangePhoneFragment extends Fragment {
     }
 
     FragmentChangePhoneBinding binding;
-    ChangePhoneNumberViewModel viewModel;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,17 +55,7 @@ public class ChangePhoneFragment extends Fragment {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_change_phone,
                 container, false);
-        viewModel = new ViewModelProvider(getActivity()).get(ChangePhoneNumberViewModel.class);
 
-//        final String[] phone = new String[1];
-//        viewModel.getPhoneNumber().observe(getActivity(), text -> {
-//            if (isVaildPhoneNumber(text)) {
-//                // edittext의 내용이 01012345678 형식일시
-//                phone[0] = Format.phoneNumberFormat(viewModel.getPhoneNumber().getValue()); // 010-1234-5678 형식으로 변환
-//
-//            }
-//            Log.i(TAG, text);
-//        });
         binding.changebtn.setOnClickListener(view -> {
             String phonenum = Format.phoneNumberFormat(binding.editText.getText().toString());
             db.collection("users").document(useruid).update("phoneNumber", phonenum);

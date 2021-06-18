@@ -34,7 +34,7 @@
             android:layout_marginRight="52dp"
             android:background="@drawable/login_box"
             android:fontFamily="@font/ns_r"
-            android:hint="Id"
+            android:hint="Email"
             android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

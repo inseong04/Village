@@ -25,6 +25,7 @@ public class Post extends AppCompatActivity {
     private ActivityPostBinding binding;
     FirebaseFirestore db;
     PostViewModel viewModel;
+    private boolean rental;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,8 @@ public class Post extends AppCompatActivity {
                     } else {
                         getPostImgAsyncTask.execute();
                     }
-                    if((boolean)documentSnapshot.get("rental")) {
+                    rental = (boolean)documentSnapshot.get("rental");
+                    if(rental) {
                         binding.rentalTv1.setText("대여중");
                         binding.rentalTv1.setBackground(ContextCompat.getDrawable(this, R.drawable.rental_true));
                     }
@@ -80,8 +82,14 @@ public class Post extends AppCompatActivity {
         });
 
         binding.rentalBtn.setOnClickListener(v -> {
-            PostRentalDialogFragment postRentalDialogFragment = new PostRentalDialogFragment(this, binding.getTitle(), postNumber);
-            postRentalDialogFragment.show(getSupportFragmentManager(), "postRentalDialog");
+
+            if (rental) {
+                WarningDialogFragment warningDialogFragment = new WarningDialogFragment("대여하기", "이미 대여중인 상품입니다.");
+                warningDialogFragment.show(getSupportFragmentManager(), "dialogFragment");
+            } else {
+                PostRentalDialogFragment postRentalDialogFragment = new PostRentalDialogFragment(this, binding.getTitle(), postNumber);
+                postRentalDialogFragment.show(getSupportFragmentManager(), "postRentalDialog");
+            }
         });
 
     }
