@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ProfileFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ns_r"
+            android:text="프로필"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <View
+        android:layout_width="405dp"
+        android:layout_height="1dp"
+        android:background="@color/gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <ImageView
+            android:id="@+id/image_profile"
+            android:layout_width="137.2dp"
+            android:layout_height="137.2dp"
+            android:layout_marginStart="24dp"
+            android:src="@drawable/ic_baseline_account_circle_24"
+            app:layout_constraintBottom_toTopOf="@+id/const_profile_button"
+            app:layout_constraintEnd_toStartOf="@+id/text_profile_username"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_profile_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/ns_r"
+            android:text="USER NAME"
+            android:textColor="@color/black"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toTopOf="@+id/button_profile_changeprofile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image_profile"
+            app:layout_constraintTop_toTopOf="@+id/image_profile" />
+
+        <Button
+            android:id="@+id/button_profile_changeprofile"
+            android:layout_width="158dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/line_box"
+            android:fontFamily="@font/ns_r"
+            android:stateListAnimator="@null"
+            android:text="프로필 변경"
+            android:textColor="#707070"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_profile"
+            app:layout_constraintEnd_toEndOf="@+id/text_profile_username"
+            app:layout_constraintStart_toStartOf="@+id/text_profile_username"
+            app:layout_constraintTop_toBottomOf="@+id/text_profile_username" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/const_profile_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="63.6dp"
+            android:layout_marginBottom="48dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_profile_changeprofile">
+
+            <Button
+                android:id="@+id/button_profile_local"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/ns_r"
+                android:stateListAnimator="@null"
+                android:text="지역 변경"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/view2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="244.4dp"
+                android:layout_height="3dp"
+                android:background="@color/gray"
+                app:layout_constraintBottom_toTopOf="@id/button_profile_phone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_profile_local" />
+
+            <Button
+                android:id="@+id/button_profile_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/ns_r"
+                android:stateListAnimator="@null"
+                android:text="전화번호 변경"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/view3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="244.4dp"
+                android:layout_height="3dp"
+                android:background="@color/gray"
+                app:layout_constraintBottom_toTopOf="@+id/button_profile_rental"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/button_profile_phone" />
+
+            <Button
+                android:id="@+id/button_profile_rental"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/ns_r"
+                android:stateListAnimator="@null"
+                android:text="대여 중인 상품"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@id/view4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view3" />
+
+            <View
+                android:id="@+id/view4"
+                android:layout_width="244.4dp"
+                android:layout_height="3dp"
+                android:background="@color/gray"
+                app:layout_constraintBottom_toTopOf="@+id/button_profile_rentaled"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/button_profile_rental" />
+
+            <Button
+                android:id="@+id/button_profile_rentaled"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/ns_r"
+                android:stateListAnimator="@null"
+                android:text="대여 등록한 상품"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:padding="10dp"
+        android:visibility="invisible"
+        app:itemIconTint="@drawable/menu_selector_color"
+        app:itemTextColor="#7a7a7a"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_bottom" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
