@@ -53,11 +53,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 });
 
         Button button_changeprofile = v.findViewById(R.id.button_profile_changeprofile);//xml 잘못 작성해서 id 이상하게 설정됨...
-        Button button_rental = v.findViewById(R.id.button_profile_local);  //대여등록한상품
-        Button button_rented = v.findViewById(R.id.button_profile_password); //대여중인상품
-        Button button_review = v.findViewById(R.id.button_profile_logout); //받은거래후기
-        Button button_reviewed = v.findViewById(R.id.button_profile_end); //내가 쓴 거래후기
-
+        Button button_rental = v.findViewById(R.id.button_profile_local);
+        Button button_rented = v.findViewById(R.id.button_profile_phone);
+        Button button_review = v.findViewById(R.id.button_profile_rental);
+        Button button_reviewed = v.findViewById(R.id.button_profile_rentaled);
+//머야 어디였지..?
         button_changeprofile.setOnClickListener(this);
         button_rental.setOnClickListener(this);
         button_rented.setOnClickListener(this);
@@ -75,12 +75,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 activity.onFragmentChange(2);
                 break;
             case R.id.button_profile_local:
+                activity.onFragmentChange(3);
                 break;
-            case R.id.button_profile_password:
+            case R.id.button_profile_phone:
+                activity.onFragmentChange(4);
                 break;
-            case R.id.button_profile_logout:
+            case R.id.button_profile_rental:
                 break;
-            case R.id.button_profile_end:
+            case R.id.button_profile_rentaled:
                 break;
         }
 
