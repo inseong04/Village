@@ -179,6 +179,11 @@ public class ProductWriting extends AppCompatActivity {
         String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         final String[] writtenPost = new String[1];
 
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("postNumbers",postNumber);
+        map.put("post-"+postNumber,binding.productNameEtv.getText().toString());
+
         db.collection("post") // 서버의 포스트 Count 증가
                 .document("information")
                 .update("postNumbers", postNumber)

@@ -62,22 +62,22 @@ public class SetSearchPostAsyncTask extends AsyncTask {
             storageReference.child("postImg/" + "img" + "-" + viewModel.matchingPostNum.get(i) + "-0").getDownloadUrl().
                     addOnSuccessListener(uri -> {
                         postUri[finalI] = uri;
-                        Log.e("test","success");
+                        Log.e("test", "success");
 
                         db.collection("post")
                                 .document(String.valueOf(viewModel.matchingPostNum.get(finalI)))
                                 .get()
                                 .addOnCompleteListener(task -> {
-                                        DocumentSnapshot documentSnapshot = task.getResult();
-                                        int postNum = finalI;
-                                        title[finalI] = String.valueOf(documentSnapshot.get("productName"));
-                                        location[finalI] = String.valueOf(documentSnapshot.get("location"));
-                                        price[finalI] = String.valueOf(documentSnapshot.get("price"));
+                                    DocumentSnapshot documentSnapshot = task.getResult();
+                                    int postNum = finalI;
+                                    title[finalI] = String.valueOf(documentSnapshot.get("productName"));
+                                    location[finalI] = String.valueOf(documentSnapshot.get("location"));
+                                    price[finalI] = String.valueOf(documentSnapshot.get("price"));
 
-                                        PreviewPostData previewPostData = new PreviewPostData(postUri[finalI], postNum, title[finalI], location[finalI], price[finalI], rental[finalI]);
-                                        viewModel.postArrayList.add(previewPostData);
-                                        publishProgress("");
-                                    });
+                                    PreviewPostData previewPostData = new PreviewPostData(postUri[finalI], postNum, title[finalI], location[finalI], price[finalI], rental[finalI]);
+                                    viewModel.postArrayList.add(previewPostData);
+                                    publishProgress("");
+                                });
                     });
 
         }
@@ -85,7 +85,7 @@ public class SetSearchPostAsyncTask extends AsyncTask {
     }
 
     @Override
-    protected void onProgressUpdate (Object[] values) {
+    protected void onProgressUpdate(Object[] values) {
         super.onProgressUpdate(values);
         adapter = new SearchResultAdapter(mContext);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);

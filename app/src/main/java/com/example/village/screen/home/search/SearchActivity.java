@@ -141,7 +141,6 @@ public class SearchActivity extends AppCompatActivity {
     }
 
 
-
     public void updateDB(ArrayList<String> searchWords) {
         UsersSearchDatabase db = getRoom();
         Log.w("Search::Room", "updateDB" + searchWords);

@@ -46,12 +46,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         holder.productPriceTv.setText(viewModel.getProductArray().get(position).price);
         holder.homeImageIv.setImageURI(viewModel.getProductArray().get(position).HomeImageuri);
 
-        if(viewModel.getProductArray().get(position).rental) {
+        if (viewModel.getProductArray().get(position).rental) {
             holder.rentalTv.setText("대여중");
             holder.rentalTv.setTextColor(Color.parseColor("#000000"));
             holder.rentalTv.setBackground(ContextCompat.getDrawable(context, R.drawable.rental_true));
-        }
-        else {
+        } else {
             holder.rentalTv.setText("대여가능");
             holder.rentalTv.setTextColor(Color.parseColor("#ffffff"));
             holder.rentalTv.setBackground(ContextCompat.getDrawable(context, R.drawable.rental_false));

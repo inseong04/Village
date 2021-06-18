@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Search {
 
     final Context mContext;
-    final  private SearchResultViewModel viewModel;
+    final private SearchResultViewModel viewModel;
     final private FirebaseFirestore db;
     final private String searchWord;
     final private int postNumber;
@@ -29,13 +29,13 @@ public class Search {
                 .get()
                 .addOnCompleteListener(task -> {
                     DocumentSnapshot documentSnapshot = task.getResult();
-                    for(int i=1; i<postNumber; i++) {
-                        String title = String.valueOf(documentSnapshot.get("post-"+i));
-                        if(title.contains(searchWord)) {
+                    for (int i = 1; i < postNumber; i++) {
+                        String title = String.valueOf(documentSnapshot.get("post-" + i));
+                        if (title.contains(searchWord)) {
 
                             matchingPostNum.add(i);
                         }
-                        Log.e("test","2werewwergwef2qq2f2q");
+                        Log.e("test", "2werewwergwef2qq2f2q");
                     }
 
 

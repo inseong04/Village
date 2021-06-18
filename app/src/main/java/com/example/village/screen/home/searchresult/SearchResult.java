@@ -23,6 +23,7 @@ public class SearchResult extends AppCompatActivity {
     Context mContext;
     private SearchResultViewModel viewModel;
     private FirebaseFirestore db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +39,8 @@ public class SearchResult extends AppCompatActivity {
                 .document("information")
                 .get()
                 .addOnCompleteListener(task -> {
-                   DocumentSnapshot documentSnapshot = task.getResult();
-                   int postNumber = Integer.parseInt(String.valueOf(documentSnapshot.get("postNumbers")));
+                    DocumentSnapshot documentSnapshot = task.getResult();
+                    int postNumber = Integer.parseInt(String.valueOf(documentSnapshot.get("postNumbers")));
                     Search(mContext, viewModel, searchWord, postNumber);
                 });
 
@@ -53,9 +54,9 @@ public class SearchResult extends AppCompatActivity {
                 .get()
                 .addOnCompleteListener(task -> {
                     DocumentSnapshot documentSnapshot = task.getResult();
-                    for(int i=1; i<postNumber; i++) {
-                        String title = String.valueOf(documentSnapshot.get("post-"+i));
-                        if(title.contains(searchWord)) {
+                    for (int i = 1; i < postNumber; i++) {
+                        String title = String.valueOf(documentSnapshot.get("post-" + i));
+                        if (title.contains(searchWord)) {
                             viewModel.matchingPostNum.add(i);
 
                         }

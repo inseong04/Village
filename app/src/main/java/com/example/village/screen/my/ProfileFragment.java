@@ -53,17 +53,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     txt_username.setText(username);
                 });
 
-        Button button_changeprofile = v.findViewById(R.id.button_profile_changeprofile);//xml 잘못 작성해서 id 이상하게 설정됨...
+        Button button_changeprofile = v.findViewById(R.id.button_profile_changeprofile);
         Button button_rental = v.findViewById(R.id.button_profile_local);
         Button button_rented = v.findViewById(R.id.button_profile_phone);
-        Button button_review = v.findViewById(R.id.button_profile_rental);
-        Button button_reviewed = v.findViewById(R.id.button_profile_rentaled);
-//머야 어디였지..?
         button_changeprofile.setOnClickListener(this);
         button_rental.setOnClickListener(this);
         button_rented.setOnClickListener(this);
-        button_review.setOnClickListener(this);
-        button_reviewed.setOnClickListener(this);
 
         return v;
     }
@@ -80,10 +75,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.button_profile_phone:
                 activity.onFragmentChange(4);
-                break;
-            case R.id.button_profile_rental:
-                break;
-            case R.id.button_profile_rentaled:
                 break;
         }
 

@@ -34,7 +34,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         mContext = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.post_item,parent,false);
+        View view = inflater.inflate(R.layout.post_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -49,7 +49,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                 .into(holder.homeImageIv);
         holder.wholeLayout.setOnClickListener(v -> {
             Intent intent = new Intent(mContext, Post.class);
-            intent.putExtra("postNumber",viewModel.matchingPostNum.get(position));
+            intent.putExtra("postNumber", viewModel.matchingPostNum.get(position));
             mContext.startActivity(intent);
         });
     }
