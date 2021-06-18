@@ -114,32 +114,9 @@
                     android:layout_width="244.4dp"
                     android:layout_height="3dp"
                     android:background="@color/gray"
-                    app:layout_constraintBottom_toTopOf="@+id/button_my_local"
+                    app:layout_constraintBottom_toTopOf="@+id/button_my_password"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/button_my_profile" />
-
-                <Button
-                    android:id="@+id/button_my_local"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white"
-                    android:fontFamily="@font/ns_r"
-                    android:stateListAnimator="@null"
-                    android:text="지역 변경"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toTopOf="@+id/view2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/view1" />
-
-                <View
-                    android:id="@+id/view2"
-                    android:layout_width="244.4dp"
-                    android:layout_height="3dp"
-                    android:background="@color/gray"
-                    app:layout_constraintBottom_toTopOf="@id/button_my_password"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/button_my_local" />
 
                 <Button
                     android:id="@+id/button_my_password"
@@ -153,7 +130,7 @@
                     android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@+id/view3"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/view2" />
+                    app:layout_constraintTop_toBottomOf="@+id/view1" />
 
                 <View
                     android:id="@+id/view3"

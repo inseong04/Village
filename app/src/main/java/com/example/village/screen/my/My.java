@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.room.Room;
 
@@ -19,6 +20,10 @@ import com.example.village.R;
 import com.example.village.rdatabase.LoginDatabase;
 import com.example.village.screen.MainActivity;
 import com.example.village.screen.login.Login;
+import com.example.village.util.LogoutDialog;
+import com.example.village.util.SecssionDialog;
+import com.example.village.util.SendpasswordDialog;
+import com.example.village.util.logoutOncilck;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,11 +32,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import javax.annotation.Nullable;
 
-public class My extends Fragment implements View.OnClickListener {
+public class My extends Fragment implements View.OnClickListener, logoutOncilck {
     MainActivity activity;
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    LogoutDialog dialog;
+    SendpasswordDialog dialog1;
+    SecssionDialog dialog2;
     private static final String TAG = "MainActivity";
 
     private Context mContext;
@@ -59,7 +67,9 @@ public class My extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = LayoutInflater.from(getContext()).inflate(R.layout.fragment_my, null);
-
+        dialog = new LogoutDialog(requireActivity(), "로그아웃", "로그아웃 되었습니다.", this);
+        dialog1 = new SendpasswordDialog(requireActivity(), "비밀번호 변경", "이메일이 전송되었습니다.", this);
+        dialog2 = new SecssionDialog(requireActivity(), "탈퇴완료", "탈퇴 처리가 성공적으로 완료되었습니다.", this);
         String emailAddress = user.getEmail();
 
         TextView txt_email = v.findViewById(R.id.text_my_useremail);
@@ -73,13 +83,13 @@ public class My extends Fragment implements View.OnClickListener {
                 });
 
         Button button_profile = v.findViewById(R.id.button_my_profile);
-        Button button_local = v.findViewById(R.id.button_my_local);
+//        Button button_local = v.findViewById(R.id.button_my_local);
         Button button_password = v.findViewById(R.id.button_my_password);
         Button button_logout = v.findViewById(R.id.button_my_logout);
         Button button_end = v.findViewById(R.id.button_my_end);
 
         button_profile.setOnClickListener(this);
-        button_local.setOnClickListener(this);
+//        button_local.setOnClickListener(this);
         button_password.setOnClickListener(this);
         button_logout.setOnClickListener(this);
         button_end.setOnClickListener(this);
@@ -93,8 +103,9 @@ public class My extends Fragment implements View.OnClickListener {
             case R.id.button_my_profile:
                 activity.onFragmentChange(1);
                 break;
-            case R.id.button_my_local:
-                break;
+//            case R.id.button_my_local:
+//                activity.onFragmentChange(3);
+//                break;
             case R.id.button_my_password:
                 sendPasswordReset();
                 break;
@@ -108,19 +119,11 @@ public class My extends Fragment implements View.OnClickListener {
     }
 
     private void logout() {
-        startActivity(new Intent(mContext, Login.class));
-        LoginDatabase db = Room.databaseBuilder(mContext, LoginDatabase.class
-                , "village-login-db")
-                .allowMainThreadQueries()
-                .build();
-        db.LoginDataDao().deleteLogin();
-        getActivity().finish();
+        dialog.show();
     }
 
     private void sendPasswordReset() {
-        // [START send_password_reset]
         String emailAddress = user.getEmail();
-
         auth.sendPasswordResetEmail(emailAddress)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -130,9 +133,7 @@ public class My extends Fragment implements View.OnClickListener {
                         }
                     }
                 });
-        // [END send_password_reset]
-        startActivity(new Intent(mContext, Login.class));
-        getActivity().finish();
+        dialog1.show();
     }
 
     private void secession() {
@@ -145,6 +146,20 @@ public class My extends Fragment implements View.OnClickListener {
                         }
                     }
                 });
-        logout();
+        dialog2.show();
+    }
+
+    @Override
+    public void onClickdialog() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        LoginDatabase db = Room.databaseBuilder(mContext, LoginDatabase.class
+                , "village-login-db")
+                .allowMainThreadQueries()
+                .build();
+        db.LoginDataDao().deleteLogin();
+        auth.signOut();
+        startActivity(new Intent(requireActivity(), Login.class));
+        ActivityCompat.finishAffinity(requireActivity());
+        dialog.dismiss();
     }
 }

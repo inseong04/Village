@@ -48,7 +48,7 @@
             android:layout_height="137.2dp"
             android:layout_marginStart="24dp"
             android:src="@drawable/ic_baseline_account_circle_24"
-            app:layout_constraintBottom_toTopOf="@+id/const_prifile_text"
+            app:layout_constraintBottom_toTopOf="@+id/const_profile_button"
             app:layout_constraintEnd_toStartOf="@+id/text_profile_username"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -83,18 +83,6 @@
             app:layout_constraintTop_toBottomOf="@+id/text_profile_username" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/const_prifile_text"
-            android:layout_width="247dp"
-            android:layout_height="95dp"
-            android:background="@drawable/line_box"
-            app:layout_constraintBottom_toTopOf="@+id/const_profile_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_profile">
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/const_profile_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -103,7 +91,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/const_prifile_text">
+            app:layout_constraintTop_toBottomOf="@+id/button_profile_changeprofile">
 
             <Button
                 android:id="@+id/button_profile_local"
@@ -112,7 +100,7 @@
                 android:backgroundTint="@color/white"
                 android:fontFamily="@font/ns_r"
                 android:stateListAnimator="@null"
-                android:text="대여 등록한 상품"
+                android:text="지역 변경"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/view2"
@@ -124,18 +112,18 @@
                 android:layout_width="244.4dp"
                 android:layout_height="3dp"
                 android:background="@color/gray"
-                app:layout_constraintBottom_toTopOf="@id/button_profile_password"
+                app:layout_constraintBottom_toTopOf="@id/button_profile_phone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/button_profile_local" />
 
             <Button
-                android:id="@+id/button_profile_password"
+                android:id="@+id/button_profile_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/white"
                 android:fontFamily="@font/ns_r"
                 android:stateListAnimator="@null"
-                android:text="대여 중인 상품"
+                android:text="전화번호 변경"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/view3"
@@ -147,18 +135,18 @@
                 android:layout_width="244.4dp"
                 android:layout_height="3dp"
                 android:background="@color/gray"
-                app:layout_constraintBottom_toTopOf="@+id/button_profile_logout"
+                app:layout_constraintBottom_toTopOf="@+id/button_profile_rental"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/button_profile_password" />
+                app:layout_constraintTop_toBottomOf="@id/button_profile_phone" />
 
             <Button
-                android:id="@+id/button_profile_logout"
+                android:id="@+id/button_profile_rental"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/white"
                 android:fontFamily="@font/ns_r"
                 android:stateListAnimator="@null"
-                android:text="받은 거래 후기"
+                android:text="대여 중인 상품"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@id/view4"
@@ -170,18 +158,18 @@
                 android:layout_width="244.4dp"
                 android:layout_height="3dp"
                 android:background="@color/gray"
-                app:layout_constraintBottom_toTopOf="@+id/button_profile_end"
+                app:layout_constraintBottom_toTopOf="@+id/button_profile_rentaled"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/button_profile_logout" />
+                app:layout_constraintTop_toBottomOf="@id/button_profile_rental" />
 
             <Button
-                android:id="@+id/button_profile_end"
+                android:id="@+id/button_profile_rentaled"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/white"
                 android:fontFamily="@font/ns_r"
                 android:stateListAnimator="@null"
-                android:text="내가 쓴 거래 후기"
+                android:text="대여 등록한 상품"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
