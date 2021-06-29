@@ -62,6 +62,7 @@ public class Post extends AppCompatActivity {
                         binding.rentalTv1.setBackground(ContextCompat.getDrawable(this, R.drawable.rental_false));
                     }
 
+                    binding.setUserName(String.valueOf(documentSnapshot.get("name")));
                     binding.setTitle(String.valueOf(documentSnapshot.get("productName")));
                     binding.setDescription(String.valueOf(documentSnapshot.get("description")));
                     binding.setHashTag(String.valueOf(documentSnapshot.get("hashTag")));

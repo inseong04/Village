@@ -16,6 +16,7 @@ import com.example.village.R;
 import com.example.village.databinding.FragmentSignup4Binding;
 import com.example.village.databinding.FragmentSignup5Binding;
 import com.example.village.screen.login.Login;
+import com.example.village.util.WarningDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -65,6 +66,10 @@ public class SignupFragment5 extends Fragment {
                                     getActivity().getSupportFragmentManager().beginTransaction()
                                             .replace(R.id.fragment, new SignupFragment6())
                                             .commit();
+                                }
+                                else {
+                                    WarningDialogFragment warningDialogFragment = new WarningDialogFragment("회원가입", "회원가입 중 오류가 발생했습니다 \n 앱을 종료합니다.");
+                                    warningDialogFragment.show(getActivity().getSupportFragmentManager(), "dialogFragment");
                                 }
                             });
         });

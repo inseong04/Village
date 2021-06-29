@@ -179,15 +179,6 @@
                 tools:text="20분 전" />
 
 
-            <!--            <View
-                            android:id="@+id/view2"
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:background="#e2e2e2"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/hashTagTv"
-                            app:layout_constraintVertical_bias="0.35" />-->
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -200,7 +191,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:ignore="MissingConstraints">
 
                 <TextView
                     android:id="@+id/periodTv"

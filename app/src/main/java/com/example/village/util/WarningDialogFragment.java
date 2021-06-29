@@ -45,7 +45,6 @@ public class WarningDialogFragment extends DialogFragment {
         binding.dialogTv2.setText(content);
 
         binding.dialogTv3.setOnClickListener(v -> {
-
             dismiss();
         });
 

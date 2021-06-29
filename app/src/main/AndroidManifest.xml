@@ -15,6 +15,7 @@
         android:roundIcon="@mipmap/ic_app_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Village">
+        <activity android:name=".screen.chat.Chating"></activity>
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"

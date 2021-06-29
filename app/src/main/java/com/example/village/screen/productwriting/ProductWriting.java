@@ -49,9 +49,10 @@ public class ProductWriting extends AppCompatActivity {
     private Boolean uploadSuccess;
     int postNumber;
     String userToken;
+    String name;
+    String location;
     SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd a hh:mm:ss.SS");
-
-    @Override
+   @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_writing);
@@ -65,6 +66,7 @@ public class ProductWriting extends AppCompatActivity {
         productWritingHelper.setUi();
         getPostNumber();
         getFcmToken();
+        getUserNameAndLocation();
 
         binding.writingBtn.setOnClickListener(v -> {
 
@@ -143,6 +145,21 @@ public class ProductWriting extends AppCompatActivity {
 
     }
 
+    public void getUserNameAndLocation() {
+        db = FirebaseFirestore.getInstance();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+
+        db.collection("users")
+                .document(uid)
+                .get()
+                .addOnCompleteListener(task -> {
+                   DocumentSnapshot documentSnapshot = task.getResult();
+                   name = String.valueOf(documentSnapshot.get("name"));
+                   location = String.valueOf(documentSnapshot.get("location"));
+                });
+    }
+
     public void getPostNumber() {
         db = FirebaseFirestore.getInstance();
         db.collection("post")
@@ -190,6 +207,7 @@ public class ProductWriting extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+
                     }
                 });
 
@@ -199,15 +217,24 @@ public class ProductWriting extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        DocumentSnapshot documentSnapshot = task.getResult();
-                        try {
-                            writtenPost[0] = (String) documentSnapshot.get("writtenPost") + "-" + String.valueOf(postNumber);
-                        } catch (NullPointerException e) {
-                            writtenPost[0] = String.valueOf(postNumber);
+
+                        if(task.isSuccessful()) {
+
+                            DocumentSnapshot documentSnapshot = task.getResult();
+                            if (documentSnapshot.get("writtenPost") == null) {
+                                writtenPost[0] = (String) documentSnapshot.get("writtenPost") + "-" + String.valueOf(postNumber);
+                            } else {
+                                writtenPost[0] = String.valueOf(postNumber);
+                            }
+
+                            db.collection("users") // 사용자가 쓴 게시물 번호 저장
+                                    .document(uid)
+                                    .update("writtenPost", writtenPost[0]);
+                        } else {
+                            WarningDialogFragment warningDialogFragment = new WarningDialogFragment("상품등록", "오류가 발생하였습니다\n 다시 시도해주세요.");
+                            warningDialogFragment.show(getSupportFragmentManager(), "dialogFragment");
+                            finish();
                         }
-                        db.collection("users") // 사용자가 쓴 게시물 번호 저장
-                                .document(uid)
-                                .update("writtenPost", writtenPost[0]);
                     }
                 });
 
@@ -219,6 +246,8 @@ public class ProductWriting extends AppCompatActivity {
         String descripton = binding.descriptionEtv.getText().toString();
         int imageNumber = adapter.getItemCount();
         long productTime = System.currentTimeMillis();
+        post.put("name", name);
+        post.put("location", location);
         post.put("rental",false);
         post.put("productName", productName);
         post.put("price", price + "원");
@@ -231,7 +260,13 @@ public class ProductWriting extends AppCompatActivity {
 
         db.collection("post") // 포스트 생성
                 .document(String.valueOf(postNumber))
-                .set(post);
+                .set(post).addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        WarningDialogFragment warningDialogFragment = new WarningDialogFragment("상품등록", "상품등록 중 에러가 발생했습니다 \n 다시 시도하여주세요.");
+                        warningDialogFragment.show(getSupportFragmentManager(), "dialogFragment");
+                        finish();
+                    }
+        });
 
         for (int i = 0; i < imageNumber; i++) {
             String filename = "img-" + String.valueOf(postNumber) + "-" + i;
