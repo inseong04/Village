@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.example.village.R;
 import com.example.village.databinding.FragmentPostRentalDialogBinding;
+import com.example.village.screen.chat.Chating;
 import com.example.village.util.SendNotification;
 import com.example.village.util.WarningDialogFragment;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -25,10 +26,10 @@ public class PostRentalDialogFragment extends DialogFragment {
     private String productName;
     private String postNumber;
     private FragmentPostRentalDialogBinding binding;
-    private Post post;
+    private Chating chating;
 
-    public PostRentalDialogFragment(Post post, String productName, String postNumber) {
-        this.post = post;
+    public PostRentalDialogFragment(Chating chating, String productName, String postNumber) {
+        this.chating = chating;
         this.productName = productName;
         this.postNumber = postNumber;
     }
@@ -72,7 +73,7 @@ public class PostRentalDialogFragment extends DialogFragment {
                                             "대여신청이 도착했습니다.",
                                             productName+" 게시물의 대여신청이 도착했습니다.");
                                     WarningDialogFragment warningDialogFragment = new WarningDialogFragment("대여하기", "대여가 완료되었습니다.");
-                                    warningDialogFragment.show(post.getSupportFragmentManager(), "dialogFragment");
+                                    warningDialogFragment.show(chating.getSupportFragmentManager(), "dialogFragment");
                                 });
 
                     });

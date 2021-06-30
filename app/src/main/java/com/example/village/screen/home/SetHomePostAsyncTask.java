@@ -73,7 +73,6 @@ public class SetHomePostAsyncTask extends AsyncTask {
                         storageReference.child("postImg/" + "img" + "-" + finalI + "-0").getDownloadUrl().
                                 addOnSuccessListener(uri -> {
                                     postUri[finalI - 1] = uri;
-
                                     PreviewPostData previewPostData = new PreviewPostData(postUri[finalI - 1], postNum, title[finalI - 1], location[finalI - 1], price[finalI - 1], rental[finalI - 1]);
                                     viewModel.productArray.add(previewPostData);
                                     publishProgress("");

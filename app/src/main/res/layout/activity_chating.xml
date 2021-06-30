@@ -8,6 +8,11 @@
         <variable
             name="activity"
             type="com.example.village.screen.chat.Chating" />
+
+        <variable
+            name="viewModel"
+            type="com.example.village.screen.chat.ChatingViewModel" />
+
         <variable
             name="name"
             type="String" />
@@ -15,6 +20,7 @@
         <variable
             name="title"
             type="String" />
+
         <variable
             name="price"
             type="String" />
@@ -105,6 +111,7 @@
                 android:fontFamily="@font/ns_b"
                 android:textColor="#2962ff"
                 android:background="@drawable/chatbtn1"
+                android:onClick="@{activity::callDialog}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -115,13 +122,21 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/chatRecyclerView"
+        <LinearLayout
+            android:id="@+id/chatLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintTop_toBottomOf="@id/layout3"
             app:layout_constraintBottom_toTopOf="@id/chatLayout"
+            >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chatRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/chatLayout"
@@ -138,6 +153,7 @@
                 android:id="@+id/chatEtv"
                 android:layout_width="0dp"
                 android:layout_weight="0.87"
+                android:text="@={viewModel.etvContent}"
                 android:hint="메세지를 입력하세요."
                 android:background="@drawable/chatetv_background"
                 android:layout_height="match_parent"
@@ -147,13 +163,26 @@
                 android:paddingTop="10sp"
                 android:paddingBottom="10sp"
                 />
-            
-            <ImageButton
-                android:layout_width="0dp"
-                android:layout_weight="0.13"
-                android:layout_height="match_parent"
 
-                />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.13"
+                android:onClick="@{viewModel::sendMessage}"
+                >
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@drawable/ic_send_btn"
+                    android:layout_margin="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
         </LinearLayout>
 
