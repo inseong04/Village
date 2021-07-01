@@ -2,16 +2,16 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".screen.chat.Chating">
+    tools:context=".screen.chating.Chating">
 
     <data>
         <variable
             name="activity"
-            type="com.example.village.screen.chat.Chating" />
+            type="com.example.village.screen.chating.Chating" />
 
         <variable
             name="viewModel"
-            type="com.example.village.screen.chat.ChatingViewModel" />
+            type="com.example.village.screen.chating.ChatingViewModel" />
 
         <variable
             name="name"
@@ -57,7 +57,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout3"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="75sp"
             app:layout_constraintHeight_percent="0.08"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
             android:background="@drawable/chatinglayout"
@@ -70,6 +70,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_margin="12sp"
+                android:scaleType="centerCrop"
                 app:layout_constraintLeft_toLeftOf="parent"
                 />
 
@@ -134,26 +135,28 @@
             android:id="@+id/chatRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingLeft="20sp"
+            android:paddingRight="20sp"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp"
             />
-
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/chatLayout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:weightSum="1"
-            app:layout_constraintHeight_percent="0.08"
+            app:layout_constraintTop_toTopOf="@id/chatRecyclerView"
             app:layout_constraintBottom_toBottomOf="parent"
             android:background="@drawable/chatinglayout2"
             android:orientation="horizontal"
-            >
+            tools:ignore="NotSibling">
 
             <EditText
                 android:id="@+id/chatEtv"
                 android:layout_width="0dp"
                 android:layout_weight="0.87"
-                android:text="@={viewModel.etvContent}"
                 android:hint="메세지를 입력하세요."
                 android:background="@drawable/chatetv_background"
                 android:layout_height="match_parent"
@@ -165,24 +168,24 @@
                 />
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/sendLayout"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.13"
-                android:onClick="@{viewModel::sendMessage}"
                 >
                 <ImageButton
+                    android:id="@+id/sendBtn"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="35sp"
                     android:background="@drawable/ic_send_btn"
                     android:layout_margin="14sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
         </LinearLayout>
 

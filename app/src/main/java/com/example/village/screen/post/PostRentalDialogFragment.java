@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.village.R;
 import com.example.village.databinding.FragmentPostRentalDialogBinding;
-import com.example.village.screen.chat.Chating;
+import com.example.village.screen.chating.Chating;
 import com.example.village.util.SendNotification;
 import com.example.village.util.WarningDialogFragment;
 import com.google.firebase.firestore.FirebaseFirestore;

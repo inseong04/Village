@@ -203,11 +203,11 @@ public class ProductWriting extends AppCompatActivity {
 
         db.collection("post") // 서버의 포스트 Count 증가
                 .document("information")
-                .update("postNumbers", postNumber)
+                .update(map)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-
+                    // issue : post - information에 post-2 : 제목이 들어가야함. 테스트 필요
                     }
                 });
 

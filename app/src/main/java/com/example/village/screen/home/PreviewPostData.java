@@ -11,7 +11,7 @@ public class PreviewPostData {
     public Boolean rental;
 
     public PreviewPostData(Uri homeImageuri, int postNum, String title, String location, String price, Boolean rental) {
-        HomeImageuri = homeImageuri;
+        this.HomeImageuri = homeImageuri;
         this.postNum = postNum;
         this.title = title;
         this.location = location;

@@ -1,20 +1,20 @@
-package com.example.village.screen.chat;
+package com.example.village.screen.chating;
 
 public class ChatingData {
-    int type;
+    String uid;
     String content;
 
-    public ChatingData(int type, String content) {
-        this.type = type;
+    public ChatingData(String uid, String content) {
+        this.uid = uid;
         this.content = content;
     }
 
-    public int getType() {
-        return type;
+    public String getUid() {
+        return uid;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getContent() {

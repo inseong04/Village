@@ -1,7 +1,8 @@
-package com.example.village.screen.chat;
+package com.example.village.screen.chating;
 
 import android.os.AsyncTask;
 
+import com.example.village.databinding.ActivityChatingBinding;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -11,7 +12,9 @@ public class ChatingDataAsyncTask extends AsyncTask {
     private String roomNumber;
     private ChatingViewModel viewModel;
     private int chatCount = 0;
-    public ChatingDataAsyncTask(ChatingViewModel viewModel, String roomNumber) {
+    private ActivityChatingBinding binding;
+    public ChatingDataAsyncTask(ActivityChatingBinding binding, ChatingViewModel viewModel, String roomNumber) {
+        this.binding = binding;
         this.viewModel = viewModel;
         this.roomNumber = roomNumber;
     }
@@ -28,13 +31,19 @@ public class ChatingDataAsyncTask extends AsyncTask {
                 .get()
                 .addOnCompleteListener(task -> {
                     DocumentSnapshot documentSnapshot = task.getResult();
-                    int chatSum = Integer.parseInt(String.valueOf(documentSnapshot.get("chatSum")));
+                    try {
+                        viewModel.setChatSum(Integer.parseInt(String.valueOf(documentSnapshot.get("chatSum"))));
+                    } catch (NumberFormatException e) {
+                        viewModel.setChatSum(0);
+                    }
 
-                    if (chatSum > 0) {
-                        for (int i = 1; i <= chatSum; i++) {
-                            int type = Integer.parseInt(String.valueOf(documentSnapshot.get("chatType-" + i)));
+                    if (viewModel.getChatSum() > 0) {
+                        for (int i = 1; i <= viewModel.getChatSum(); i++) {
+                            String uid = String.valueOf(documentSnapshot.get("chat-uid-"+i));
                             String chat = String.valueOf(documentSnapshot.get("chat-"+i));
-                            viewModel.addChatArrayList(type, chat);
+                            viewModel.addChatArrayList(uid, chat);
+                            binding.chatRecyclerView.getAdapter().notifyDataSetChanged();
+                            binding.chatRecyclerView.scrollToPosition(viewModel.getChatArrayList().size()-1);
                         }
                     } else {
                         // TODO 여기에 chatSum이  0 일때 처리해주어야함.

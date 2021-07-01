@@ -45,8 +45,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginRight="20sp"
                 android:background="@drawable/search_box"
                 android:drawableLeft="@drawable/ic_search"
+                android:drawablePadding="10sp"
                 android:fontFamily="@font/ns_r"
                 android:hint="검색어를 입력하세요."
                 android:imeOptions="actionSearch"
@@ -55,23 +57,11 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/back_btn"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.7">
-
-                <requestFocus />
+                app:layout_constraintRight_toRightOf="parent"
+                >
+                <requestFocus/>
             </EditText>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:fontFamily="@font/ns_b"
-                android:gravity="center"
-                android:text="취소"
-                android:textColor="#000000"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/search_etv"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.15" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View

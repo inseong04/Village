@@ -44,8 +44,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginRight="20sp"
                 android:background="@drawable/search_box"
                 android:drawableLeft="@drawable/ic_search"
+                android:drawablePadding="10sp"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:fontFamily="@font/ns_r"
@@ -57,22 +59,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/back_btn"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.7"
-                tools:text="searchWord" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:fontFamily="@font/ns_b"
-                android:gravity="center"
-                android:onClick="@{activity::goHome}"
-                android:text="취소"
-                android:textColor="#000000"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/search_etv"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.15" />
+                tools:text="searchWord" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout

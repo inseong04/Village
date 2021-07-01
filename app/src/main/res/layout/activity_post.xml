@@ -220,13 +220,13 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/rentalBtn"
+                android:id="@+id/callChatBtn"
                 android:layout_width="190sp"
                 android:layout_height="45sp"
                 android:layout_margin="25sp"
                 android:background="@drawable/login_button"
                 android:fontFamily="@font/ns_r"
-                android:text="대여하기"
+                android:text="채팅하기"
                 android:textColor="#fff"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"

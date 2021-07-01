@@ -31,7 +31,8 @@ public class SetHomePostAsyncTask extends AsyncTask {
     private int postNumber;
     HomeAdapter adapter;
 
-    public SetHomePostAsyncTask(Context mContext, FragmentHomeBinding binding, int postNumber) {
+    public SetHomePostAsyncTask(HomeAdapter adapter, Context mContext, FragmentHomeBinding binding, int postNumber) {
+        this.adapter = adapter;
         this.mContext = mContext;
         this.binding = binding;
         this.postNumber = postNumber;
@@ -87,12 +88,8 @@ public class SetHomePostAsyncTask extends AsyncTask {
     @Override
     protected void onProgressUpdate(Object[] values) {
         super.onProgressUpdate(values);
-        adapter = new HomeAdapter(mContext);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
-        binding.homeRecyclerview.setLayoutManager(linearLayoutManager);
-        Log.e("view", viewModel.getProductArray().toString());
         adapter.notifyDataSetChanged();
-        binding.homeRecyclerview.setAdapter(adapter);
+
     }
 
     @Override

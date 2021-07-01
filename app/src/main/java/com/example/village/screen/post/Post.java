@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,12 +14,18 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.example.village.screen.chating.Chating;
 import com.example.village.util.GetTime;
 import com.example.village.R;
 import com.example.village.databinding.ActivityPostBinding;
-import com.example.village.util.WarningDialogFragment;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Post extends AppCompatActivity {
 
@@ -26,15 +33,19 @@ public class Post extends AppCompatActivity {
     FirebaseFirestore db;
     PostViewModel viewModel;
     private boolean rental;
+    private String roomNumber;
+    private String uid;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_post);
         final String postNumber = String.valueOf(getIntent().getIntExtra("postNumber", 1));
+        uid = FirebaseAuth.getInstance().getUid();
         db = FirebaseFirestore.getInstance();
         viewModel = new ViewModelProvider(this).get(PostViewModel.class);
-
+        Log.e("test","a12");
         binding.descriptionTv.setMovementMethod(new ScrollingMovementMethod());
 
         db.collection("post")
@@ -62,6 +73,7 @@ public class Post extends AppCompatActivity {
                         binding.rentalTv1.setBackground(ContextCompat.getDrawable(this, R.drawable.rental_false));
                     }
 
+                    roomNumber = String.valueOf(documentSnapshot.get("roomNumber"));
                     binding.setUserName(String.valueOf(documentSnapshot.get("name")));
                     binding.setTitle(String.valueOf(documentSnapshot.get("productName")));
                     binding.setDescription(String.valueOf(documentSnapshot.get("description")));
@@ -81,15 +93,52 @@ public class Post extends AppCompatActivity {
             }
         });
 
-        binding.rentalBtn.setOnClickListener(v -> {
+        binding.callChatBtn.setOnClickListener(v -> {
+            AtomicReference<Boolean> roomExistence = new AtomicReference<>(false);
+            db.collection("users")
+                    .document(uid)
+                    .get()
+                    .addOnCompleteListener(task -> {
 
-            if (rental) {
-                WarningDialogFragment warningDialogFragment = new WarningDialogFragment("대여하기", "이미 대여중인 상품입니다.");
-                warningDialogFragment.show(getSupportFragmentManager(), "dialogFragment");
-            } else {
-                PostRentalDialogFragment postRentalDialogFragment = new PostRentalDialogFragment(this, binding.getTitle(), postNumber);
-                postRentalDialogFragment.show(getSupportFragmentManager(), "postRentalDialog");
-            }
+                        DocumentSnapshot documentSnapshot = task.getResult();
+                        ArrayList<String> test = (ArrayList<String>) documentSnapshot.get("roomList");
+                        Log.e("a", test.get(0));
+                        ArrayList<String> roomList = (ArrayList<String>) documentSnapshot.get("roomList");
+                        for (int i=0; i<roomList.size(); i++) {
+                            String[] postAndRoomNumber = roomList.get(i).split("-");
+                            Log.e("test",postAndRoomNumber[1]);
+                            if(postAndRoomNumber[0].equals(postNumber) && Integer.parseInt(postAndRoomNumber[1])
+                                    <= Integer.parseInt(roomNumber)) {
+                                String room = postNumber+"-"+postAndRoomNumber[1];
+                                Intent intent = new Intent(getApplicationContext(), Chating.class);
+
+                                intent.putExtra("postNumber", postNumber);
+                                intent.putExtra("roomNumber", room);
+                                startActivity(intent);
+                                roomExistence.set(true);
+                                break;
+                            }
+                        }
+
+                        if ( !roomExistence.get() ) {
+                            String room = postNumber+"-"+roomNumber;
+                            Log.e("zz","zz");
+                            Intent intent = new Intent(getApplicationContext(), Chating.class);
+                            intent.putExtra("postNumber", postNumber);
+                            intent.putExtra("roomNumber", room);
+                            startActivity(intent);
+                            Thread thread = new Thread(
+                                    () -> {
+                                        Map<String, Object> map2 = new HashMap<>();
+                                        map2.put("roomNumber", Integer.parseInt(roomNumber) + 1);
+                                        db.collection("post")
+                                                .document(postNumber)
+                                                .update(map2);
+                                    }
+                            );
+                            thread.start();
+                        }
+                    });
         });
 
     }

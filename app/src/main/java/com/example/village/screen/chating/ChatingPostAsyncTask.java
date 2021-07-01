@@ -1,7 +1,9 @@
-package com.example.village.screen.chat;
+package com.example.village.screen.chating;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 
+import com.bumptech.glide.Glide;
 import com.example.village.databinding.ActivityChatingBinding;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -14,11 +16,11 @@ public class ChatingPostAsyncTask extends AsyncTask {
     private FirebaseFirestore db;
     private StorageReference storageReference;
     private String postNumber;
-    private ChatingViewModel chatingViewModel;
+    private Activity parentActivity;
 
-    public ChatingPostAsyncTask(ActivityChatingBinding binding, ChatingViewModel chatingViewModel, String postNumber) {
+    public ChatingPostAsyncTask(Activity activity, ActivityChatingBinding binding, String postNumber) {
+        parentActivity = activity;
         this.binding = binding;
-        this.chatingViewModel = chatingViewModel;
         this.postNumber = postNumber;
     }
 
@@ -49,7 +51,9 @@ public class ChatingPostAsyncTask extends AsyncTask {
 
         storageReference.child("postImg/" + "img" + "-" + postNumber + "-" + 0).getDownloadUrl()
                 .addOnSuccessListener(uri -> {
-                   binding.productIv.setImageURI(uri);
+                    Glide.with(parentActivity)
+                            .load(uri)
+                            .into(binding.productIv);
                 });
 
         return null;

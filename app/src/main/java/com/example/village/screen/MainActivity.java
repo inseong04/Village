@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.example.village.screen.chat.Chat;
 import com.example.village.screen.my.ChangePhoneFragment;
 import com.example.village.screen.my.ChangeprofileFragment;
 import com.example.village.screen.my.LocationFragment;
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         Context mContext = getApplicationContext();
         int networkStatus = NetworkStatus.getConnectivityStatus(mContext);
+        Fragment Chat = new Chat();
         Fragment Home = new Home();
         Fragment My = new My();
 
@@ -45,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         changePhoneFragment = new ChangePhoneFragment();
 
         if (networkStatus == TYPE_NOT_CONNECTED) {
-            Toast.makeText(mContext, "빌리지를 이용하려면 Wifi연결이 필요합니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "빌리지를 이용하시려면 Wifi연결이 필요합니다.", Toast.LENGTH_SHORT).show();
         }
 
         getSupportFragmentManager().beginTransaction().replace(R.id.layout_main_frame, Home).commitAllowingStateLoss();
@@ -53,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
 
         binding.bottomBar.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
+                case R.id.chat:
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.layout_main_frame, Chat).commit();
+                    return true;
+
                 case R.id.home:
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.layout_main_frame, Home).commit();
