@@ -1,10 +1,17 @@
 package com.example.village.screen.chating;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.example.village.databinding.ActivityChatingBinding;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ChatingDataAsyncTask extends AsyncTask {
 
@@ -13,7 +20,9 @@ public class ChatingDataAsyncTask extends AsyncTask {
     private ChatingViewModel viewModel;
     private int chatCount = 0;
     private ActivityChatingBinding binding;
-    public ChatingDataAsyncTask(ActivityChatingBinding binding, ChatingViewModel viewModel, String roomNumber) {
+    private String sellerUid;
+    public ChatingDataAsyncTask(String sellerUid, ActivityChatingBinding binding, ChatingViewModel viewModel, String roomNumber) {
+        this.sellerUid = sellerUid;
         this.binding = binding;
         this.viewModel = viewModel;
         this.roomNumber = roomNumber;
@@ -47,6 +56,40 @@ public class ChatingDataAsyncTask extends AsyncTask {
                         }
                     } else {
                         // TODO 여기에 chatSum이  0 일때 처리해주어야함.
+                        Thread thread = new Thread(
+                                () -> {
+
+                                    ArrayList<String> uidList = new ArrayList<>();
+                                    uidList.add(sellerUid);
+                                    uidList.add(FirebaseAuth.getInstance().getUid());
+
+                                    Log.e("uid", uidList.get(0));
+
+                                    ArrayList<String> userNameArray = new ArrayList<>();
+                                    for (int i = 0; i <2; i++) {
+
+                                        int finalI = i;
+                                        db.collection("users").document(uidList.get(i))
+                                                .get()
+                                                .addOnCompleteListener(usersTask -> {
+                                                    DocumentSnapshot documentSnapshot1 = usersTask.getResult();
+                                                    userNameArray.add(String.valueOf(documentSnapshot1.get("name")));
+                                                    if (userNameArray.size() == 2) {
+                                                        Log.e("v","b");
+                                                        Log.e("zxcv",userNameArray.get(0));
+                                                        Map<String, Object> map = new HashMap<>();
+                                                        map.put("userNameList", userNameArray);
+                                                        map.put("uidList", uidList);
+                                                        map.put("sellerUid", sellerUid);
+                                                        map.put("consumerUid", FirebaseAuth.getInstance().getUid());
+                                                        db.collection("chat").document(roomNumber)
+                                                                .set(map, SetOptions.merge());
+                                                    }
+                                                });
+
+                                    }
+                                });
+                        thread.start();
                     }
 
                 });

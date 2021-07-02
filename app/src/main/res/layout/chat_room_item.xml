@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/chatRoomWholeLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/chatItemIv"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:layout_margin="20sp"
+        android:src="@drawable/profile_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/chatItemTv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="username"
+        android:fontFamily="@font/ns_b"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/chatItemIv"
+        android:layout_marginTop="20sp"
+        android:layout_marginLeft="16sp"
+        />
+
+    <TextView
+        android:id="@+id/chatDateTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="12일전"
+        android:fontFamily="@font/ns_b"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toRightOf="@id/chatItemTv1"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="23sp"
+        android:layout_marginLeft="8sp"
+        />
+
+    <TextView
+        android:id="@+id/chatItemTv2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="대여하고 싶습니다."
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:fontFamily="@font/ns_b"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        android:gravity="left"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/chatItemIv"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="16sp"
+        android:layout_marginBottom="20sp"
+        android:layout_marginRight="20sp"
+        />
+
+    <View
+        android:id="@+id/layout4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

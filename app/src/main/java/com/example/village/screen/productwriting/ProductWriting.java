@@ -246,6 +246,8 @@ public class ProductWriting extends AppCompatActivity {
         String descripton = binding.descriptionEtv.getText().toString();
         int imageNumber = adapter.getItemCount();
         long productTime = System.currentTimeMillis();
+        post.put("roomNumber", 1);
+        post.put("sellerUid", uid);
         post.put("name", name);
         post.put("location", location);
         post.put("rental",false);

@@ -1,5 +1,6 @@
 package com.example.village.screen.chating;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
@@ -17,18 +18,29 @@ import com.example.village.databinding.ActivityChatingBinding;
 import com.example.village.screen.post.PostRentalDialogFragment;
 import com.example.village.util.WarningDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Chating extends AppCompatActivity {
 
-    // require : postNumber , roomNumber ( String room = postNumber+"-"+roomNumber; )
+    // require : postNumber , roomNumber ( String room = postNumber+"-"+roomNumber; ), sellerUid
 
     private ActivityChatingBinding binding;
     private ChatingViewModel viewModel;
     private String postNumber;
     private String roomNumber;
+    private String uid;
+    private String sellerUid;
+    private String receiveUid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,18 +49,51 @@ public class Chating extends AppCompatActivity {
         Intent intent = getIntent();
         postNumber = intent.getStringExtra("postNumber");
         roomNumber = intent.getStringExtra("roomNumber");
+        Log.e("room55662655", roomNumber);
+        sellerUid = intent.getStringExtra("sellerUid");
         viewModel.setPostNumber(postNumber);
         viewModel.setRoomNumber(roomNumber);
+        uid = FirebaseAuth.getInstance().getUid();
 
         binding.setActivity(this);
         binding.setViewModel(viewModel);
+
+
+
+
+        if (uid == sellerUid) {
+            FirebaseFirestore.getInstance().collection("chat").document(roomNumber)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        ArrayList<String> arrayList = (ArrayList<String>) task.getResult().get("uidList");
+                        if (uid.equals(arrayList.get(0))) {
+                            receiveUid = arrayList.get(1);
+                        }
+                    });
+        }
+        else {
+            receiveUid = sellerUid;
+        }
+
+        FirebaseFirestore.getInstance().collection("chat")
+                .document(roomNumber)
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (value != null && value.exists()) {
+                            viewModel.addChatArrayList(receiveUid, value.getData().get(receiveUid).toString());
+                            binding.chatRecyclerView.getAdapter().notifyDataSetChanged();
+                            binding.chatRecyclerView.smoothScrollToPosition(viewModel.getChatArrayList().size()-1);
+                        }
+                    }
+                });
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         binding.chatRecyclerView.setLayoutManager(linearLayoutManager);
         binding.chatRecyclerView.setAdapter(new ChatingAdapter(viewModel));
 
         ChatingPostAsyncTask chatingPostAsyncTask = new ChatingPostAsyncTask(this, binding, postNumber);
-        ChatingDataAsyncTask chatingDataAsyncTask = new ChatingDataAsyncTask(binding, viewModel, roomNumber);
+        ChatingDataAsyncTask chatingDataAsyncTask = new ChatingDataAsyncTask(sellerUid, binding, viewModel, roomNumber);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             chatingPostAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             chatingDataAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -68,16 +113,19 @@ public class Chating extends AppCompatActivity {
     }
 
     private void sendMessage() {
-        String uid = FirebaseAuth.getInstance().getUid();
+
+        long lastMessageTime = System.currentTimeMillis();
         String text = binding.chatEtv.getText().toString();
         viewModel.addChatArrayList(viewModel.getUid(), text);
         viewModel.setChatSum(viewModel.getChatSum()+1);
         Map<String, Object> map = new HashMap<>();
-        map.put("uid", text);
+        map.put("lastMessageTime", lastMessageTime);
+        map.put(uid, text);
+        map.put("lastMessage", text);
         map.put("chat-"+viewModel.getChatSum(), text);
         map.put("chat-uid-"+viewModel.getChatSum(), uid);
         map.put("chatSum",viewModel.getChatSum());
-        SendAsyncTask sendAsyncTask = new SendAsyncTask(uid, roomNumber, map);
+        SendAsyncTask sendAsyncTask = new SendAsyncTask(sellerUid, uid, roomNumber, map);
         sendAsyncTask.execute();
         binding.chatEtv.setText("");
         Log.e("test","touch3");
