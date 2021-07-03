@@ -18,6 +18,7 @@ import android.text.Editable;
 import android.text.Selection;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 
 import com.example.village.R;
@@ -56,12 +57,12 @@ public class ProductWriting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_writing);
-        productWritingHelper = new ProductWritingHelper(binding, this);
-        binding.setActivity(this);
 
+        binding.setActivity(this);
+       Log.e("gew","gew");
         viewModel = new ViewModelProvider(this).get(ProductViewModel.class);
         final String[] strAmount = {""};
-
+       productWritingHelper = new ProductWritingHelper(viewModel, binding, this);
         checkSelfPermission();
         productWritingHelper.setUi();
         getPostNumber();
@@ -222,9 +223,10 @@ public class ProductWriting extends AppCompatActivity {
 
                             DocumentSnapshot documentSnapshot = task.getResult();
                             if (documentSnapshot.get("writtenPost") == null) {
-                                writtenPost[0] = (String) documentSnapshot.get("writtenPost") + "-" + String.valueOf(postNumber);
-                            } else {
                                 writtenPost[0] = String.valueOf(postNumber);
+
+                            } else {
+                                writtenPost[0] = (String) documentSnapshot.get("writtenPost") + "-" + String.valueOf(postNumber);
                             }
 
                             db.collection("users") // 사용자가 쓴 게시물 번호 저장

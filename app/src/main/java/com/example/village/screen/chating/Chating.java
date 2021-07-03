@@ -57,10 +57,7 @@ public class Chating extends AppCompatActivity {
         binding.setActivity(this);
         binding.setViewModel(viewModel);
 
-
-
-
-        if (uid == sellerUid) {
+        if (uid.equals(sellerUid)) {
             FirebaseFirestore.getInstance().collection("chat").document(roomNumber)
                     .get()
                     .addOnCompleteListener(task -> {
@@ -74,20 +71,26 @@ public class Chating extends AppCompatActivity {
             receiveUid = sellerUid;
         }
 
-        FirebaseFirestore.getInstance().collection("chat")
-                .document(roomNumber)
-                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                        if (value != null && value.exists()) {
-                            if (!value.getData().get(uid).equals(value.getData().get("lastMessage").toString())) {
-                                viewModel.addChatArrayList(receiveUid, value.getData().get("lastMessage").toString());
-                                binding.chatRecyclerView.getAdapter().notifyDataSetChanged();
-                                binding.chatRecyclerView.smoothScrollToPosition(viewModel.getChatArrayList().size() - 1);
+
+            FirebaseFirestore.getInstance().collection("chat")
+                    .document(roomNumber)
+                    .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                            try {
+                            if (value != null && value.exists()) {
+                                if (!value.getData().get(uid).equals(value.getData().get("lastMessage").toString())) {
+                                    viewModel.addChatArrayList(receiveUid, value.getData().get("lastMessage").toString());
+                                    binding.chatRecyclerView.getAdapter().notifyDataSetChanged();
+                                    binding.chatRecyclerView.smoothScrollToPosition(viewModel.getChatArrayList().size() - 1);
+                                }
                             }
+                            } catch (Exception e) {
+                            }
+
                         }
-                    }
-                });
+                    });
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         binding.chatRecyclerView.setLayoutManager(linearLayoutManager);
@@ -146,11 +149,8 @@ public class Chating extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finish();
-    }
-
-    public void finish() {
-        super.finish();
         setResult(RESULT_OK);
+        Log.e("vcdszgd","jtedhrsgedafsgrthykjrewr");
+        finish();
     }
 }

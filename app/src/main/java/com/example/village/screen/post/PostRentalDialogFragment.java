@@ -67,7 +67,6 @@ public class PostRentalDialogFragment extends DialogFragment {
                                 .document(postNumber)
                                 .get()
                                 .addOnCompleteListener(dbTask -> {
-                                    Log.e("test","tesdt    "+dbTask.getResult().get("fcmToken") );
                                     SendNotification.sendNotification(String.valueOf(dbTask.getResult().get("fcmToken")),
                                             "대여신청이 도착했습니다.",
                                             productName+" 게시물의 대여신청이 도착했습니다.");

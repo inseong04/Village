@@ -35,6 +35,7 @@ public class SetHomePostAsyncTask extends AsyncTask {
         this.adapter = adapter;
         this.mContext = mContext;
         this.binding = binding;
+
         this.postNumber = postNumber;
     }
 

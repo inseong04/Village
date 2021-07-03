@@ -41,20 +41,51 @@ public class SendAsyncTask extends AsyncTask {
                         Log.e("z", "null");
                         arrayList = new ArrayList<>();
                     }
-                        for (int i = 0; i < arrayList.size(); i++) {
-                            if (roomNumber.equals(arrayList.get(i))) {
-                                roomExistence.set(true);
-                                break;
+
+                        try {
+                            for (int i = 0; i < arrayList.size() ; i++) {
+                                if (roomNumber.equals(arrayList.get(i))) {
+                                    roomExistence.set(true);
+                                    break;
+                                }
                             }
+                        } catch (Exception e) {
+
                         }
 
                         if (!roomExistence.get()) {
-                            arrayList.add(roomNumber);
+                            try {
+                                arrayList.add(roomNumber);
+                            } catch (NullPointerException e) {
+                                arrayList = new ArrayList<>();
+                                arrayList.add(roomNumber);
+                            }
                             Map<String, Object> map2 = new HashMap<>();
                             map2.put("roomList", arrayList);
                             db.collection("users").document(uid)
                                     .update(map2);
-                            Thread thread = new Thread(
+                            Thread thread1 = new Thread(
+                                    () -> {
+                                        db.collection("users").document(sellerUid)
+                                        .get()
+                                        .addOnCompleteListener(sellerUidTask -> {
+                                           DocumentSnapshot documentSnapshot = sellerUidTask.getResult();
+                                           Map<String, Object> map3 = new HashMap<>();
+
+                                           if (documentSnapshot.get("roomList") == null) {
+                                               map3.put("roomList", roomNumber);
+                                           }
+                                           else {
+                                               map3.put("roomList", documentSnapshot.get("roomList"));
+                                           }
+
+                                           db.collection("users").document(sellerUid)
+                                                   .update(map3);
+                                        });
+                                    }
+                            );
+                            thread1.start();
+                            Thread thread2 = new Thread(
                                     () -> {
                                         db.collection("users").document(sellerUid)
                                                 .get()
@@ -69,7 +100,7 @@ public class SendAsyncTask extends AsyncTask {
                                                 });
                                     }
                             );
-                            thread.start();
+                            thread2.start();
                         }
                 });
 

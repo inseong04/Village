@@ -11,8 +11,10 @@ public class ProductWritingHelper {
     private static String title = "상품등록";
     private ActivityProductWritingBinding binding;
     private ProductWriting productWriting;
+    private ProductViewModel viewModel;
 
-    public ProductWritingHelper(ActivityProductWritingBinding binding, ProductWriting productWriting) {
+    public ProductWritingHelper(ProductViewModel viewModel, ActivityProductWritingBinding binding, ProductWriting productWriting) {
+        this.viewModel = viewModel;
         this.binding = binding;
         this.productWriting = productWriting;
     }
@@ -33,6 +35,13 @@ public class ProductWritingHelper {
     }
 
     public boolean isNotNullValue() {
+
+        if (viewModel.arrayList == null || viewModel.arrayList.size() <= 0) {
+            WarningDialogFragment warningDialogFragment = new WarningDialogFragment(title, "사진을 추가해주세요.");
+            warningDialogFragment.show(productWriting.getSupportFragmentManager(), "warningDialog");
+            return false;
+        }
+
         if (binding.productNameEtv.getText().toString().equals("")) {
             WarningDialogFragment warningDialogFragment = new WarningDialogFragment(title, "제목을 입력해주세요.");
             warningDialogFragment.show(productWriting.getSupportFragmentManager(), "warningDialog");

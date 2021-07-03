@@ -19,14 +19,14 @@ import com.example.village.screen.chating.Chating;
 import com.example.village.screen.home.HomeAdapter;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import static androidx.core.app.ActivityCompat.startActivityForResult;
-
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     private ChatViewModel viewModel;
     private Context mContext;
+    private Chat chat;
 
-    public ChatAdapter(Context mContext, ChatViewModel viewModel) {
+    public ChatAdapter(Chat chat, Context mContext, ChatViewModel viewModel) {
+        this.chat = chat;
         this.mContext = mContext;
         this.viewModel = viewModel;
     }
@@ -58,7 +58,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                         intent.putExtra("roomNumber", viewModel.ChatListArrayList.get(position).roomNumber);
                         intent.putExtra("sellerUid", String.valueOf(task.getResult().get("sellerUid")));
 /*                        mContext.startActivity(intent);*/
-                        startActivityForResult((Activity) holder.itemView.getContext(),intent,101,null);
+                        chat.startActivityForResult(intent, 101);
                     });
 
         });

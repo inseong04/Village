@@ -48,7 +48,6 @@ public class Post extends AppCompatActivity {
         uid = FirebaseAuth.getInstance().getUid();
         db = FirebaseFirestore.getInstance();
         viewModel = new ViewModelProvider(this).get(PostViewModel.class);
-        Log.e("test","a12");
         binding.descriptionTv.setMovementMethod(new ScrollingMovementMethod());
 
         db.collection("post")

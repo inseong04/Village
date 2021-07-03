@@ -65,7 +65,7 @@ public class Home extends Fragment {
             getPost();
 
         binding.swipeRefreshLayout.setOnRefreshListener(() -> {
-            viewModel.productArray.clear();
+            viewModel.productArray = new ArrayList<>();
             getPost();
             binding.swipeRefreshLayout.setRefreshing(false);
         });
