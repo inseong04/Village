@@ -49,7 +49,6 @@ public class Chating extends AppCompatActivity {
         Intent intent = getIntent();
         postNumber = intent.getStringExtra("postNumber");
         roomNumber = intent.getStringExtra("roomNumber");
-        Log.e("room55662655", roomNumber);
         sellerUid = intent.getStringExtra("sellerUid");
         viewModel.setPostNumber(postNumber);
         viewModel.setRoomNumber(roomNumber);
@@ -81,9 +80,11 @@ public class Chating extends AppCompatActivity {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                         if (value != null && value.exists()) {
-                            viewModel.addChatArrayList(receiveUid, value.getData().get(receiveUid).toString());
-                            binding.chatRecyclerView.getAdapter().notifyDataSetChanged();
-                            binding.chatRecyclerView.smoothScrollToPosition(viewModel.getChatArrayList().size()-1);
+                            if (!value.getData().get(uid).equals(value.getData().get("lastMessage").toString())) {
+                                viewModel.addChatArrayList(receiveUid, value.getData().get("lastMessage").toString());
+                                binding.chatRecyclerView.getAdapter().notifyDataSetChanged();
+                                binding.chatRecyclerView.smoothScrollToPosition(viewModel.getChatArrayList().size() - 1);
+                            }
                         }
                     }
                 });
@@ -128,7 +129,6 @@ public class Chating extends AppCompatActivity {
         SendAsyncTask sendAsyncTask = new SendAsyncTask(sellerUid, uid, roomNumber, map);
         sendAsyncTask.execute();
         binding.chatEtv.setText("");
-        Log.e("test","touch3");
         binding.chatRecyclerView.getAdapter().notifyDataSetChanged();
         binding.chatRecyclerView.smoothScrollToPosition(viewModel.getChatArrayList().size()-1);
     }
@@ -141,5 +141,16 @@ public class Chating extends AppCompatActivity {
             PostRentalDialogFragment postRentalDialogFragment = new PostRentalDialogFragment(this, binding.getTitle(), postNumber);
             postRentalDialogFragment.show(getSupportFragmentManager(), "postRentalDialog");
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    public void finish() {
+        super.finish();
+        setResult(RESULT_OK);
     }
 }

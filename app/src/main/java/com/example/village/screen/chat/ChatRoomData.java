@@ -1,9 +1,27 @@
 package com.example.village.screen.chat;
 
 public class ChatRoomData {
+    String roomNumber;
     String userName;
     String lastMessage;
     String date;
+    long lastMessageDate;
+
+    public ChatRoomData(String roomNumber, String userName, String lastMessage, String date, long lastMessageDate) {
+        this.roomNumber = roomNumber;
+        this.userName = userName;
+        this.lastMessage = lastMessage;
+        this.date = date;
+        this.lastMessageDate = lastMessageDate;
+    }
+
+    public String getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
+    }
 
     public String getUserName() {
         return userName;
@@ -29,9 +47,11 @@ public class ChatRoomData {
         this.date = date;
     }
 
-    public ChatRoomData(String userName, String lastMessage, String date) {
-        this.userName = userName;
-        this.lastMessage = lastMessage;
-        this.date = date;
+    public long getLastMessageDate() {
+        return lastMessageDate;
+    }
+
+    public void setLastMessageDate(long lastMessageDate) {
+        this.lastMessageDate = lastMessageDate;
     }
 }

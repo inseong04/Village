@@ -1,5 +1,6 @@
 package com.example.village.screen.chat;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -17,6 +18,8 @@ import com.example.village.R;
 import com.example.village.screen.chating.Chating;
 import com.example.village.screen.home.HomeAdapter;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import static androidx.core.app.ActivityCompat.startActivityForResult;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
@@ -46,16 +49,16 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         holder.chatRoomWholeLayout.setOnClickListener(v -> {
 
             FirebaseFirestore.getInstance().collection("chat")
-                    .document(viewModel.roomList.get(position))
+                    .document(viewModel.ChatListArrayList.get(position).roomNumber)
                     .get()
                     .addOnCompleteListener(task -> {
-                        String[] postNumber = viewModel.roomList.get(position).split("-");
+                        String[] postNumber = viewModel.ChatListArrayList.get(position).roomNumber.split("-");
                         Intent intent = new Intent(mContext, Chating.class);
                         intent.putExtra("postNumber", postNumber[0]);
-                        intent.putExtra("roomNumber", viewModel.roomList.get(position));
+                        intent.putExtra("roomNumber", viewModel.ChatListArrayList.get(position).roomNumber);
                         intent.putExtra("sellerUid", String.valueOf(task.getResult().get("sellerUid")));
-                        mContext.startActivity(intent);
-
+/*                        mContext.startActivity(intent);*/
+                        startActivityForResult((Activity) holder.itemView.getContext(),intent,101,null);
                     });
 
         });

@@ -10,6 +10,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class ChatRoomDataAsyncTask extends AsyncTask {
 
@@ -47,33 +49,33 @@ public class ChatRoomDataAsyncTask extends AsyncTask {
                     if(count <= 0) {
                         try {
                         count = roomList.size();
-                        viewModel.roomList = roomList;
-
                         } catch (NullPointerException e) {
                             return;
                         }
                     }
 
                     for (int i=0; i< count; i++) {
+                        int finalI = i;
                         db.collection("chat").document(roomList.get(i))
                                 .get()
                                 .addOnCompleteListener(chatTask -> {
                                     DocumentSnapshot documentSnapshot1 = chatTask.getResult();
                                     ArrayList<String> nameList = (ArrayList<String>) documentSnapshot1.get("userNameList");
-                                    ChatRoomData chatRoomData = new ChatRoomData("error", "error", "error");
+                                    ChatRoomData chatRoomData = new ChatRoomData("error-1","error", "error", "error",6351);
                                     for (int j=0; j<2; j++) {
                                         if (!myName.equals(nameList.get(j))) {
-                                            Log.e("test",roomList.get(0)+"::"+String.valueOf(documentSnapshot1.get("lastMessageTime")));
                                             chatRoomData = new ChatRoomData(
+                                                    roomList.get(finalI),
                                                     nameList.get(j),
                                                     String.valueOf(documentSnapshot1.get("lastMessage")),
-                                                    GetTime.getTime(Long.parseLong(String.valueOf(documentSnapshot1.get("lastMessageTime"))))
+                                                    GetTime.getTime(Long.parseLong(String.valueOf(documentSnapshot1.get("lastMessageTime")))),
+                                                    Long.parseLong(String.valueOf(documentSnapshot1.get("lastMessageTime")))
                                             );
                                             break;
                                         }
                                     }
                                     viewModel.ChatListArrayList.add(chatRoomData);
-                                    binding.recyclerView.getAdapter().notifyDataSetChanged();
+                                    publishProgress(null);
                                 });
                     }
 
@@ -81,5 +83,57 @@ public class ChatRoomDataAsyncTask extends AsyncTask {
 
         return null;
     }
+    @Override
+    protected void onProgressUpdate(Object[] values) {
+        super.onProgressUpdate(values);
+        // size 1 , 2 일때 처리해주어야함
 
+        if (viewModel.ChatListArrayList.size() == 2) {
+            if (viewModel.ChatListArrayList.get(0).lastMessageDate < viewModel.ChatListArrayList.get(1).lastMessageDate) {
+                ArrayList<ChatRoomData> tempArray = new ArrayList<>();
+                for (int i=1; i>=0; i--) {
+                    ChatRoomData chatRoomData = new ChatRoomData(
+                            viewModel.ChatListArrayList.get(i).roomNumber,
+                            viewModel.ChatListArrayList.get(i).userName,
+                            viewModel.ChatListArrayList.get(i).lastMessage,
+                            viewModel.ChatListArrayList.get(i).date,
+                            viewModel.ChatListArrayList.get(i).lastMessageDate);
+                    tempArray.add(chatRoomData);
+                }
+                viewModel.ChatListArrayList = tempArray;
+            }
+        }
+        else if (viewModel.ChatListArrayList.size() > 2) {
+            sortChatListArrayList();
+        }
+
+        binding.recyclerView.getAdapter().notifyDataSetChanged();
+    }
+
+
+    protected void sortChatListArrayList() {
+        Long dateArr[] = new Long[viewModel.ChatListArrayList.size()];
+        ArrayList<ChatRoomData> tempArray = new ArrayList<>();
+        for (int i=0; i< viewModel.ChatListArrayList.size(); i++) {
+            dateArr[i] = viewModel.ChatListArrayList.get(i).lastMessageDate;
+        }
+        Arrays.sort(dateArr, Collections.reverseOrder());
+        for (long i : dateArr) {
+        }
+        for (int i=0; i< viewModel.ChatListArrayList.size(); i++) {
+            for (int j=0; j < viewModel.ChatListArrayList.size(); j++) {
+               if (dateArr[i] == viewModel.ChatListArrayList.get(j).lastMessageDate) {
+                   ChatRoomData chatRoomData = new ChatRoomData(
+                           viewModel.ChatListArrayList.get(j).roomNumber,
+                           viewModel.ChatListArrayList.get(j).userName,
+                           viewModel.ChatListArrayList.get(j).lastMessage,
+                           viewModel.ChatListArrayList.get(j).date,
+                           viewModel.ChatListArrayList.get(j).lastMessageDate);
+                   tempArray.add(chatRoomData);
+                   break;
+               }
+            }
+        }
+        viewModel.ChatListArrayList = tempArray;
+    }
 }
