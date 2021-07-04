@@ -57,6 +57,12 @@ public class Chating extends AppCompatActivity {
         binding.setActivity(this);
         binding.setViewModel(viewModel);
 
+        FirebaseFirestore.getInstance().collection("post").document(postNumber)
+                .get()
+                .addOnCompleteListener(task -> {
+                   viewModel.setRental((Boolean) task.getResult().get("rental"));
+                });
+
         if (uid.equals(sellerUid)) {
             binding.rentalBtn.setVisibility(View.GONE);
             FirebaseFirestore.getInstance().collection("chat").document(roomNumber)
@@ -119,6 +125,10 @@ public class Chating extends AppCompatActivity {
 
     private void sendMessage() {
 
+        if(viewModel.getChatArrayList().size() > 0 && binding.emptyText.getVisibility() == View.VISIBLE) {
+            binding.emptyText.setVisibility(View.INVISIBLE);
+        }
+
         long lastMessageTime = System.currentTimeMillis();
         String text = binding.chatEtv.getText().toString();
         viewModel.addChatArrayList(viewModel.getUid(), text);
@@ -151,7 +161,6 @@ public class Chating extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         setResult(RESULT_OK);
-        Log.e("vcdszgd","jtedhrsgedafsgrthykjrewr");
         finish();
     }
 }

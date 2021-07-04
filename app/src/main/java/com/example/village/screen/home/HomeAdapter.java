@@ -61,7 +61,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                 .into(holder.homeImageIv);
         holder.wholeLayout.setOnClickListener(v -> {
             Intent intent = new Intent(context, Post.class);
-            Log.e("select", "selected position : " + String.valueOf(position + 1) + "real position" + viewModel.getProductArray().get(position).postNum);
             intent.putExtra("postNumber", viewModel.getProductArray().get(position).postNum);
             context.startActivity(intent);
         });

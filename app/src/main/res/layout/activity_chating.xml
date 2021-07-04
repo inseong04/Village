@@ -142,6 +142,21 @@
             />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/emptyText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="지금 당장 필요한데 구매하기엔 애매한 물건\n동네 주민들에게 빌리세요!"
+            android:fontFamily="@font/ns_r"
+            android:textSize="16sp"
+            android:lineSpacingExtra="4sp"
+            android:textColor="#d4dbff"
+            android:gravity="center"
+            android:visibility="invisible"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/chatLayout2"
             android:layout_width="match_parent"

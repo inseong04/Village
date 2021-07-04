@@ -61,7 +61,6 @@ public class Login extends AppCompatActivity {
                                     finish();
                                 } else {
                                     errorAlarm("존재하지 않는 아이디이거나, 잘못된 비밀번호입니다.");
-                                    Log.e("firebase", "signInWithEmail:failure", task.getException());
                                 }
                             }
                         });
@@ -80,7 +79,6 @@ public class Login extends AppCompatActivity {
     }
 
     private void insertDB(LoginDatabase db, String id, String password) {
-        Log.w("Login::Room", "insertDB");
         db.LoginDataDao().insertLogin(new LoginData(id, password));
     }
 

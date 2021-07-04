@@ -59,8 +59,6 @@ public class Home extends Fragment {
         binding.homeRecyclerview.setLayoutManager(linearLayoutManager);
         adapter = new HomeAdapter(mContext);
         binding.homeRecyclerview.setAdapter(adapter);
-
-        Log.e("test","a123a");
         if (viewModel.getProductArray().size() <= 0)
             getPost();
 

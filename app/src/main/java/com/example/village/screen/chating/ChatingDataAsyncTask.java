@@ -2,6 +2,7 @@ package com.example.village.screen.chating;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 
 import com.example.village.databinding.ActivityChatingBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,6 +44,7 @@ public class ChatingDataAsyncTask extends AsyncTask {
                     try {
                         viewModel.setChatSum(Integer.parseInt(String.valueOf(documentSnapshot.get("chatSum"))));
                     } catch (NumberFormatException e) {
+                        binding.emptyText.setVisibility(View.VISIBLE);
                         viewModel.setChatSum(0);
                     }
 
@@ -55,7 +57,6 @@ public class ChatingDataAsyncTask extends AsyncTask {
                             binding.chatRecyclerView.scrollToPosition(viewModel.getChatArrayList().size()-1);
                         }
                     } else {
-                        // TODO 여기에 chatSum이  0 일때 처리해주어야함.
                         Thread thread = new Thread(
                                 () -> {
 
@@ -63,7 +64,6 @@ public class ChatingDataAsyncTask extends AsyncTask {
                                     uidList.add(sellerUid);
                                     uidList.add(FirebaseAuth.getInstance().getUid());
 
-                                    Log.e("uid", uidList.get(0));
 
                                     ArrayList<String> userNameArray = new ArrayList<>();
                                     for (int i = 0; i <2; i++) {
@@ -75,8 +75,6 @@ public class ChatingDataAsyncTask extends AsyncTask {
                                                     DocumentSnapshot documentSnapshot1 = usersTask.getResult();
                                                     userNameArray.add(String.valueOf(documentSnapshot1.get("name")));
                                                     if (userNameArray.size() == 2) {
-                                                        Log.e("v","b");
-                                                        Log.e("zxcv",userNameArray.get(0));
                                                         Map<String, Object> map = new HashMap<>();
                                                         map.put("userNameList", userNameArray);
                                                         map.put("uidList", uidList);

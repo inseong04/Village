@@ -53,6 +53,7 @@ public class ProductWriting extends AppCompatActivity {
     String name;
     String location;
     SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd a hh:mm:ss.SS");
+
    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

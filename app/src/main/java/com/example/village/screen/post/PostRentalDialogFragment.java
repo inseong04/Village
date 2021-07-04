@@ -94,7 +94,6 @@ public class PostRentalDialogFragment extends DialogFragment {
                                     WarningDialogFragment warningDialogFragment = new WarningDialogFragment("대여하기", "대여가 완료되었습니다.");
                                     warningDialogFragment.show(chating.getSupportFragmentManager(), "dialogFragment");
                                 });
-
                     });
         });
 

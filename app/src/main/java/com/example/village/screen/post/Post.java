@@ -151,7 +151,6 @@ public class Post extends AppCompatActivity {
 
                             if (!roomExistence.get()) {
                                 String room = postNumber + "-" + roomNumber;
-                                Log.e("zz", "zz");
                                 Intent intent = new Intent(getApplicationContext(), Chating.class);
                                 intent.putExtra("sellerUid", sellerUid);
                                 intent.putExtra("postNumber", postNumber);

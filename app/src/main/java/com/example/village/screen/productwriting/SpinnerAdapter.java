@@ -36,7 +36,6 @@ public class SpinnerAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null)
             convertView = layoutInflater.inflate(R.layout.spinner_view1, parent, false);
-        Log.e("version", "version 1");
         if (data != null) {
             String text = data.get(position);
             ((TextView) convertView.findViewById(R.id.spinnerText)).setText(text);
@@ -50,7 +49,6 @@ public class SpinnerAdapter extends BaseAdapter {
 
         if (convertView == null)
             convertView = layoutInflater.inflate(R.layout.spinner_view2, parent, false);
-        Log.e("asdf", "asdf");
         if (position == 0)
             ((LinearLayout) convertView.findViewById(R.id.view2LinearLayout)).setBackground(ContextCompat.getDrawable(mContext, R.drawable.spinner_dropdown_start));
         else if (position == data.size() - 1)

@@ -34,11 +34,8 @@ public class SendAsyncTask extends AsyncTask {
                 .addOnCompleteListener(task -> {
                     ArrayList<String> arrayList;
                     try {
-                        Log.e("z","not null");
-
                         arrayList = (ArrayList<String>) task.getResult().get("roomList");
                     } catch (Exception e) {
-                        Log.e("z", "null");
                         arrayList = new ArrayList<>();
                     }
 
