@@ -15,6 +15,8 @@ import com.example.village.databinding.FragmentPostRentalDialogBinding;
 import com.example.village.screen.chating.Chating;
 import com.example.village.util.SendNotification;
 import com.example.village.util.WarningDialogFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -54,9 +56,28 @@ public class PostRentalDialogFragment extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         binding.btn1.setOnClickListener(v -> {
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            final FirebaseFirestore db = FirebaseFirestore.getInstance();
             Map<String, Object> map = new HashMap<>();
             map.put("rental", true);
+
+            Thread thread = new Thread(
+                    () -> {
+                        db.collection("users").document(FirebaseAuth.getInstance().getUid())
+                                .get()
+                                .addOnCompleteListener(usersGetTask -> {
+                                    final DocumentSnapshot documentSnapshot = usersGetTask.getResult();
+                                    String rentalProduct;
+                                    if (documentSnapshot.get("rentalProduct") != null ) {
+                                        rentalProduct = ((String) documentSnapshot.get("rentalProduct"))+"-"+postNumber;
+                                    } else {
+                                        rentalProduct = postNumber;
+                                    }
+
+                                    db.collection("users").document(FirebaseAuth.getInstance().getUid())
+                                            .update("rentalProduct", rentalProduct);
+                                });
+                    });
+            thread.start();
 
             db.collection("post")
                     .document(postNumber)

@@ -54,7 +54,7 @@ public class SearchResult extends AppCompatActivity {
                 .get()
                 .addOnCompleteListener(task -> {
                     DocumentSnapshot documentSnapshot = task.getResult();
-                    for (int i = 1; i < postNumber; i++) {
+                    for (int i = 1; i <= postNumber; i++) {
                         String title = String.valueOf(documentSnapshot.get("post-" + i));
                         if (title.contains(searchWord)) {
                             viewModel.matchingPostNum.add(i);

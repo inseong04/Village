@@ -208,7 +208,6 @@ public class ProductWriting extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                    // issue : post - information에 post-2 : 제목이 들어가야함. 테스트 필요
                     }
                 });
 
@@ -226,7 +225,7 @@ public class ProductWriting extends AppCompatActivity {
                                 writtenPost[0] = String.valueOf(postNumber);
 
                             } else {
-                                writtenPost[0] = (String) documentSnapshot.get("writtenPost") + "-" + String.valueOf(postNumber);
+                                writtenPost[0] = (String) documentSnapshot.get("writtenPost") + "-" + postNumber;
                             }
 
                             db.collection("users") // 사용자가 쓴 게시물 번호 저장

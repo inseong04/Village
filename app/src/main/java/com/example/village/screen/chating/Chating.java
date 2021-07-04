@@ -58,6 +58,7 @@ public class Chating extends AppCompatActivity {
         binding.setViewModel(viewModel);
 
         if (uid.equals(sellerUid)) {
+            binding.rentalBtn.setVisibility(View.GONE);
             FirebaseFirestore.getInstance().collection("chat").document(roomNumber)
                     .get()
                     .addOnCompleteListener(task -> {

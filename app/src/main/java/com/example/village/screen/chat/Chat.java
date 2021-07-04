@@ -65,10 +65,7 @@ public class Chat extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Log.e("gagew", String.valueOf(requestCode)+",,"+String.valueOf(resultCode));
-
         if (requestCode == 101 && resultCode == RESULT_CANCELED) {
-                Log.e("v","etgwsd");
                 viewModel.ChatListArrayList = new ArrayList<>();
                 ChatRoomDataAsyncTask chatRoomDataAsyncTask = new ChatRoomDataAsyncTask(binding, viewModel);
                 chatRoomDataAsyncTask.execute();
