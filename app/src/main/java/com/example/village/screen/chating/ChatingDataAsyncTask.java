@@ -44,7 +44,6 @@ public class ChatingDataAsyncTask extends AsyncTask {
                     try {
                         viewModel.setChatSum(Integer.parseInt(String.valueOf(documentSnapshot.get("chatSum"))));
                     } catch (NumberFormatException e) {
-                        binding.emptyText.setVisibility(View.VISIBLE);
                         viewModel.setChatSum(0);
                     }
 

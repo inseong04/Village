@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Log.e("te","tes");
         Context mContext = getApplicationContext();
         int networkStatus = NetworkStatus.getConnectivityStatus(mContext);
         Fragment Chat = new Chat();

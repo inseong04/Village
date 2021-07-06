@@ -11,7 +11,9 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.example.village.R;
 import com.example.village.databinding.ActivityChatingBinding;
@@ -68,6 +70,7 @@ public class Chating extends AppCompatActivity {
             FirebaseFirestore.getInstance().collection("chat").document(roomNumber)
                     .get()
                     .addOnCompleteListener(task -> {
+
                         ArrayList<String> arrayList = (ArrayList<String>) task.getResult().get("uidList");
                         if (uid.equals(arrayList.get(0))) {
                             receiveUid = arrayList.get(1);
@@ -125,36 +128,39 @@ public class Chating extends AppCompatActivity {
 
     private void sendMessage() {
 
-        if(viewModel.getChatArrayList().size() > 0 && binding.emptyText.getVisibility() == View.VISIBLE) {
-            binding.emptyText.setVisibility(View.INVISIBLE);
-        }
+        if (!binding.chatEtv.getText().toString().equals("")) {
 
-        long lastMessageTime = System.currentTimeMillis();
-        String text = binding.chatEtv.getText().toString();
-        viewModel.addChatArrayList(viewModel.getUid(), text);
-        viewModel.setChatSum(viewModel.getChatSum()+1);
-        Map<String, Object> map = new HashMap<>();
-        map.put("lastMessageTime", lastMessageTime);
-        map.put(uid, text);
-        map.put("lastMessage", text);
-        map.put("chat-"+viewModel.getChatSum(), text);
-        map.put("chat-uid-"+viewModel.getChatSum(), uid);
-        map.put("chatSum",viewModel.getChatSum());
-        SendAsyncTask sendAsyncTask = new SendAsyncTask(sellerUid, uid, roomNumber, map);
-        sendAsyncTask.execute();
-        binding.chatEtv.setText("");
-        binding.chatRecyclerView.getAdapter().notifyDataSetChanged();
-        binding.chatRecyclerView.smoothScrollToPosition(viewModel.getChatArrayList().size()-1);
+            long lastMessageTime = System.currentTimeMillis();
+            String text = binding.chatEtv.getText().toString();
+            viewModel.addChatArrayList(viewModel.getUid(), text);
+            viewModel.setChatSum(viewModel.getChatSum() + 1);
+            Map<String, Object> map = new HashMap<>();
+            map.put("lastMessageTime", lastMessageTime);
+            map.put(uid, text);
+            map.put("lastMessage", text);
+            map.put("chat-" + viewModel.getChatSum(), text);
+            map.put("chat-uid-" + viewModel.getChatSum(), uid);
+            map.put("chatSum", viewModel.getChatSum());
+            SendAsyncTask sendAsyncTask = new SendAsyncTask(sellerUid, uid, roomNumber, map);
+            sendAsyncTask.execute();
+            binding.chatEtv.setText("");
+            binding.chatRecyclerView.getAdapter().notifyDataSetChanged();
+            binding.chatRecyclerView.smoothScrollToPosition(viewModel.getChatArrayList().size() - 1);
+        }
     }
 
     public void callDialog(View view) {
+
         if (viewModel.getRental()) {
             WarningDialogFragment warningDialogFragment = new WarningDialogFragment("대여하기", "이미 대여중인 상품입니다.");
             warningDialogFragment.show(getSupportFragmentManager(), "dialogFragment");
         } else {
-            PostRentalDialogFragment postRentalDialogFragment = new PostRentalDialogFragment(this, binding.getTitle(), postNumber);
-            postRentalDialogFragment.show(getSupportFragmentManager(), "postRentalDialog");
+            ChatWarningDialog chatWarningDialog = new ChatWarningDialog(Chating.this, getSupportFragmentManager(), this,
+                    binding.getTitle(), postNumber, getResources().getDisplayMetrics());
+            chatWarningDialog.getWindow().setGravity(Gravity.CENTER);
+            chatWarningDialog.show();
         }
+
     }
 
     @Override
