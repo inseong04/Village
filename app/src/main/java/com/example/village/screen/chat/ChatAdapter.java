@@ -45,6 +45,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         holder.chatItemTv1.setText(viewModel.ChatListArrayList.get(position).userName);
         holder.chatDateTv.setText(viewModel.ChatListArrayList.get(position).date);
         holder.chatItemTv2.setText(viewModel.ChatListArrayList.get(position).lastMessage);
+        if (viewModel.ChatListArrayList.get(position).unreadCount > 0) {
+            holder.unreadCountTv.setVisibility(View.VISIBLE);
+            holder.unreadCountTv.setText(String.valueOf(viewModel.ChatListArrayList.get(position).unreadCount));
+        }
+        if (viewModel.ChatListArrayList.get(position).unreadCount <= 0) {
+            holder.unreadCountTv.setVisibility(View.GONE);
+        }
 
         holder.chatRoomWholeLayout.setOnClickListener(v -> {
 
@@ -74,12 +81,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         TextView chatItemTv1;
         TextView chatDateTv;
         TextView chatItemTv2;
+        TextView unreadCountTv;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             chatRoomWholeLayout = itemView.findViewById(R.id.chatRoomWholeLayout);
             chatItemTv1 = itemView.findViewById(R.id.chatItemTv1);
             chatDateTv = itemView.findViewById(R.id.chatDateTv);
             chatItemTv2 = itemView.findViewById(R.id.chatItemTv2);
+            unreadCountTv = itemView.findViewById(R.id.unreadCountTv);
         }
     }
 }

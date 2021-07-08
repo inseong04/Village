@@ -130,7 +130,6 @@ public class Post extends AppCompatActivity {
                                 }
                             } catch (NullPointerException e) {
                                 String room = postNumber + "-" + roomNumber;
-                                Log.e("zz", "zz");
                                 Intent intent = new Intent(getApplicationContext(), Chating.class);
                                 intent.putExtra("sellerUid", sellerUid);
                                 intent.putExtra("postNumber", postNumber);

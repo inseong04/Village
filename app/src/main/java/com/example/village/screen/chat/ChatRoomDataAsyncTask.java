@@ -61,7 +61,7 @@ public class ChatRoomDataAsyncTask extends AsyncTask {
                                 .addOnCompleteListener(chatTask -> {
                                     DocumentSnapshot documentSnapshot1 = chatTask.getResult();
                                     ArrayList<String> nameList = (ArrayList<String>) documentSnapshot1.get("userNameList");
-                                    ChatRoomData chatRoomData = new ChatRoomData("error-1","error", "error", "error",6351);
+                                    ChatRoomData chatRoomData = new ChatRoomData("error-1","error", "error", "error",6351, 1);
                                     for (int j=0; j<2; j++) {
                                         if (!myName.equals(nameList.get(j))) {
                                             chatRoomData = new ChatRoomData(
@@ -69,8 +69,9 @@ public class ChatRoomDataAsyncTask extends AsyncTask {
                                                     nameList.get(j),
                                                     String.valueOf(documentSnapshot1.get("lastMessage")),
                                                     GetTime.getTime(Long.parseLong(String.valueOf(documentSnapshot1.get("lastMessageTime")))),
-                                                    Long.parseLong(String.valueOf(documentSnapshot1.get("lastMessageTime")))
-                                            );
+                                                    Long.parseLong(String.valueOf(documentSnapshot1.get("lastMessageTime"))),
+                                                    Integer.parseInt(String.valueOf(documentSnapshot1.get("chatSum")))-Integer.parseInt(String.valueOf(documentSnapshot1.get(uid+"-chatCount")))
+                                                    );
                                             break;
                                         }
                                     }
@@ -86,7 +87,6 @@ public class ChatRoomDataAsyncTask extends AsyncTask {
     @Override
     protected void onProgressUpdate(Object[] values) {
         super.onProgressUpdate(values);
-        // size 1 , 2 일때 처리해주어야함
 
         if (viewModel.ChatListArrayList.size() == 2) {
             if (viewModel.ChatListArrayList.get(0).lastMessageDate < viewModel.ChatListArrayList.get(1).lastMessageDate) {
@@ -97,7 +97,8 @@ public class ChatRoomDataAsyncTask extends AsyncTask {
                             viewModel.ChatListArrayList.get(i).userName,
                             viewModel.ChatListArrayList.get(i).lastMessage,
                             viewModel.ChatListArrayList.get(i).date,
-                            viewModel.ChatListArrayList.get(i).lastMessageDate);
+                            viewModel.ChatListArrayList.get(i).lastMessageDate,
+                            viewModel.ChatListArrayList.get(i).unreadCount);
                     tempArray.add(chatRoomData);
                 }
                 viewModel.ChatListArrayList = tempArray;
@@ -128,7 +129,9 @@ public class ChatRoomDataAsyncTask extends AsyncTask {
                            viewModel.ChatListArrayList.get(j).userName,
                            viewModel.ChatListArrayList.get(j).lastMessage,
                            viewModel.ChatListArrayList.get(j).date,
-                           viewModel.ChatListArrayList.get(j).lastMessageDate);
+                           viewModel.ChatListArrayList.get(j).lastMessageDate,
+                           viewModel.ChatListArrayList.get(j).unreadCount
+                   );
                    tempArray.add(chatRoomData);
                    break;
                }

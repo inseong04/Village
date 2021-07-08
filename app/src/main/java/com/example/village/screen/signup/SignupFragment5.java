@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -68,7 +69,7 @@ public class SignupFragment5 extends Fragment {
                                             .commit();
                                 }
                                 else {
-                                    WarningDialogFragment warningDialogFragment = new WarningDialogFragment("회원가입", "회원가입 중 오류가 발생했습니다 \n 앱을 종료합니다.");
+                                    WarningDialogFragment warningDialogFragment = new WarningDialogFragment("회원가입", "회원가입 중 오류가 발생했습니다");
                                     warningDialogFragment.show(getActivity().getSupportFragmentManager(), "dialogFragment");
                                 }
                             });
@@ -86,6 +87,10 @@ public class SignupFragment5 extends Fragment {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
 
+        Thread thread = new Thread(
+                () -> {
+
+
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(task -> {
                     String token = task.getResult().getToken();
@@ -99,5 +104,33 @@ public class SignupFragment5 extends Fragment {
                             .document(uid)
                             .set(map);
                 });
+
+                });
+        thread.start();
+        Thread thread1 = new Thread(
+                () -> {
+                    FirebaseFirestore.getInstance().collection("users")
+                            .document("Storage")
+                            .get()
+                            .addOnCompleteListener(task -> {
+                                ArrayList<String> emailList = (ArrayList<String>) task.getResult().get("emailList");
+                                ArrayList<String> phoneList = (ArrayList<String>) task.getResult().get("phoneList");
+                                ArrayList<String> nameList = (ArrayList<String>) task.getResult().get("nameList");
+
+                                if (emailList != null && phoneList != null && nameList != null) {
+                                    emailList.add(viewModel.getEmail().getValue());
+                                    phoneList.add(viewModel.getPhoneNumber().getValue());
+                                    nameList.add(viewModel.getName().getValue());
+                                }
+                                Map<String, Object> map = new HashMap<>();
+                                map.put("emailList", emailList);
+                                map.put("phoneList", phoneList);
+                                map.put("nameList", nameList);
+                                FirebaseFirestore.getInstance().collection("users")
+                                        .document("Storage")
+                                        .update(map);
+                            });
+                });
+        thread1.start();
     }
 }

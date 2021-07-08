@@ -89,11 +89,23 @@ public class Chating extends AppCompatActivity {
                         public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
                             try {
+                                Thread thread = new Thread(
+                                        () -> {
+                                            Map<String, Object> map = new HashMap<>();
+                                            map.put(uid+"-chatCount", value.get("chatSum"));
+                                            FirebaseFirestore.getInstance().collection("chat")
+                                                    .document(roomNumber)
+                                                    .update(map);
+                                        });
+                                thread.start();
                             if (value != null && value.exists()) {
                                 if (!value.getData().get(uid).equals(value.getData().get("lastMessage").toString())) {
                                     viewModel.addChatArrayList(receiveUid, value.getData().get("lastMessage").toString());
                                     binding.chatRecyclerView.getAdapter().notifyDataSetChanged();
                                     binding.chatRecyclerView.smoothScrollToPosition(viewModel.getChatArrayList().size() - 1);
+
+
+
                                 }
                             }
                             } catch (Exception e) {
@@ -146,7 +158,17 @@ public class Chating extends AppCompatActivity {
             binding.chatEtv.setText("");
             binding.chatRecyclerView.getAdapter().notifyDataSetChanged();
             binding.chatRecyclerView.smoothScrollToPosition(viewModel.getChatArrayList().size() - 1);
+            Thread thread = new Thread(
+                    () -> {
+                        Map<String, Object> map2 = new HashMap<>();
+                        map.put(uid+"-chatCount", viewModel.getChatSum());
+                        FirebaseFirestore.getInstance().collection("chat")
+                                .document(roomNumber)
+                                .update(map2);
+                    });
+            thread.start();
         }
+
     }
 
     public void callDialog(View view) {
@@ -169,4 +191,12 @@ public class Chating extends AppCompatActivity {
         setResult(RESULT_OK);
         finish();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
+
+
 }
