@@ -43,12 +43,14 @@ public class Chating extends AppCompatActivity {
     private String uid;
     private String sellerUid;
     private String receiveUid;
+    private String receiverName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_chating);
         viewModel = new ViewModelProvider(this).get(ChatingViewModel.class);
         Intent intent = getIntent();
+        receiverName = intent.getStringExtra("receiverName");
         postNumber = intent.getStringExtra("postNumber");
         roomNumber = intent.getStringExtra("roomNumber");
         sellerUid = intent.getStringExtra("sellerUid");
@@ -58,6 +60,8 @@ public class Chating extends AppCompatActivity {
 
         binding.setActivity(this);
         binding.setViewModel(viewModel);
+
+        Log.e("test","test3456");
 
         FirebaseFirestore.getInstance().collection("post").document(postNumber)
                 .get()
@@ -87,7 +91,6 @@ public class Chating extends AppCompatActivity {
                     .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                         @Override
                         public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-
                             try {
                                 Thread thread = new Thread(
                                         () -> {
@@ -99,12 +102,12 @@ public class Chating extends AppCompatActivity {
                                         });
                                 thread.start();
                             if (value != null && value.exists()) {
-                                if (!value.getData().get(uid).equals(value.getData().get("lastMessage").toString())) {
+                                if (!value.getData().get(uid).equals(value.getData().get("lastMessage").toString())
+                                && viewModel.getChatArrayList().size() > 0 && !viewModel.getChatArrayList().get(viewModel.getChatArrayList().size()-1).content.equals(value.getData().get("lastMessage").toString())) {
+                                    Log.e("test","vd");
                                     viewModel.addChatArrayList(receiveUid, value.getData().get("lastMessage").toString());
                                     binding.chatRecyclerView.getAdapter().notifyDataSetChanged();
                                     binding.chatRecyclerView.smoothScrollToPosition(viewModel.getChatArrayList().size() - 1);
-
-
 
                                 }
                             }
@@ -118,7 +121,7 @@ public class Chating extends AppCompatActivity {
         binding.chatRecyclerView.setLayoutManager(linearLayoutManager);
         binding.chatRecyclerView.setAdapter(new ChatingAdapter(viewModel));
 
-        ChatingPostAsyncTask chatingPostAsyncTask = new ChatingPostAsyncTask(this, binding, postNumber);
+        ChatingPostAsyncTask chatingPostAsyncTask = new ChatingPostAsyncTask(this, binding, postNumber, receiverName);
         ChatingDataAsyncTask chatingDataAsyncTask = new ChatingDataAsyncTask(sellerUid, binding, viewModel, roomNumber);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             chatingPostAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

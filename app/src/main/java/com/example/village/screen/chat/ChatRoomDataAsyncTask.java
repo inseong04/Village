@@ -64,14 +64,19 @@ public class ChatRoomDataAsyncTask extends AsyncTask {
                                     ChatRoomData chatRoomData = new ChatRoomData("error-1","error", "error", "error",6351, 1);
                                     for (int j=0; j<2; j++) {
                                         if (!myName.equals(nameList.get(j))) {
+                                            int chatSum;
+                                            try {
+                                                chatSum = Integer.parseInt(String.valueOf(documentSnapshot1.get("chatSum"))) - Integer.parseInt(String.valueOf(documentSnapshot1.get(uid + "-chatCount")));
+                                            } catch (NumberFormatException e) {
+                                                chatSum = Integer.parseInt(String.valueOf(documentSnapshot1.get("chatSum")));
+                                            }
                                             chatRoomData = new ChatRoomData(
                                                     roomList.get(finalI),
                                                     nameList.get(j),
                                                     String.valueOf(documentSnapshot1.get("lastMessage")),
                                                     GetTime.getTime(Long.parseLong(String.valueOf(documentSnapshot1.get("lastMessageTime")))),
                                                     Long.parseLong(String.valueOf(documentSnapshot1.get("lastMessageTime"))),
-                                                    Integer.parseInt(String.valueOf(documentSnapshot1.get("chatSum")))-Integer.parseInt(String.valueOf(documentSnapshot1.get(uid+"-chatCount")))
-                                                    );
+                                                    chatSum);
                                             break;
                                         }
                                     }

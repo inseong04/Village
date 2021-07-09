@@ -89,6 +89,9 @@ public class SendAsyncTask extends AsyncTask {
                                                 .addOnCompleteListener(sellerTask -> {
                                                     DocumentSnapshot documentSnapshot = sellerTask.getResult();
                                                     ArrayList<String> sellerRoomList = (ArrayList<String>) documentSnapshot.get("roomList");
+                                                    if (sellerRoomList == null) {
+                                                        sellerRoomList = new ArrayList<>();
+                                                    }
                                                     sellerRoomList.add(roomNumber);
                                                     Map<String, Object> map3 = new HashMap<>();
                                                     map3.put("roomList", sellerRoomList);

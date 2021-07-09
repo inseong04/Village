@@ -8,10 +8,11 @@
     android:paddingBottom="10sp"
     >
 
-    <View
-        android:id="@+id/chatIvSpace"
+    <ImageView
+        android:id="@+id/chatIv"
         android:layout_width="40sp"
         android:layout_height="40sp"
+        android:src="@drawable/profile_icon"
         app:layout_constraintTop_toTopOf="@id/receiveTextTv"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/receiveTextTv"
@@ -29,7 +30,7 @@
         android:background="@drawable/receive_background"
         android:padding="18sp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/chatIvSpace"
+        app:layout_constraintLeft_toRightOf="@id/chatIv"
         android:layout_marginLeft="10sp"
 
         />

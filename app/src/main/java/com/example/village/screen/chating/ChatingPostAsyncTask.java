@@ -5,10 +5,13 @@ import android.os.AsyncTask;
 
 import com.bumptech.glide.Glide;
 import com.example.village.databinding.ActivityChatingBinding;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
 
 public class ChatingPostAsyncTask extends AsyncTask {
 
@@ -16,12 +19,14 @@ public class ChatingPostAsyncTask extends AsyncTask {
     private FirebaseFirestore db;
     private StorageReference storageReference;
     private String postNumber;
+    private String receiverName;
     private Activity parentActivity;
 
-    public ChatingPostAsyncTask(Activity activity, ActivityChatingBinding binding, String postNumber) {
+    public ChatingPostAsyncTask(Activity activity, ActivityChatingBinding binding, String postNumber, String receiverName) {
         parentActivity = activity;
         this.binding = binding;
         this.postNumber = postNumber;
+        this.receiverName = receiverName;
     }
 
     @Override
@@ -40,7 +45,12 @@ public class ChatingPostAsyncTask extends AsyncTask {
                 .addOnCompleteListener(task -> {
                    if(task.isSuccessful()) {
                        DocumentSnapshot documentSnapshot = task.getResult();
-                       String name = String.valueOf(documentSnapshot.get("name"));
+                       String name;
+                       if (receiverName == null) {
+                            name = String.valueOf(documentSnapshot.get("name"));
+                       } else {
+                            name = receiverName;
+                       }
                        String title = String.valueOf(documentSnapshot.get("productName"));
                        String price = String.valueOf(documentSnapshot.get("price"));
                        binding.setName(name);
@@ -49,12 +59,18 @@ public class ChatingPostAsyncTask extends AsyncTask {
                    }
                 });
 
-        storageReference.child("postImg/" + "img" + "-" + postNumber + "-" + 0).getDownloadUrl()
-                .addOnSuccessListener(uri -> {
-                    Glide.with(parentActivity)
-                            .load(uri)
-                            .into(binding.productIv);
+        Thread thread2 = new Thread(
+                () -> {
+                    storageReference.child("postImg/" + "img" + "-" + postNumber + "-" + 0).getDownloadUrl()
+                            .addOnSuccessListener(uri -> {
+                                Glide.with(parentActivity)
+                                        .load(uri)
+                                        .into(binding.productIv);
+                            });
                 });
+        thread2.start();
+
+
 
         return null;
     }

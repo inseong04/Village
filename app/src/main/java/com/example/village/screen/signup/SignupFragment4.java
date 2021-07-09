@@ -24,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -32,6 +33,7 @@ public class SignupFragment4 extends Fragment {
 
     FragmentSignup4Binding binding;
     SignupViewModel viewModel;
+    ArrayList<String> emailList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,15 +44,33 @@ public class SignupFragment4 extends Fragment {
         viewModel = new ViewModelProvider(getActivity()).get(SignupViewModel.class);
         binding.setViewModel(viewModel);
 
+        Thread thread = new Thread(
+                () -> {
+                    FirebaseFirestore.getInstance().collection("users")
+                            .document("Storage")
+                            .get()
+                            .addOnCompleteListener(task -> {
+                                emailList = (ArrayList<String>) task.getResult().get("emailList");
+                            });
+                });
+        thread.start();
+
         viewModel.getEmail().observe(getActivity(), text -> {
             if (Patterns.EMAIL_ADDRESS.matcher(text).matches()) {
-                binding.alarm3.setImageResource(R.drawable.ic_signup_active);
-                binding.btnIdNext.setEnabled(true);
-                binding.btnIdNext.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.btn_active));;
+                    for (int i=0; i< emailList.size(); i++) {
+                        if (text.equals(emailList.get(i))) {
+                            setInActive();
+                            binding.alarm7.setVisibility(View.VISIBLE);
+                            break;
+                        }
+                        if (!text.equals(emailList.get(i))) {
+                            if (binding.alarm7.getVisibility() == View.VISIBLE)
+                                binding.alarm7.setVisibility(View.INVISIBLE);
+                            setActive();
+                        }
+                    }
             } else {
-                binding.btnIdNext.setEnabled(false);
-                binding.alarm3.setImageResource(R.drawable.ic_signup_inactivation);
-                binding.btnIdNext.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.btn_in_active));
+                setInActive();
             }
         });
 
@@ -61,6 +81,18 @@ public class SignupFragment4 extends Fragment {
         });
 
         return binding.getRoot();
+    }
+
+    private void setActive () {
+        binding.alarm3.setImageResource(R.drawable.ic_signup_active);
+        binding.btnIdNext.setEnabled(true);
+        binding.btnIdNext.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.btn_active));;
+    }
+
+    private void setInActive () {
+        binding.btnIdNext.setEnabled(false);
+        binding.alarm3.setImageResource(R.drawable.ic_signup_inactivation);
+        binding.btnIdNext.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.btn_in_active));
     }
 
 }

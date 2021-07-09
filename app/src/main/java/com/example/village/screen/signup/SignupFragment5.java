@@ -119,7 +119,7 @@ public class SignupFragment5 extends Fragment {
 
                                 if (emailList != null && phoneList != null && nameList != null) {
                                     emailList.add(viewModel.getEmail().getValue());
-                                    phoneList.add(viewModel.getPhoneNumber().getValue());
+                                    phoneList.add(viewModel.getPhoneNumber().getValue().replace("-",""));
                                     nameList.add(viewModel.getName().getValue());
                                 }
                                 Map<String, Object> map = new HashMap<>();

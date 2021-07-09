@@ -64,6 +64,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                         intent.putExtra("postNumber", postNumber[0]);
                         intent.putExtra("roomNumber", viewModel.ChatListArrayList.get(position).roomNumber);
                         intent.putExtra("sellerUid", String.valueOf(task.getResult().get("sellerUid")));
+                        intent.putExtra("receiverName", viewModel.ChatListArrayList.get(position).userName);
                         chat.startActivityForResult(intent, 101);
                     });
 
