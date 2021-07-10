@@ -135,6 +135,25 @@
                 android:layout_marginBottom="10sp"
                 />
 
+            <Button
+                android:id="@+id/rentalEndBtn"
+                android:layout_width="70sp"
+                android:layout_height="0dp"
+                android:text="대여종료"
+                android:textSize="12sp"
+                android:fontFamily="@font/ns_b"
+                android:textColor="#2962ff"
+                android:background="@drawable/chatbtn1"
+                android:visibility="gone"
+                android:onClick="@{activity::rentalEnd}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginRight="24sp"
+                android:layout_marginTop="10sp"
+                android:layout_marginBottom="10sp"
+                />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout

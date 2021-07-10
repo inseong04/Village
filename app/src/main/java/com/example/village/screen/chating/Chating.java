@@ -13,21 +13,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
 
 import com.example.village.R;
 import com.example.village.databinding.ActivityChatingBinding;
 import com.example.village.screen.post.Post;
-import com.example.village.screen.post.PostRentalDialogFragment;
-import com.example.village.util.WarningDialogFragment;
+import com.example.village.util.Dialog;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,6 +40,7 @@ public class Chating extends AppCompatActivity {
     private String sellerUid;
     private String receiveUid;
     private String receiverName;
+    private String[] rentalProduct = new String[1];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,8 +57,6 @@ public class Chating extends AppCompatActivity {
 
         binding.setActivity(this);
         binding.setViewModel(viewModel);
-
-        Log.e("test","test3456");
 
         FirebaseFirestore.getInstance().collection("post").document(postNumber)
                 .get()
@@ -84,7 +78,35 @@ public class Chating extends AppCompatActivity {
         }
         else {
             receiveUid = sellerUid;
+            Thread thread = new Thread(
+                    () -> {
+                        FirebaseFirestore.getInstance().collection("users")
+                                .document(uid)
+                                .get()
+                                .addOnCompleteListener(task -> {
+                                    try {
+
+                                        Log.e("test","sx");
+                                        rentalProduct = ((String) task.getResult().get("rentalProduct")).split("-");
+                                        for (int i = 0; i < rentalProduct.length; i++) {
+                                            Log.e("test", postNumber + "----" + rentalProduct[i]);
+                                            if (rentalProduct[i].equals(postNumber)) {
+                                                binding.rentalEndBtn.setVisibility(View.VISIBLE);
+                                                binding.rentalBtn.setVisibility(View.GONE);
+                                            }
+                                        }
+                                    } catch (NullPointerException e) {
+                                        Log.e("test","test2");
+                                        rentalProduct = new String[0];
+                                    }
+                                });
+                    });
+            thread.start();
+
         }
+
+
+
 
 
             FirebaseFirestore.getInstance().collection("chat")
@@ -118,6 +140,7 @@ public class Chating extends AppCompatActivity {
                         }
                     });
 
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         binding.chatRecyclerView.setLayoutManager(linearLayoutManager);
         binding.chatRecyclerView.setAdapter(new ChatingAdapter(viewModel));
@@ -138,7 +161,6 @@ public class Chating extends AppCompatActivity {
             intent1.putExtra("chatIntent", true);
             startActivity(intent1);
         });
-
 
     }
 
@@ -175,15 +197,23 @@ public class Chating extends AppCompatActivity {
 
     }
 
+    public void rentalEnd(View view) {
+        ChatRentalEndDialog chatRentalEndDialog = new ChatRentalEndDialog(Chating.this, getSupportFragmentManager(), getResources().getDisplayMetrics()
+        , postNumber, rentalProduct);
+        chatRentalEndDialog.getWindow().setGravity(Gravity.CENTER);
+        chatRentalEndDialog.show();
+    }
+
     public void callDialog(View view) {
 
         if (viewModel.getRental()) {
-            WarningDialogFragment warningDialogFragment = new WarningDialogFragment("대여하기", "이미 대여중인 상품입니다.");
-            warningDialogFragment.show(getSupportFragmentManager(), "dialogFragment");
+            Dialog dialog = new Dialog(getApplicationContext(),getResources().getDisplayMetrics(), "대여하기", "이미 대여중인 상품입니다.");
+            dialog.getWindow().setGravity(Gravity.CENTER);
+            dialog.show();
         } else {
 
             if (viewModel.getWarningRun()) {
-                PostRentalDialogFragment postRentalDialogFragment = new PostRentalDialogFragment(Chating.this, binding.getTitle(), postNumber);
+                PostRentalDialogFragment postRentalDialogFragment = new PostRentalDialogFragment(getApplicationContext(), Chating.this, binding.getTitle(), postNumber);
                 postRentalDialogFragment.show(getSupportFragmentManager(), "postRentalDialog");
             } else {
                 viewModel.setWarningRun(true);

@@ -10,11 +10,10 @@ import android.view.WindowManager;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.village.R;
-import com.example.village.screen.post.PostRentalDialogFragment;
-import com.example.village.util.WarningDialogFragment;
 
 public class ChatWarningDialog extends Dialog {
 
+    private Context context;
     private FragmentManager fragmentManager;
     private Chating chating;
     private String title;
@@ -24,6 +23,7 @@ public class ChatWarningDialog extends Dialog {
     ChatWarningDialog (Context context, FragmentManager fragmentManager, Chating chating,
                        String title, String postNumber, DisplayMetrics displayMetrics) {
         super(context, android.R.style.Theme_Translucent_NoTitleBar);
+        this.context = context;
         this.fragmentManager = fragmentManager;
         this.chating = chating;
         this.title = title;
@@ -44,7 +44,7 @@ public class ChatWarningDialog extends Dialog {
 
         findViewById(R.id.chatDialogBtn).setOnClickListener(v -> {
             dismiss();
-                PostRentalDialogFragment postRentalDialogFragment = new PostRentalDialogFragment(chating, title, postNumber);
+                PostRentalDialogFragment postRentalDialogFragment = new PostRentalDialogFragment(context, chating, title, postNumber);
                 postRentalDialogFragment.show(fragmentManager, "postRentalDialog");
 
         });

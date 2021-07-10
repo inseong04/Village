@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -19,11 +20,11 @@ import android.text.Selection;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 
 import com.example.village.R;
 import com.example.village.databinding.ActivityProductWritingBinding;
-import com.example.village.util.WarningDialogFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -63,7 +64,7 @@ public class ProductWriting extends AppCompatActivity {
        Log.e("gew","gew");
         viewModel = new ViewModelProvider(this).get(ProductViewModel.class);
         final String[] strAmount = {""};
-       productWritingHelper = new ProductWritingHelper(viewModel, binding, this);
+       productWritingHelper = new ProductWritingHelper(getApplicationContext(), getResources().getDisplayMetrics(), viewModel, binding, this);
         checkSelfPermission();
         productWritingHelper.setUi();
         getPostNumber();
@@ -125,8 +126,10 @@ public class ProductWriting extends AppCompatActivity {
             if (data.getClipData() != null) {
                 int count = data.getClipData().getItemCount();
                 if (count > 9) {
-                    WarningDialogFragment warningDialogFragment = new WarningDialogFragment("상품등록","최대 9개까지 \n업로드 가능합니다.");
-                    warningDialogFragment.show(getSupportFragmentManager(), "waringDialog");
+
+                    Dialog dialog = new com.example.village.util.Dialog(getApplicationContext(),getResources().getDisplayMetrics(), "상품등록", "최대 9개까지 \n업로드 가능합니다.");
+                    dialog.getWindow().setGravity(Gravity.CENTER);
+                    dialog.show();
                     return;
                 }
                 for (int i = 0; i < count; i++) {
@@ -233,8 +236,9 @@ public class ProductWriting extends AppCompatActivity {
                                     .document(uid)
                                     .update("writtenPost", writtenPost[0]);
                         } else {
-                            WarningDialogFragment warningDialogFragment = new WarningDialogFragment("상품등록", "오류가 발생하였습니다\n 다시 시도해주세요.");
-                            warningDialogFragment.show(getSupportFragmentManager(), "dialogFragment");
+                            Dialog dialog = new com.example.village.util.Dialog(getApplicationContext(),getResources().getDisplayMetrics(), "상품등록", "오류가 발생하였습니다\n 다시 시도해주세요.");
+                            dialog.getWindow().setGravity(Gravity.CENTER);
+                            dialog.show();
                             finish();
                         }
                     }
@@ -266,8 +270,10 @@ public class ProductWriting extends AppCompatActivity {
                 .document(String.valueOf(postNumber))
                 .set(post).addOnCompleteListener(task -> {
                     if (!task.isSuccessful()) {
-                        WarningDialogFragment warningDialogFragment = new WarningDialogFragment("상품등록", "상품등록 중 에러가 발생했습니다 \n 다시 시도하여주세요.");
-                        warningDialogFragment.show(getSupportFragmentManager(), "dialogFragment");
+
+                        Dialog dialog = new com.example.village.util.Dialog(getApplicationContext(),getResources().getDisplayMetrics(), "상품등록", "상품등록 중 에러가 발생했습니다 \n 다시 시도하여주세요.");
+                        dialog.getWindow().setGravity(Gravity.CENTER);
+                        dialog.show();
                         finish();
                     }
         });

@@ -1,6 +1,6 @@
 package com.example.village.screen.signup;
 
-import android.content.Intent;
+import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
@@ -8,15 +8,13 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.village.R;
-import com.example.village.databinding.FragmentSignup4Binding;
 import com.example.village.databinding.FragmentSignup5Binding;
-import com.example.village.screen.login.Login;
-import com.example.village.util.WarningDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -69,8 +67,9 @@ public class SignupFragment5 extends Fragment {
                                             .commit();
                                 }
                                 else {
-                                    WarningDialogFragment warningDialogFragment = new WarningDialogFragment("회원가입", "회원가입 중 오류가 발생했습니다");
-                                    warningDialogFragment.show(getActivity().getSupportFragmentManager(), "dialogFragment");
+                                    Dialog dialog = new com.example.village.util.Dialog(getContext(),getResources().getDisplayMetrics(), "회원가입", "회원가입 중 오류가 발생했습니다");
+                                    dialog.getWindow().setGravity(Gravity.CENTER);
+                                    dialog.show();
                                 }
                             });
         });

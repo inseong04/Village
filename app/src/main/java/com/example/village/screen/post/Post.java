@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -13,13 +14,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.ImageView;
 
 import com.example.village.screen.chating.Chating;
 import com.example.village.util.GetTime;
 import com.example.village.R;
 import com.example.village.databinding.ActivityPostBinding;
-import com.example.village.util.WarningDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -106,8 +107,9 @@ public class Post extends AppCompatActivity {
             else {
 
                 if (uid.equals(sellerUid)) {
-                    WarningDialogFragment warningDialogFragment = new WarningDialogFragment("채팅하기", "자신의 상품은 \n대여가 불가능합니다.");
-                    warningDialogFragment.show(getSupportFragmentManager(), "dialogFragment");
+                    Dialog dialog = new com.example.village.util.Dialog(getApplicationContext(),getResources().getDisplayMetrics(), "채팅하기", "자신의 상품은 \n대여가 불가능합니다.");
+                    dialog.getWindow().setGravity(Gravity.CENTER);
+                    dialog.show();
                 } else {
 
                     AtomicReference<Boolean> roomExistence = new AtomicReference<>(false);

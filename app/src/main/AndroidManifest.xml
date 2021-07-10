@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.village">
+    package="com.example.village" >
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -14,8 +14,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_app_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Village">
-        <activity android:name=".screen.chating.ChatWarningDialog"></activity>
+        android:theme="@style/Theme.Village" >
+        <activity android:name=".util.Dialog" >
+        </activity>
+        <activity android:name=".util.WarningDialog" />
+        <activity android:name=".screen.chating.ChatWarningDialog" />
         <activity android:name=".screen.chating.Chating" />
 
         <meta-data
@@ -24,7 +27,7 @@
 
         <service
             android:name=".util.FirebaseFcmService"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -37,7 +40,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".screen.home.searchresult.SearchResult" />
         <activity android:name=".screen.home.search.SearchActivity" />
-        <activity android:name=".screen.splash.Splash">
+        <activity android:name=".screen.splash.Splash" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

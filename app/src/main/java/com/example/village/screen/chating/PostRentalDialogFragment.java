@@ -1,11 +1,13 @@
-package com.example.village.screen.post;
+package com.example.village.screen.chating;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 
-import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +16,6 @@ import com.example.village.R;
 import com.example.village.databinding.FragmentPostRentalDialogBinding;
 import com.example.village.screen.chating.Chating;
 import com.example.village.util.SendNotification;
-import com.example.village.util.WarningDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -24,12 +25,14 @@ import java.util.Map;
 
 public class PostRentalDialogFragment extends DialogFragment {
 
+    private Context context;
     private String productName;
     private String postNumber;
     private FragmentPostRentalDialogBinding binding;
     private Chating chating;
 
-    public PostRentalDialogFragment(Chating chating, String productName, String postNumber) {
+    public PostRentalDialogFragment(Context context, Chating chating, String productName, String postNumber) {
+        this.context = context;
         this.chating = chating;
         this.productName = productName;
         this.postNumber = postNumber;
@@ -68,8 +71,13 @@ public class PostRentalDialogFragment extends DialogFragment {
                                     final DocumentSnapshot documentSnapshot = usersGetTask.getResult();
                                     String rentalProduct;
                                     if (documentSnapshot.get("rentalProduct") != null ) {
-                                        rentalProduct = ((String) documentSnapshot.get("rentalProduct"))+"-"+postNumber;
-                                    } else {
+                                        if(documentSnapshot.get("rentalProduct").equals("")) {
+                                            rentalProduct = postNumber;
+                                        } else {
+                                            rentalProduct = ((String) documentSnapshot.get("rentalProduct")) + "-" + postNumber;
+                                        }
+                                    }
+                                    else {
                                         rentalProduct = postNumber;
                                     }
 
@@ -91,8 +99,10 @@ public class PostRentalDialogFragment extends DialogFragment {
                                     SendNotification.sendNotification(String.valueOf(dbTask.getResult().get("fcmToken")),
                                             "대여신청이 도착했습니다.",
                                             productName+" 게시물의 대여신청이 도착했습니다.");
-                                    WarningDialogFragment warningDialogFragment = new WarningDialogFragment("대여하기", "대여가 완료되었습니다.");
-                                    warningDialogFragment.show(chating.getSupportFragmentManager(), "dialogFragment");
+                                    ERROR : Fragment PostRentalDialogFragment{a537e4f} (9760d9b9-4c5c-4194-87e4-f9921f85152d) not attached to a context.
+                                    Dialog dialog = new com.example.village.util.Dialog(context,getResources().getDisplayMetrics(), "채팅하기", "자신의 상품은 \n대여가 불가능합니다.");
+                                    dialog.getWindow().setGravity(Gravity.CENTER);
+                                    dialog.show();
                                 });
                     });
         });
