@@ -42,7 +42,6 @@ public class SignupFragment1 extends Fragment {
                             .get()
                             .addOnCompleteListener(task -> {
                                 nameList = (ArrayList<String>) task.getResult().get("nameList");
-                                Log.e("a",nameList.toString());
                             });
                 });
         thread.start();
@@ -55,7 +54,6 @@ public class SignupFragment1 extends Fragment {
                     for (int i=0; i< nameList.size(); i++) {
                         Log.e("e", String.valueOf(i));
                         if (text.equals(nameList.get(i))) {
-                            Log.e("e", "t1");
                             setInActive();
                             binding.alarm5.setVisibility(View.VISIBLE);
                             break;
@@ -63,7 +61,6 @@ public class SignupFragment1 extends Fragment {
                         if (!text.equals(nameList.get(i))) {
                             if (binding.alarm5.getVisibility() == View.VISIBLE)
                                 binding.alarm5.setVisibility(View.INVISIBLE);
-                            Log.e("e", "o");
                             setActive();
                         }
                     }

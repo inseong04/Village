@@ -17,6 +17,7 @@ import android.view.WindowManager;
 
 import com.example.village.R;
 import com.example.village.databinding.ActivityChatingBinding;
+import com.example.village.screen.post.Post;
 import com.example.village.screen.post.PostRentalDialogFragment;
 import com.example.village.util.WarningDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
@@ -131,17 +132,17 @@ public class Chating extends AppCompatActivity {
             chatingDataAsyncTask.execute();
         }
 
-        binding.sendLayout.setOnClickListener(v -> {
-            sendMessage();
+        binding.postWholeLayout.setOnClickListener(v -> {
+            Intent intent1 = new Intent(getApplicationContext(), Post.class);
+            intent1.putExtra("postNumber", Integer.parseInt(postNumber));
+            intent1.putExtra("chatIntent", true);
+            startActivity(intent1);
         });
 
-        binding.sendBtn.setOnClickListener(v -> {
-            sendMessage();
-        });
 
     }
 
-    private void sendMessage() {
+    public void sendMessage(View view) {
 
         if (!binding.chatEtv.getText().toString().equals("")) {
 
@@ -180,12 +181,19 @@ public class Chating extends AppCompatActivity {
             WarningDialogFragment warningDialogFragment = new WarningDialogFragment("대여하기", "이미 대여중인 상품입니다.");
             warningDialogFragment.show(getSupportFragmentManager(), "dialogFragment");
         } else {
-            ChatWarningDialog chatWarningDialog = new ChatWarningDialog(Chating.this, getSupportFragmentManager(), this,
-                    binding.getTitle(), postNumber, getResources().getDisplayMetrics());
-            chatWarningDialog.getWindow().setGravity(Gravity.CENTER);
-            chatWarningDialog.show();
-        }
 
+            if (viewModel.getWarningRun()) {
+                PostRentalDialogFragment postRentalDialogFragment = new PostRentalDialogFragment(Chating.this, binding.getTitle(), postNumber);
+                postRentalDialogFragment.show(getSupportFragmentManager(), "postRentalDialog");
+            } else {
+                viewModel.setWarningRun(true);
+                ChatWarningDialog chatWarningDialog = new ChatWarningDialog(Chating.this, getSupportFragmentManager(), this,
+                        binding.getTitle(), postNumber, getResources().getDisplayMetrics());
+                chatWarningDialog.getWindow().setGravity(Gravity.CENTER);
+                chatWarningDialog.show();
+
+            }
+        }
     }
 
     @Override

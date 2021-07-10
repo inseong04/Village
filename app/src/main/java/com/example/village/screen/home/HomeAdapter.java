@@ -61,6 +61,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                 .into(holder.homeImageIv);
         holder.wholeLayout.setOnClickListener(v -> {
             Intent intent = new Intent(context, Post.class);
+            intent.putExtra("chatIntent", false);
             intent.putExtra("postNumber", viewModel.getProductArray().get(position).postNum);
             context.startActivity(intent);
         });

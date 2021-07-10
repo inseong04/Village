@@ -62,12 +62,10 @@ public class ChatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public int getItemViewType(int position) {
-        Log.e("send","se222444433nd");
         if (viewModel.getChatArrayList().get(position).getUid().equals(viewModel.getUid()))
             return DataType.SEND_MESSAGE;
         else {
             if (position == 0 || position > 0 && !viewModel.getChatArrayList().get(position).uid.equals(viewModel.getChatArrayList().get(position-1).uid)) {
-                Log.e("test","2");
                 return DataType.RECEIVE_WITH_PROFILE_MESSAGE;
             }
             else

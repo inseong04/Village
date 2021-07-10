@@ -12,6 +12,7 @@ class ChatingViewModel : ViewModel(){
     var chatSum : Int = 0
     var rental : Boolean = false
     val uid = FirebaseAuth.getInstance().uid
+    var warningRun : Boolean = false
 
     fun addChatArrayList( uid : String, chat : String) {
         var chatingData : ChatingData = ChatingData(uid, chat)
