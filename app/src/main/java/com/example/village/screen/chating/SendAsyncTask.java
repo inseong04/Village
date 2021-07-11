@@ -1,12 +1,9 @@
 package com.example.village.screen.chating;
 
 import android.os.AsyncTask;
-import android.util.Log;
-
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;

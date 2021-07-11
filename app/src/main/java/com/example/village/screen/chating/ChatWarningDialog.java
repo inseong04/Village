@@ -5,30 +5,32 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.WindowManager;
 
 import androidx.fragment.app.FragmentManager;
 
 import com.example.village.R;
+import com.example.village.databinding.ActivityChatingBinding;
 
 public class ChatWarningDialog extends Dialog {
 
     private Context context;
-    private FragmentManager fragmentManager;
-    private Chating chating;
     private String title;
     private String postNumber;
     private DisplayMetrics displayMetrics;
+    private ActivityChatingBinding binding;
+    private ChatingViewModel viewModel;
 
-    ChatWarningDialog (Context context, FragmentManager fragmentManager, Chating chating,
-                       String title, String postNumber, DisplayMetrics displayMetrics) {
+    ChatWarningDialog (Context context, String title, String postNumber, DisplayMetrics displayMetrics,
+                       ActivityChatingBinding binding, ChatingViewModel viewModel) {
         super(context, android.R.style.Theme_Translucent_NoTitleBar);
         this.context = context;
-        this.fragmentManager = fragmentManager;
-        this.chating = chating;
         this.title = title;
         this.postNumber = postNumber;
         this.displayMetrics = displayMetrics;
+        this.binding = binding;
+        this.viewModel = viewModel;
     }
 
     @Override
@@ -44,8 +46,9 @@ public class ChatWarningDialog extends Dialog {
 
         findViewById(R.id.chatDialogBtn).setOnClickListener(v -> {
             dismiss();
-                PostRentalDialogFragment postRentalDialogFragment = new PostRentalDialogFragment(context, chating, title, postNumber);
-                postRentalDialogFragment.show(fragmentManager, "postRentalDialog");
+                RentalDialog rentalDialog = new RentalDialog(context, displayMetrics, postNumber, title, binding, viewModel);
+                rentalDialog.getWindow().setGravity(Gravity.CENTER);
+                rentalDialog.show();
 
         });
     }

@@ -16,6 +16,7 @@ import android.view.View;
 
 import com.example.village.R;
 import com.example.village.databinding.ActivityChatingBinding;
+import com.example.village.screen.MainActivity;
 import com.example.village.screen.post.Post;
 import com.example.village.util.Dialog;
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,11 +54,11 @@ public class Chating extends AppCompatActivity {
         sellerUid = intent.getStringExtra("sellerUid");
         viewModel.setPostNumber(postNumber);
         viewModel.setRoomNumber(roomNumber);
+        viewModel.setSellerUid(sellerUid);
         uid = FirebaseAuth.getInstance().getUid();
 
         binding.setActivity(this);
         binding.setViewModel(viewModel);
-
         FirebaseFirestore.getInstance().collection("post").document(postNumber)
                 .get()
                 .addOnCompleteListener(task -> {
@@ -86,17 +87,14 @@ public class Chating extends AppCompatActivity {
                                 .addOnCompleteListener(task -> {
                                     try {
 
-                                        Log.e("test","sx");
                                         rentalProduct = ((String) task.getResult().get("rentalProduct")).split("-");
                                         for (int i = 0; i < rentalProduct.length; i++) {
-                                            Log.e("test", postNumber + "----" + rentalProduct[i]);
                                             if (rentalProduct[i].equals(postNumber)) {
                                                 binding.rentalEndBtn.setVisibility(View.VISIBLE);
                                                 binding.rentalBtn.setVisibility(View.GONE);
                                             }
                                         }
                                     } catch (NullPointerException e) {
-                                        Log.e("test","test2");
                                         rentalProduct = new String[0];
                                     }
                                 });
@@ -104,10 +102,6 @@ public class Chating extends AppCompatActivity {
             thread.start();
 
         }
-
-
-
-
 
             FirebaseFirestore.getInstance().collection("chat")
                     .document(roomNumber)
@@ -127,7 +121,6 @@ public class Chating extends AppCompatActivity {
                             if (value != null && value.exists()) {
                                 if (!value.getData().get(uid).equals(value.getData().get("lastMessage").toString())
                                 && viewModel.getChatArrayList().size() > 0 && !viewModel.getChatArrayList().get(viewModel.getChatArrayList().size()-1).content.equals(value.getData().get("lastMessage").toString())) {
-                                    Log.e("test","vd");
                                     viewModel.addChatArrayList(receiveUid, value.getData().get("lastMessage").toString());
                                     binding.chatRecyclerView.getAdapter().notifyDataSetChanged();
                                     binding.chatRecyclerView.smoothScrollToPosition(viewModel.getChatArrayList().size() - 1);
@@ -165,7 +158,7 @@ public class Chating extends AppCompatActivity {
     }
 
     public void sendMessage(View view) {
-
+        // binding, viewModel
         if (!binding.chatEtv.getText().toString().equals("")) {
 
             long lastMessageTime = System.currentTimeMillis();
@@ -174,12 +167,12 @@ public class Chating extends AppCompatActivity {
             viewModel.setChatSum(viewModel.getChatSum() + 1);
             Map<String, Object> map = new HashMap<>();
             map.put("lastMessageTime", lastMessageTime);
-            map.put(uid, text);
+            map.put(viewModel.getUid(), text);
             map.put("lastMessage", text);
             map.put("chat-" + viewModel.getChatSum(), text);
-            map.put("chat-uid-" + viewModel.getChatSum(), uid);
+            map.put("chat-uid-" + viewModel.getChatSum(), viewModel.getUid());
             map.put("chatSum", viewModel.getChatSum());
-            SendAsyncTask sendAsyncTask = new SendAsyncTask(sellerUid, uid, roomNumber, map);
+            SendAsyncTask sendAsyncTask = new SendAsyncTask(viewModel.sellerUid, viewModel.getUid(), viewModel.roomNumber, map);
             sendAsyncTask.execute();
             binding.chatEtv.setText("");
             binding.chatRecyclerView.getAdapter().notifyDataSetChanged();
@@ -187,9 +180,9 @@ public class Chating extends AppCompatActivity {
             Thread thread = new Thread(
                     () -> {
                         Map<String, Object> map2 = new HashMap<>();
-                        map.put(uid+"-chatCount", viewModel.getChatSum());
+                        map.put(viewModel.getUid()+"-chatCount", viewModel.getChatSum());
                         FirebaseFirestore.getInstance().collection("chat")
-                                .document(roomNumber)
+                                .document(viewModel.getRoomNumber())
                                 .update(map2);
                     });
             thread.start();
@@ -198,8 +191,8 @@ public class Chating extends AppCompatActivity {
     }
 
     public void rentalEnd(View view) {
-        ChatRentalEndDialog chatRentalEndDialog = new ChatRentalEndDialog(Chating.this, getSupportFragmentManager(), getResources().getDisplayMetrics()
-        , postNumber, rentalProduct);
+        ChatRentalEndDialog chatRentalEndDialog = new ChatRentalEndDialog(Chating.this, getResources().getDisplayMetrics()
+        , postNumber, rentalProduct, binding, viewModel);
         chatRentalEndDialog.getWindow().setGravity(Gravity.CENTER);
         chatRentalEndDialog.show();
     }
@@ -207,24 +200,28 @@ public class Chating extends AppCompatActivity {
     public void callDialog(View view) {
 
         if (viewModel.getRental()) {
-            Dialog dialog = new Dialog(getApplicationContext(),getResources().getDisplayMetrics(), "대여하기", "이미 대여중인 상품입니다.");
+            Dialog dialog = new Dialog(Chating.this,getResources().getDisplayMetrics(), "대여하기", "이미 대여중인 상품입니다.");
             dialog.getWindow().setGravity(Gravity.CENTER);
             dialog.show();
         } else {
 
             if (viewModel.getWarningRun()) {
-                PostRentalDialogFragment postRentalDialogFragment = new PostRentalDialogFragment(getApplicationContext(), Chating.this, binding.getTitle(), postNumber);
-                postRentalDialogFragment.show(getSupportFragmentManager(), "postRentalDialog");
+                RentalDialog rentalDialog = new RentalDialog(Chating.this, getResources().getDisplayMetrics(), postNumber, binding.getTitle(),
+                        binding, viewModel);
+                rentalDialog.getWindow().setGravity(Gravity.CENTER);
+                rentalDialog.show();
             } else {
                 viewModel.setWarningRun(true);
-                ChatWarningDialog chatWarningDialog = new ChatWarningDialog(Chating.this, getSupportFragmentManager(), this,
-                        binding.getTitle(), postNumber, getResources().getDisplayMetrics());
+                ChatWarningDialog chatWarningDialog = new ChatWarningDialog(Chating.this,
+                        binding.getTitle(), postNumber, getResources().getDisplayMetrics(),
+                        binding, viewModel);
                 chatWarningDialog.getWindow().setGravity(Gravity.CENTER);
                 chatWarningDialog.show();
 
             }
         }
     }
+
 
     @Override
     public void onBackPressed() {

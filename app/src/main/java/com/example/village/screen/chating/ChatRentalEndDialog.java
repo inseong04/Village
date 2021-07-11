@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
 import android.view.WindowManager;
 
 import androidx.fragment.app.FragmentManager;
 
 import com.example.village.R;
+import com.example.village.databinding.ActivityChatingBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -21,16 +23,18 @@ public class ChatRentalEndDialog extends Dialog {
     private Context context;
     private String postNumber;
     private DisplayMetrics displayMetrics;
-    private FragmentManager fragmentManager;
     private String[] rentalProduct;
-    ChatRentalEndDialog (Context context, FragmentManager fragmentManager, DisplayMetrics displayMetrics,
-                         String postNumber, String[] rentalProduct) {
+    private ActivityChatingBinding binding;
+    private ChatingViewModel viewModel;
+    ChatRentalEndDialog (Context context, DisplayMetrics displayMetrics,
+                         String postNumber, String[] rentalProduct, ActivityChatingBinding binding, ChatingViewModel viewModel) {
         super(context, android.R.style.Theme_Translucent_NoTitleBar);
         this.context = context;
-        this.fragmentManager = fragmentManager;
         this.displayMetrics = displayMetrics;
         this.postNumber = postNumber;
         this.rentalProduct = rentalProduct;
+        this.binding = binding;
+        this.viewModel = viewModel;
     }
 
     @Override
@@ -69,6 +73,10 @@ public class ChatRentalEndDialog extends Dialog {
                         Dialog dialog = new com.example.village.util.Dialog(context,displayMetrics, "대여하기", "대여가 종료되었습니다.");
                         dialog.getWindow().setGravity(Gravity.CENTER);
                         dialog.show();
+                        sendMessage("대여가 종료되었습니다.");
+                        binding.rentalEndBtn.setVisibility(View.GONE);
+                        binding.rentalBtn.setVisibility(View.VISIBLE);
+
                         dismiss();
                     });
         });
@@ -76,6 +84,36 @@ public class ChatRentalEndDialog extends Dialog {
         findViewById(R.id.rentalEndBtn2).setOnClickListener(v -> {
             dismiss();
         });
+
+    }
+
+    private void sendMessage(String text1) {
+
+            long lastMessageTime = System.currentTimeMillis();
+            String text = text1;
+            viewModel.addChatArrayList(viewModel.getUid(), text);
+            viewModel.setChatSum(viewModel.getChatSum() + 1);
+            Map<String, Object> map = new HashMap<>();
+            map.put("lastMessageTime", lastMessageTime);
+            map.put(viewModel.getUid(), text);
+            map.put("lastMessage", text);
+            map.put("chat-" + viewModel.getChatSum(), text);
+            map.put("chat-uid-" + viewModel.getChatSum(), viewModel.getUid());
+            map.put("chatSum", viewModel.getChatSum());
+            SendAsyncTask sendAsyncTask = new SendAsyncTask(viewModel.sellerUid, viewModel.getUid(), viewModel.roomNumber, map);
+            sendAsyncTask.execute();
+            binding.chatEtv.setText("");
+            binding.chatRecyclerView.getAdapter().notifyDataSetChanged();
+            binding.chatRecyclerView.smoothScrollToPosition(viewModel.getChatArrayList().size() - 1);
+            Thread thread = new Thread(
+                    () -> {
+                        Map<String, Object> map2 = new HashMap<>();
+                        map.put(viewModel.getUid()+"-chatCount", viewModel.getChatSum());
+                        FirebaseFirestore.getInstance().collection("chat")
+                                .document(viewModel.getRoomNumber())
+                                .update(map2);
+                    });
+            thread.start();
 
     }
 }
