@@ -6,7 +6,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="250dp"
-        android:layout_height="340dp"
+        android:layout_height="400dp"
         android:background="@drawable/dialog_background2"
         >
 
@@ -36,11 +36,24 @@
             android:text="카카오톡 오픈채팅 등으로\n
 대화를 유도하는 경우\n피해가 발생할 수 있으니\n주의하세요!\n모두 빌리지에서\n안전한 거래하세요 :)"
             app:layout_constraintTop_toBottomOf="@id/chatDialogTv1"
-            app:layout_constraintBottom_toTopOf="@id/chatDialogBtn"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="10sp"
             android:layout_marginBottom="10sp"
+            />
+
+        <TextView
+            android:id="@+id/chatDialogTv3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="#ff1616"
+            app:layout_constraintTop_toBottomOf="@id/chatDialogTv2"
+            android:text="@string/href_police_website"
+            android:layout_marginTop="10sp"
+            android:layout_marginBottom="5sp"
+            android:padding="5sp"
             />
 
         <Button

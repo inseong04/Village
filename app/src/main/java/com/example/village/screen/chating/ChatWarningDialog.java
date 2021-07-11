@@ -2,6 +2,8 @@ package com.example.village.screen.chating;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -40,9 +42,15 @@ public class ChatWarningDialog extends Dialog {
         params.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         params.dimAmount = 0.5f;
         params.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 250, displayMetrics);
-        params.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 340, displayMetrics);
+        params.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 400, displayMetrics);
         getWindow().setAttributes(params);
         setContentView(R.layout.chat_warning_dialog);
+
+        findViewById(R.id.chatDialogTv3).setOnClickListener(v -> {
+            dismiss();
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://cyberbureau.police.go.kr/mobile/sub/sub_02.jsp"));
+            context.startActivity(intent);
+        });
 
         findViewById(R.id.chatDialogBtn).setOnClickListener(v -> {
             dismiss();

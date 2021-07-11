@@ -104,7 +104,7 @@ public class RentalDialog extends Dialog {
                                     Dialog dialog = new com.example.village.util.Dialog(context, displayMetrics, "채팅하기", "대여가 완료되었습니다.");
                                     dialog.getWindow().setGravity(Gravity.CENTER);
                                     dialog.show();
-                                    sendMessage("대여신청이 도착했습니다!\n지금 바로 협의 후, 거래를 진행하세요.");
+                                    sendMessage("대여신청이 도착했습니다!\n지금 바로 협의 후\n거래를 진행해보세요!");
                                     binding.rentalEndBtn.setVisibility(View.VISIBLE);
                                     binding.rentalBtn.setVisibility(View.GONE);
                                 });
