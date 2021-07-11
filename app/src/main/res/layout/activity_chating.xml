@@ -184,6 +184,7 @@
             >
 
             <TextView
+                android:id="@+id/chatingLocation"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:text="위치 보내기"
@@ -207,6 +208,7 @@
                 />
 
             <TextView
+                android:id="@+id/chatingAccount"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:text="계좌보내기"

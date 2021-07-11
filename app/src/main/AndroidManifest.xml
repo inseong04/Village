@@ -15,8 +15,12 @@
         android:roundIcon="@mipmap/ic_app_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Village">
-        <activity android:name=".screen.chating.RentalDialog"></activity>
-        <activity android:name=".util.Dialog"></activity>
+        <activity android:name=".screen.chating.account.AccountModifyActivity"></activity>
+        <activity android:name=".screen.chating.location.LocationModifyActivity" />
+        <activity android:name=".screen.chating.account.AccountActivity" />
+        <activity android:name=".screen.chating.location.LocationActivity" />
+        <activity android:name=".screen.chating.RentalDialog" />
+        <activity android:name=".util.Dialog" />
         <activity android:name=".util.WarningDialog" />
         <activity android:name=".screen.chating.ChatWarningDialog" />
         <activity android:name=".screen.chating.Chating" />

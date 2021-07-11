@@ -17,6 +17,8 @@ import android.view.View;
 import com.example.village.R;
 import com.example.village.databinding.ActivityChatingBinding;
 import com.example.village.screen.MainActivity;
+import com.example.village.screen.chating.account.AccountActivity;
+import com.example.village.screen.chating.location.LocationActivity;
 import com.example.village.screen.post.Post;
 import com.example.village.util.Dialog;
 import com.google.firebase.auth.FirebaseAuth;
@@ -155,6 +157,16 @@ public class Chating extends AppCompatActivity {
             startActivity(intent1);
         });
 
+        binding.chatingLocation.setOnClickListener(v -> {
+            Intent intent1 = new Intent(getApplicationContext(), LocationActivity.class);
+            startActivityForResult(intent1, 100);
+        });
+
+        binding.chatingAccount.setOnClickListener(v -> {
+            Intent intent1 = new Intent(getApplicationContext(), AccountActivity.class);
+            startActivityForResult(intent1, 101);
+        });
+
     }
 
     public void sendMessage(View view) {
@@ -187,7 +199,34 @@ public class Chating extends AppCompatActivity {
                     });
             thread.start();
         }
+    }
 
+    private void sendMessage(String text1) {
+        long lastMessageTime = System.currentTimeMillis();
+        String text = text1;
+        viewModel.addChatArrayList(viewModel.getUid(), text);
+        viewModel.setChatSum(viewModel.getChatSum() + 1);
+        Map<String, Object> map = new HashMap<>();
+        map.put("lastMessageTime", lastMessageTime);
+        map.put(viewModel.getUid(), text);
+        map.put("lastMessage", text);
+        map.put("chat-" + viewModel.getChatSum(), text);
+        map.put("chat-uid-" + viewModel.getChatSum(), viewModel.getUid());
+        map.put("chatSum", viewModel.getChatSum());
+        SendAsyncTask sendAsyncTask = new SendAsyncTask(viewModel.sellerUid, viewModel.getUid(), viewModel.roomNumber, map);
+        sendAsyncTask.execute();
+        binding.chatEtv.setText("");
+        binding.chatRecyclerView.getAdapter().notifyDataSetChanged();
+        binding.chatRecyclerView.smoothScrollToPosition(viewModel.getChatArrayList().size() - 1);
+        Thread thread = new Thread(
+                () -> {
+                    Map<String, Object> map2 = new HashMap<>();
+                    map.put(viewModel.getUid()+"-chatCount", viewModel.getChatSum());
+                    FirebaseFirestore.getInstance().collection("chat")
+                            .document(viewModel.getRoomNumber())
+                            .update(map2);
+                });
+        thread.start();
     }
 
     public void rentalEnd(View view) {
@@ -219,6 +258,24 @@ public class Chating extends AppCompatActivity {
                 chatWarningDialog.show();
 
             }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 100 && resultCode == RESULT_OK) {
+            String text = "위치가 입력되었습니다.\n"+"배송지 : "+ data.getStringExtra("detailLocation") +"\n"
+                    +"받는사람 : "+data.getStringExtra("locationName")+"\n"
+                    +"요청사항 : "+data.getStringExtra("locationContent");
+            sendMessage(text);
+        }
+        else if (requestCode == 101 && resultCode == RESULT_OK) {
+            String text = "계좌번호가 입력되었습니다.\n"+"은행 : "+data.getStringExtra("accountBank")+"\n"
+                    +"계좌번호 : "+data.getStringExtra("accountNumber")+"\n"
+                    +"예금주 : "+data.getStringExtra("accountName");
+            sendMessage(text);
         }
     }
 
