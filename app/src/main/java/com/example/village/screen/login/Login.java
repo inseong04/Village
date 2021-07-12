@@ -7,6 +7,7 @@ import androidx.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.example.village.screen.MainActivity;
@@ -71,6 +72,21 @@ public class Login extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
                 startActivity(intent);
             });
+
+            binding.etvId.setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                    return keyCode == KeyEvent.KEYCODE_ENTER;
+                }
+            });
+
+            binding.etvPassword.setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                    return keyCode == KeyEvent.KEYCODE_ENTER;
+                }
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
         }

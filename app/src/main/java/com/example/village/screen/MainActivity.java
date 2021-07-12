@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         changePhoneFragment = new ChangePhoneFragment();
 
         if (networkStatus == TYPE_NOT_CONNECTED) {
-            Toast.makeText(mContext, "빌리지를 이용하시려면 Wifi연결이 필요합니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "빌리지를 이용하시려면 Wifi 연결이 필요합니다.", Toast.LENGTH_SHORT).show();
         }
 
         getSupportFragmentManager().beginTransaction().replace(R.id.layout_main_frame, Home).commitAllowingStateLoss();

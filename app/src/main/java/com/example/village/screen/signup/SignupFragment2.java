@@ -10,12 +10,14 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.village.R;
 import com.example.village.databinding.FragmentSignup2Binding;
+import com.example.village.util.Expression;
 import com.example.village.util.Format;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -52,22 +54,25 @@ public class SignupFragment2 extends Fragment {
         viewModel.getPhoneNumber().observe(getActivity(), text -> {
             if (!text.equals("")) {
 
-                if (phoneList != null) {
-                    for (int i=0; i< phoneList.size(); i++) {
-                        if (text.equals(phoneList.get(i))) {
-                            setInActive();
-                            binding.alarm6.setVisibility(View.VISIBLE);
-                            break;
-                        }
-                        if (!text.equals(phoneList.get(i))) {
-                            if (binding.alarm6.getVisibility() == View.VISIBLE)
-                                binding.alarm6.setVisibility(View.INVISIBLE);
-                            setActive();
-                        }
-                    }
+                if (Expression.isVaildPhoneNumber(text)) {
 
+                    if (phoneList != null) {
+                        for (int i = 0; i < phoneList.size(); i++) {
+                            if (text.equals(phoneList.get(i))) {
+                                setInActive();
+                                binding.alarm6.setVisibility(View.VISIBLE);
+                                break;
+                            }
+                            if (!text.equals(phoneList.get(i))) {
+                                if (binding.alarm6.getVisibility() == View.VISIBLE)
+                                    binding.alarm6.setVisibility(View.INVISIBLE);
+                                setActive();
+                            }
+                        }
+
+                    }
                 }
-            } else {
+            }else {
                 setInActive();
             }
         });
@@ -79,12 +84,14 @@ public class SignupFragment2 extends Fragment {
             viewModel.setPhoneNumber(Format.phoneNumberFormat(viewModel.getPhoneNumber().getValue()));
         });
 
-        return binding.getRoot();
-    }
+        binding.etvPhone.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                return keyCode == KeyEvent.KEYCODE_ENTER;
+            }
+        });
 
-    private boolean isVaildPhoneNumber(String phoneNumber) {
-        Pattern pattern = Pattern.compile("(\\d{3})(\\d{3,4})(\\d{4})");
-        return pattern.matcher(phoneNumber).matches();
+        return binding.getRoot();
     }
 
     private void setActive () {

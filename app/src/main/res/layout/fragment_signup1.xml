@@ -38,6 +38,7 @@
             android:backgroundTint="#b6cbfc"
             android:fontFamily="@font/ns_b"
             android:hint="김선린"
+            android:maxLines="1"
             android:text="@={viewModel.name}"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"

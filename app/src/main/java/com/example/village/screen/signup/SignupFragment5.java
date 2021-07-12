@@ -9,12 +9,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.village.R;
 import com.example.village.databinding.FragmentSignup5Binding;
+import com.example.village.util.Expression;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -42,7 +44,7 @@ public class SignupFragment5 extends Fragment {
         mAuth = FirebaseAuth.getInstance();
 
         viewModel.getPassword().observe(getActivity(), text -> {
-            if (isVaildPw(text)) {
+            if (Expression.isVaildPw(text)) {
                 binding.alarm4.setImageResource(R.drawable.ic_signup_active);
                 binding.btnPasswordNext.setEnabled(true);
                 binding.btnPasswordNext.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.btn_active));
@@ -73,12 +75,15 @@ public class SignupFragment5 extends Fragment {
                                 }
                             });
         });
-        return binding.getRoot();
-    }
 
-    private boolean isVaildPw(String pw) {
-        Pattern pattern = Pattern.compile("(^.*(?=.{6,24})(?=.*[0-9])(?=.*[A-z]).*$)");
-        return pattern.matcher(pw).matches();
+        binding.etvPassword.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                return keyCode == KeyEvent.KEYCODE_ENTER;
+            }
+        });
+
+        return binding.getRoot();
     }
 
     protected void saveUserInf (String name, String location, String phoneNumber) {
