@@ -3,6 +3,7 @@ package com.example.village.screen.signup;
 import android.app.Dialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -25,7 +26,6 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 public class SignupFragment5 extends Fragment {
     FragmentSignup5Binding binding;
@@ -33,7 +33,7 @@ public class SignupFragment5 extends Fragment {
     FirebaseAuth mAuth;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_signup5,
                 container, false);
@@ -93,7 +93,6 @@ public class SignupFragment5 extends Fragment {
 
         Thread thread = new Thread(
                 () -> {
-
 
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(task -> {

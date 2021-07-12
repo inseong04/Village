@@ -72,6 +72,9 @@ public class SignupFragment2 extends Fragment {
 
                     }
                 }
+                else {
+                    setInActive();
+                }
             }else {
                 setInActive();
             }

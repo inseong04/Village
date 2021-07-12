@@ -31,8 +31,6 @@ public class LocationActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                             DocumentSnapshot documentSnapshot = task.getResult();
 
-                    Log.e("test",documentSnapshot.get("detailLocation").toString() );
-
                             if (documentSnapshot.get("detailLocation") != null && !documentSnapshot.get("detailLocation").toString().equals("")) {
                                 binding.setDetailLocation((String) documentSnapshot.get("detailLocation"));
                                 binding.setLocationName((String) documentSnapshot.get("locationName"));
@@ -57,7 +55,6 @@ public class LocationActivity extends AppCompatActivity {
                                 binding.locationTv6.setVisibility(View.INVISIBLE);
                                 binding.locationView1.setVisibility(View.INVISIBLE);
                                 binding.locationView2.setVisibility(View.INVISIBLE);
-                                binding.locationView3.setVisibility(View.INVISIBLE);
                                 intent.putExtra("modify", false);
                             }
                         });

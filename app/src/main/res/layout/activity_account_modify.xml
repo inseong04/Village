@@ -78,6 +78,7 @@
             android:minHeight="40sp"
             android:fontFamily="@font/ns_r"
             android:textColor="#000000"
+            android:inputType="number"
             android:hint="1002861405726"
             android:background="@drawable/location_modify_edittext_background"
             app:layout_constraintTop_toBottomOf="@id/amTv3"
