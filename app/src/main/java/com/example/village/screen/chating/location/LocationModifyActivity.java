@@ -23,10 +23,10 @@ public class LocationModifyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_location_modify);
 
-        String text = getIntent().getBooleanExtra("modify", false) == true ? "배송지를 변경합니다" : "배송지를 등록합니다";
+        String text = getIntent().getBooleanExtra("modify", false) ? "배송지를 변경합니다" : "배송지를 등록합니다";
         binding.setTvText(text);
 
-        LocationModifyHelper locationModifyHelper = new LocationModifyHelper(getApplicationContext(),
+        LocationModifyHelper locationModifyHelper = new LocationModifyHelper(this,
                 getResources().getDisplayMetrics(), binding);
 
         binding.lmBtn1.setOnClickListener(v -> {

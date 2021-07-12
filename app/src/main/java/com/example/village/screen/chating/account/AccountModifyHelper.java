@@ -19,21 +19,21 @@ public class AccountModifyHelper {
 
     protected boolean isNotNull () {
 
-        if (binding.amEtv1.getText().equals("")) {
+        if (binding.amEtv1.getText().toString().equals("")) {
             Dialog dialog = new com.example.village.util.Dialog(context,displayMetrics, "계좌등록", "은행을 입력해주세요.");
             dialog.getWindow().setGravity(Gravity.CENTER);
             dialog.show();
             return false;
         }
 
-        else if (binding.amEtv2.getText().equals("")) {
+        else if (binding.amEtv2.getText().toString().equals("")) {
             Dialog dialog = new com.example.village.util.Dialog(context,displayMetrics, "계좌등록", "계좌번호를 입력해주세요.");
             dialog.getWindow().setGravity(Gravity.CENTER);
             dialog.show();
             return false;
         }
 
-        else if (binding.amEtv3.getText().equals("")) {
+        else if (binding.amEtv3.getText().toString().equals("")) {
             Dialog dialog = new com.example.village.util.Dialog(context,displayMetrics, "계좌등록", "예금주를 입력해주세요.");
             dialog.getWindow().setGravity(Gravity.CENTER);
             dialog.show();

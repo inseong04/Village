@@ -24,10 +24,10 @@ public class AccountModifyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_account_modify);
         Log.e("test", binding.amEtv1.getText().toString());
-        String text = getIntent().getBooleanExtra("modify", false) == true ? "계좌를 변경합니다" : "계좌를 등록합니다";
+        String text = getIntent().getBooleanExtra("modify", false) ? "계좌를 변경합니다" : "계좌를 등록합니다";
         binding.setTvText(text);
 
-        AccountModifyHelper accountModifyHelper = new AccountModifyHelper(getApplicationContext(),
+        AccountModifyHelper accountModifyHelper = new AccountModifyHelper(this,
                 getResources().getDisplayMetrics(), binding);
 
         binding.amBtn1.setOnClickListener(v -> {
