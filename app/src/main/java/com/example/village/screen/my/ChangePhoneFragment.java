@@ -29,6 +29,7 @@ public class ChangePhoneFragment extends Fragment {
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    ChangeprofileFragment changeprofileFragment = new ChangeprofileFragment();
     MainActivity activity;
     ArrayList<String> phoneList;
 

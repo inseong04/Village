@@ -33,5 +33,4 @@ public class HomeViewModel extends ViewModel {
         this.postNumber = 0;
     }
 
-
 }

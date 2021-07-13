@@ -108,13 +108,13 @@ public class MainActivity extends AppCompatActivity {
         if (index == 0) {
             getSupportFragmentManager().beginTransaction().replace(R.id.layout_main_frame, myFragment).commit();
         } else if (index == 1) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.layout_main_frame, profileFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.layout_main_frame, profileFragment).addToBackStack(null).commit();
         } else if (index == 2) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.layout_main_frame, changeprofileFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.layout_main_frame, changeprofileFragment).addToBackStack(null).commit();
         } else if (index == 3) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.layout_main_frame, locationFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.layout_main_frame, locationFragment).addToBackStack(null).commit();
         } else if (index == 4) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.layout_main_frame, changePhoneFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.layout_main_frame, changePhoneFragment).addToBackStack(null).commit();
         } else if (index == 5) {
             getSupportFragmentManager().beginTransaction().replace(R.id.layout_main_frame, rentalFragment).commit();
         }
