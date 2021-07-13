@@ -98,7 +98,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#fff"
-            android:padding="10dp"
             android:visibility="invisible"
             app:itemIconTint="@drawable/menu_selector_color"
             app:itemTextColor="#7a7a7a"

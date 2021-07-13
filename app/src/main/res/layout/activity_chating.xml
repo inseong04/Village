@@ -171,7 +171,6 @@
             android:paddingLeft="20sp"
             android:paddingRight="20sp"
             android:paddingTop="10sp"
-            android:paddingBottom="10sp"
             />
         </LinearLayout>
 
