@@ -18,17 +18,11 @@ public class GetRentalAsyncTask extends AsyncTask {
     private final String[] rentalNumberArray;
     private StorageReference storageReference;
     private int count;
-    private String[] title;
-    private String[] location;
-    private String[] price;
     GetRentalAsyncTask(RentalProductViewModel viewModel, ActivityRentalProductBinding binding,
                         String[] rentalNumberArray) {
         this.viewModel = viewModel;
         this.binding = binding;
         this.rentalNumberArray = rentalNumberArray;
-        this.title = new String[rentalNumberArray.length];
-        this.location = new String[rentalNumberArray.length];
-        this.price = new String[rentalNumberArray.length];
     }
 
     @Override
@@ -40,28 +34,21 @@ public class GetRentalAsyncTask extends AsyncTask {
     @Override
     protected Object doInBackground(Object[] objects) {
 
-        Log.e("count",String.valueOf(count)+"+"+rentalNumberArray.length);
-        if (count < rentalNumberArray.length-1) {
+        if (count < rentalNumberArray.length) {
             FirebaseFirestore.getInstance().collection("post")
                     .document(rentalNumberArray[count])
                     .get()
                     .addOnCompleteListener(task -> {
                         DocumentSnapshot snapshot = task.getResult();
-                        title[count] = (String) snapshot.get("productName");
-                        location[count] = (String) snapshot.get("location");
-                        price[count] = (String) snapshot.get("price");
-
                         storageReference.child("postImg/img-" + rentalNumberArray[count] + "-0").getDownloadUrl().
                                 addOnSuccessListener(uri -> {
-                                    Log.e("t", count+":"+title[count]);
                                     RentalData rentalData = new RentalData(rentalNumberArray[count], uri,
-                                            title[count], location[count] , price[count]
-                                            );
+                                            (String) snapshot.get("productName"), (String) snapshot.get("location"), (String) snapshot.get("price"),
+                                            (Boolean) snapshot.get("rental") );
 
                                     viewModel.rentalArrayList.add(rentalData);
-                                    doInBackground(null);
                                     count++;
-                                    Log.e("co", String.valueOf(count));
+                                    doInBackground(null);
                                 });
                     });
         }
