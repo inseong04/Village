@@ -49,9 +49,7 @@ public class RentaledActivity extends AppCompatActivity {
                     DocumentSnapshot documentSnapshot = task.getResult();
 
                     try {
-                        Log.e("teest","Test");
                         String[] writtenPostArray = ((String) documentSnapshot.get("writtenPost")).split("-");
-                        Log.e("test", String.valueOf(writtenPostArray.length));
 
                         GetRentaledAsyncTask getRentaledAsyncTask = new GetRentaledAsyncTask(viewModel, binding, writtenPostArray);
 
@@ -61,7 +59,6 @@ public class RentaledActivity extends AppCompatActivity {
                             getRentaledAsyncTask.execute();
                         }
                     } catch (NullPointerException e) {
-                        Log.e("teest","Test2");
                     }
 
                 });

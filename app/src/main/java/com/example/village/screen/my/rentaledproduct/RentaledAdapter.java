@@ -2,6 +2,7 @@ package com.example.village.screen.my.rentaledproduct;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ public class RentaledAdapter extends RecyclerView.Adapter<RentaledAdapter.ViewHo
 
     private final RentaledViewModel viewModel;
     private final Context context;
+    private Context aContext;
 
     RentaledAdapter(RentaledViewModel viewModel, Context context) {
         this.viewModel = viewModel;
@@ -31,8 +33,8 @@ public class RentaledAdapter extends RecyclerView.Adapter<RentaledAdapter.ViewHo
 
     @Override
     public RentaledAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        aContext = parent.getContext();
+        LayoutInflater layoutInflater = (LayoutInflater) aContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.rental_item, parent, false);
 
         return new RentaledAdapter.ViewHolder(view);
@@ -49,10 +51,10 @@ public class RentaledAdapter extends RecyclerView.Adapter<RentaledAdapter.ViewHo
                 .into(holder.rentalIv);
 
         holder.wholeLayout.setOnClickListener(v -> {
-            Intent intent = new Intent(context, Post.class);
+            Intent intent = new Intent(aContext, Post.class);
             intent.putExtra("postNumber", viewModel.rentaledArrayList.get(position).postNum);
             intent.putExtra("chatIntent", false);
-            context.startActivity(intent);
+            aContext.startActivity(intent);
         });
     }
 

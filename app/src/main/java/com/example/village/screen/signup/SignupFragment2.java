@@ -1,15 +1,10 @@
 package com.example.village.screen.signup;
-
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.util.Log;
-import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +17,6 @@ import com.example.village.util.Format;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 
 public class SignupFragment2 extends Fragment {
@@ -72,11 +66,10 @@ public class SignupFragment2 extends Fragment {
                         }
 
                     }
-                }
-                else {
+                } else {
                     setInActive();
                 }
-            }else {
+            } else {
                 setInActive();
             }
         });
@@ -98,13 +91,13 @@ public class SignupFragment2 extends Fragment {
         return binding.getRoot();
     }
 
-    private void setActive () {
+    private void setActive() {
         binding.btnPhoneNext.setEnabled(true);
         binding.alarm2.setImageResource(R.drawable.ic_signup_active);
         binding.btnPhoneNext.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.btn_active));
     }
 
-    private void setInActive () {
+    private void setInActive() {
         binding.btnPhoneNext.setEnabled(false);
         binding.alarm2.setImageResource(R.drawable.ic_signup_inactivation);
         binding.btnPhoneNext.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.btn_in_active));

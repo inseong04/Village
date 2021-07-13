@@ -42,7 +42,7 @@ public class GetRentalAsyncTask extends AsyncTask {
                         DocumentSnapshot snapshot = task.getResult();
                         storageReference.child("postImg/img-" + rentalNumberArray[count] + "-0").getDownloadUrl().
                                 addOnSuccessListener(uri -> {
-                                    RentalData rentalData = new RentalData(rentalNumberArray[count], uri,
+                                    RentalData rentalData = new RentalData( Integer.parseInt((String)rentalNumberArray[count]), uri,
                                             (String) snapshot.get("productName"), (String) snapshot.get("location"), (String) snapshot.get("price"),
                                             (Boolean) snapshot.get("rental") );
 

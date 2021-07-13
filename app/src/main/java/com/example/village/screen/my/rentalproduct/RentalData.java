@@ -3,14 +3,14 @@ package com.example.village.screen.my.rentalproduct;
 import android.net.Uri;
 
 public class RentalData {
-    protected String postNum;
+    protected int postNum;
     protected Uri productUri;
     protected String title;
     protected String location;
     protected String price;
     protected Boolean rental;
 
-    public RentalData(String postNum, Uri productUri, String title, String location, String price, Boolean rental) {
+    public RentalData(int postNum, Uri productUri, String title, String location, String price, Boolean rental) {
         this.postNum = postNum;
         this.productUri = productUri;
         this.title = title;
@@ -19,11 +19,11 @@ public class RentalData {
         this.rental = rental;
     }
 
-    public String getPostNum() {
+    public int getPostNum() {
         return postNum;
     }
 
-    public void setPostNum(String postNum) {
+    public void setPostNum(int postNum) {
         this.postNum = postNum;
     }
 

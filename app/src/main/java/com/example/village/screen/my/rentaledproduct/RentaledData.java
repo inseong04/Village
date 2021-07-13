@@ -4,13 +4,13 @@ import android.net.Uri;
 
 public class RentaledData {
 
-    protected String postNum;
+    protected int postNum;
     protected Uri productUri;
     protected String title;
     protected String location;
     protected String price;
 
-    public RentaledData(String postNum, Uri productUri, String title, String location, String price) {
+    public RentaledData(int postNum, Uri productUri, String title, String location, String price) {
         this.postNum = postNum;
         this.productUri = productUri;
         this.title = title;
@@ -18,11 +18,11 @@ public class RentaledData {
         this.price = price;
     }
 
-    public String getPostNum() {
+    public int getPostNum() {
         return postNum;
     }
 
-    public void setPostNum(String postNum) {
+    public void setPostNum(int postNum) {
         this.postNum = postNum;
     }
 

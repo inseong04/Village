@@ -111,10 +111,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (index == 3) {
             getSupportFragmentManager().beginTransaction().replace(R.id.layout_main_frame, locationFragment).addToBackStack(null).commit();
         } else if (index == 4) {
-
             getSupportFragmentManager().beginTransaction().replace(R.id.layout_main_frame, changePhoneFragment).addToBackStack(null).commit();
-        } 
-
         }
     }
 

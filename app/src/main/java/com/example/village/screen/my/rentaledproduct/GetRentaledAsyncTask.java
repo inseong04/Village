@@ -42,7 +42,8 @@ public class GetRentaledAsyncTask extends AsyncTask {
                         DocumentSnapshot snapshot = task.getResult();
                         storageReference.child("postImg/img-" + writtenPostArray[count] + "-0").getDownloadUrl().
                                 addOnSuccessListener(uri -> {
-                                    RentaledData rentaledData = new RentaledData(writtenPostArray[count], uri,
+                                    Log.e("wr", writtenPostArray[count]);
+                                    RentaledData rentaledData = new RentaledData( Integer.parseInt((String)writtenPostArray[count]), uri,
                                             (String) snapshot.get("productName"), (String) snapshot.get("location"),
                                             (String) snapshot.get("price"));
                                     viewModel.rentaledArrayList.add(rentaledData);
