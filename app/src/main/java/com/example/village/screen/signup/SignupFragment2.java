@@ -51,6 +51,7 @@ public class SignupFragment2 extends Fragment {
                 });
         thread.start();
 
+
         viewModel.getPhoneNumber().observe(getActivity(), text -> {
             if (!text.equals("")) {
 

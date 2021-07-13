@@ -34,9 +34,7 @@ public class GetRentaledAsyncTask extends AsyncTask {
     @Override
     protected Object doInBackground(Object[] objects) {
 
-        Log.e("count",String.valueOf(count)+"+"+writtenPostArray.length);
-        if (count < writtenPostArray.length-1) {
-            Log.e("test", "test");
+        if (count < writtenPostArray.length) {
             FirebaseFirestore.getInstance().collection("post")
                     .document(writtenPostArray[count])
                     .get()
@@ -48,9 +46,8 @@ public class GetRentaledAsyncTask extends AsyncTask {
                                             (String) snapshot.get("productName"), (String) snapshot.get("location"),
                                             (String) snapshot.get("price"));
                                     viewModel.rentaledArrayList.add(rentaledData);
-                                    doInBackground(null);
                                     ++count;
-                                    Log.e("co", String.valueOf(count));
+                                    doInBackground(null);
                                 });
                     });
         }

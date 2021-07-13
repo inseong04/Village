@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.village.RentalFragment;
 import com.example.village.screen.chat.Chat;
 import com.example.village.screen.my.ChangePhoneFragment;
 import com.example.village.screen.my.ChangeprofileFragment;
@@ -38,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     ChangeprofileFragment changeprofileFragment;
     LocationFragment locationFragment;
     ChangePhoneFragment changePhoneFragment;
-    RentalFragment rentalFragment;
 
     public static Context nContext;
 
@@ -64,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         changeprofileFragment = new ChangeprofileFragment();
         locationFragment = new LocationFragment();
         changePhoneFragment = new ChangePhoneFragment();
-        rentalFragment = new RentalFragment();
 
         db.collection("users").document(user.getUid()).get()
                 .addOnCompleteListener(it -> {
@@ -114,9 +111,10 @@ public class MainActivity extends AppCompatActivity {
         } else if (index == 3) {
             getSupportFragmentManager().beginTransaction().replace(R.id.layout_main_frame, locationFragment).addToBackStack(null).commit();
         } else if (index == 4) {
+
             getSupportFragmentManager().beginTransaction().replace(R.id.layout_main_frame, changePhoneFragment).addToBackStack(null).commit();
-        } else if (index == 5) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.layout_main_frame, rentalFragment).commit();
+        } 
+
         }
     }
 
@@ -126,37 +124,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void changeName() {
-//        db.collection("users").document(user.getUid()).get()
-//                .addOnCompleteListener(it->{
-//                    profileusername = it.getResult().get("name").toString();
-//                    Log.v(TAG, profileusername);
-//                });
+
         finish();
         startActivity(new Intent(MainActivity.this, MainActivity.class));
     }
-
-//    public interface onKeyBackPressedListener {
-//        void onBackKey();
-//    }
-//
-//    private onKeyBackPressedListener mOnKeyBackPressedListener;
-//
-//    public void setOnKeyBackPressedListener(onKeyBackPressedListener listener) {
-//        mOnKeyBackPressedListener = listener;
-//    }
-//
-//    @Override
-//    public void onBackPressed() {
-//        if (mOnKeyBackPressedListener != null) {
-//            mOnKeyBackPressedListener.onBackKey();
-//        } else {
-//            if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
-//                //Toast.makeText(nContext, "종료하려면 한번 더 누르세요.", Toast.LENGTH_SHORT).show();
-//            } else {
-//                super.onBackPressed();
-//            }
-//        }
-//    }
-
 
 }

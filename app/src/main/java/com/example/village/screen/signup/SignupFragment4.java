@@ -56,6 +56,7 @@ public class SignupFragment4 extends Fragment {
                 });
         thread.start();
 
+
         viewModel.getEmail().observe(getActivity(), text -> {
             if (Patterns.EMAIL_ADDRESS.matcher(text).matches()) {
                     for (int i=0; i< emailList.size(); i++) {

@@ -43,6 +43,7 @@ public class SignupFragment5 extends Fragment {
         binding.setViewModel(viewModel);
         mAuth = FirebaseAuth.getInstance();
 
+
         viewModel.getPassword().observe(getActivity(), text -> {
             if (Expression.isVaildPw(text)) {
                 binding.alarm4.setImageResource(R.drawable.ic_signup_active);

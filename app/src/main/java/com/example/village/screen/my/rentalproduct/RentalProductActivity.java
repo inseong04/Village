@@ -34,7 +34,7 @@ public class RentalProductActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext());
 
         binding.rentalRecyclerview.setLayoutManager(linearLayoutManager);
-        RentalAdapter adapter = new RentalAdapter(viewModel);
+        RentalAdapter adapter = new RentalAdapter(viewModel, getApplicationContext());
         binding.rentalRecyclerview.setAdapter(adapter);
 
         if (viewModel.rentalArrayList.size() <= 0) {
@@ -52,9 +52,7 @@ public class RentalProductActivity extends AppCompatActivity {
 
 
                     try {
-                        Log.e("teest","Test");
                         String[] rentalNumberArray = ((String) documentSnapshot.get("rentalProduct")).split("-");
-                        Log.e("test", String.valueOf(rentalNumberArray.length));
                         GetRentalAsyncTask getRentalAsyncTask = new GetRentalAsyncTask(viewModel, binding, rentalNumberArray);
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -63,7 +61,6 @@ public class RentalProductActivity extends AppCompatActivity {
                             getRentalAsyncTask.execute();
                         }
                     } catch (NullPointerException e) {
-                        Log.e("teest","Test2");
                     }
 
                 });

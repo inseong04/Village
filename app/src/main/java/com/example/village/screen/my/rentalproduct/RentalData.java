@@ -8,13 +8,15 @@ public class RentalData {
     protected String title;
     protected String location;
     protected String price;
+    protected Boolean rental;
 
-    public RentalData(String postNum, Uri productUri, String title, String location, String price) {
+    public RentalData(String postNum, Uri productUri, String title, String location, String price, Boolean rental) {
         this.postNum = postNum;
         this.productUri = productUri;
         this.title = title;
         this.location = location;
         this.price = price;
+        this.rental = rental;
     }
 
     public String getPostNum() {
@@ -55,5 +57,13 @@ public class RentalData {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public Boolean getRental() {
+        return rental;
+    }
+
+    public void setRental(Boolean rental) {
+        this.rental = rental;
     }
 }
