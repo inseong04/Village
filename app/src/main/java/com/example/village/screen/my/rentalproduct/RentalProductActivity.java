@@ -52,7 +52,7 @@ public class RentalProductActivity extends AppCompatActivity {
 
 
                     try {
-                        String[] rentalNumberArray = ((String) documentSnapshot.get("rentalProduct")).split("-");
+                        String[] rentalNumberArray = ((String) documentSnapshot.get("writtenPost")).split("-");
                         GetRentalAsyncTask getRentalAsyncTask = new GetRentalAsyncTask(viewModel, binding, rentalNumberArray);
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {

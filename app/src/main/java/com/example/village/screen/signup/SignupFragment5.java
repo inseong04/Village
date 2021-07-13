@@ -1,6 +1,7 @@
 package com.example.village.screen.signup;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.village.R;
 import com.example.village.databinding.FragmentSignup5Binding;
@@ -23,6 +25,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +35,13 @@ public class SignupFragment5 extends Fragment {
     FragmentSignup5Binding binding;
     SignupViewModel viewModel;
     FirebaseAuth mAuth;
+    private Context context;
+
+    @Override
+    public void onAttach(@NonNull @NotNull Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -70,9 +81,7 @@ public class SignupFragment5 extends Fragment {
                                             .commit();
                                 }
                                 else {
-                                    Dialog dialog = new com.example.village.util.Dialog(getContext(),getResources().getDisplayMetrics(), "회원가입", "회원가입 중 오류가 발생했습니다");
-                                    dialog.getWindow().setGravity(Gravity.CENTER);
-                                    dialog.show();
+                                    Toast.makeText(context, "회원가입 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
                                 }
                             });
         });
@@ -126,6 +135,7 @@ public class SignupFragment5 extends Fragment {
                                     phoneList.add(viewModel.getPhoneNumber().getValue().replace("-",""));
                                     nameList.add(viewModel.getName().getValue());
                                 }
+
                                 Map<String, Object> map = new HashMap<>();
                                 map.put("emailList", emailList);
                                 map.put("phoneList", phoneList);

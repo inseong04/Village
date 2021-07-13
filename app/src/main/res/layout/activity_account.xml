@@ -196,7 +196,7 @@
             android:id="@+id/accountBtn2"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:text="위치 전송"
+            android:text="계좌 전송"
             android:textSize="20sp"
             android:fontFamily="@font/ns_b"
             android:textColor="#ffffff"

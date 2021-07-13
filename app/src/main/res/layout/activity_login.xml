@@ -35,6 +35,7 @@
             android:background="@drawable/login_box"
             android:fontFamily="@font/ns_r"
             android:hint="Email"
+            android:inputType="textEmailAddress"
             android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

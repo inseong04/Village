@@ -49,7 +49,7 @@ public class RentaledActivity extends AppCompatActivity {
                     DocumentSnapshot documentSnapshot = task.getResult();
 
                     try {
-                        String[] writtenPostArray = ((String) documentSnapshot.get("writtenPost")).split("-");
+                        String[] writtenPostArray = ((String) documentSnapshot.get("rentalProduct")).split("-");
 
                         GetRentaledAsyncTask getRentaledAsyncTask = new GetRentaledAsyncTask(viewModel, binding, writtenPostArray);
 
