@@ -41,6 +41,7 @@ public class SignupFragment3 extends Fragment {
         viewModel = new ViewModelProvider(getActivity()).get(SignupViewModel.class);
         binding.setViewModel(viewModel);
 
+
         viewModel.getLocation().observe(getActivity(), text -> {
             if (!text.equals("")) {
                 binding.btnLocationNext.setEnabled(true);
