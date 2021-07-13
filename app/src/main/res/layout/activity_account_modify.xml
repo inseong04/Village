@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".screen.chating.account.AccountModifyActivity">
+
+    <data>
+        <variable
+            name="tvText"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/amTv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ns_b"
+            android:textSize="24sp"
+            android:text="@{tvText}"
+            tools:text="계좌를 등록합니다"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.1"
+            android:layout_marginLeft="30sp"
+            />
+
+        <TextView
+            android:id="@+id/amTv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="은행"
+            android:textSize="18sp"
+            android:fontFamily="@font/ns_b"
+            app:layout_constraintTop_toBottomOf="@id/amTv1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="30sp"
+            android:layout_marginTop="25sp"
+            />
+
+        <EditText
+            android:id="@+id/amEtv1"
+            android:layout_width="0dp"
+            android:layout_height="40sp"
+            android:fontFamily="@font/ns_r"
+            android:textColor="#000000"
+            android:hint="우리은행"
+            android:background="@drawable/location_modify_edittext_background"
+            app:layout_constraintTop_toBottomOf="@id/amTv2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="30sp"
+            android:layout_marginRight="30sp"
+            android:layout_marginTop="10sp"
+            android:padding="10sp"
+            />
+
+        <TextView
+            android:id="@+id/amTv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="계좌번호"
+            android:textSize="18sp"
+            android:fontFamily="@font/ns_b"
+            app:layout_constraintTop_toBottomOf="@id/amEtv1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="30sp"
+            android:layout_marginTop="25sp"
+            />
+
+        <EditText
+            android:id="@+id/amEtv2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:minHeight="40sp"
+            android:fontFamily="@font/ns_r"
+            android:textColor="#000000"
+            android:inputType="number"
+            android:hint="1002861405726"
+            android:background="@drawable/location_modify_edittext_background"
+            app:layout_constraintTop_toBottomOf="@id/amTv3"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="30sp"
+            android:layout_marginRight="30sp"
+            android:layout_marginTop="10sp"
+            android:padding="10sp"
+            />
+
+        <TextView
+            android:id="@+id/amTv4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="예금주"
+            android:textSize="18sp"
+            android:fontFamily="@font/ns_b"
+            app:layout_constraintTop_toBottomOf="@id/amEtv2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="30sp"
+            android:layout_marginTop="25sp"
+            />
+
+        <EditText
+            android:id="@+id/amEtv3"
+            android:layout_width="0dp"
+            android:layout_height="40sp"
+            android:fontFamily="@font/ns_r"
+            android:textColor="#000000"
+            android:hint="옥인성"
+            android:background="@drawable/location_modify_edittext_background"
+            app:layout_constraintTop_toBottomOf="@id/amTv4"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="30sp"
+            android:layout_marginRight="30sp"
+            android:layout_marginTop="10sp"
+            android:padding="10sp"
+            />
+
+        <Button
+            android:id="@+id/amBtn1"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:text="저장"
+            android:textSize="20sp"
+            android:fontFamily="@font/ns_b"
+            android:textColor="#ffffff"
+            android:background="#2962ff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

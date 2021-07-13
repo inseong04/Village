@@ -54,6 +54,22 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.3" />
 
+        <TextView
+            android:id="@+id/alarm7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ns_r"
+            android:text="이미 사용중인 이메일입니다."
+            android:textColor="#ff1616"
+            android:textSize="15sp"
+            android:layout_marginLeft="25dp"
+            android:visibility="invisible"
+            app:layout_constraintTop_toBottomOf="@id/etv_id"
+            app:layout_constraintBottom_toBottomOf="@id/btn_id_next"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/btn_id_next"
+            />
+
         <Button
             android:id="@+id/btn_id_next"
             android:layout_width="wrap_content"

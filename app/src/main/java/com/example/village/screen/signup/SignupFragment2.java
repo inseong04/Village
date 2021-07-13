@@ -10,14 +10,18 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.village.R;
 import com.example.village.databinding.FragmentSignup2Binding;
+import com.example.village.util.Expression;
 import com.example.village.util.Format;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 
@@ -25,6 +29,7 @@ public class SignupFragment2 extends Fragment {
 
     FragmentSignup2Binding binding;
     SignupViewModel viewModel;
+    ArrayList<String> phoneList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,16 +40,43 @@ public class SignupFragment2 extends Fragment {
         viewModel = new ViewModelProvider(getActivity()).get(SignupViewModel.class);
         binding.setViewModel(viewModel);
 
+        Thread thread = new Thread(
+                () -> {
+                    FirebaseFirestore.getInstance().collection("users")
+                            .document("Storage")
+                            .get()
+                            .addOnCompleteListener(task -> {
+                                phoneList = (ArrayList<String>) task.getResult().get("phoneList");
+                            });
+                });
+        thread.start();
+
         viewModel.getPhoneNumber().observe(getActivity(), text -> {
-            Log.e("t1est","text"+text);
-            if(isVaildPhoneNumber(text)) {
-                binding.btnPhoneNext.setEnabled(true);
-                binding.alarm2.setImageResource(R.drawable.ic_signup_active);
-                binding.btnPhoneNext.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.btn_active));
-            } else {
-                binding.btnPhoneNext.setEnabled(false);
-                binding.alarm2.setImageResource(R.drawable.ic_signup_inactivation);
-                binding.btnPhoneNext.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.btn_in_active));
+            if (!text.equals("")) {
+
+                if (Expression.isVaildPhoneNumber(text)) {
+
+                    if (phoneList != null) {
+                        for (int i = 0; i < phoneList.size(); i++) {
+                            if (text.equals(phoneList.get(i))) {
+                                setInActive();
+                                binding.alarm6.setVisibility(View.VISIBLE);
+                                break;
+                            }
+                            if (!text.equals(phoneList.get(i))) {
+                                if (binding.alarm6.getVisibility() == View.VISIBLE)
+                                    binding.alarm6.setVisibility(View.INVISIBLE);
+                                setActive();
+                            }
+                        }
+
+                    }
+                }
+                else {
+                    setInActive();
+                }
+            }else {
+                setInActive();
             }
         });
 
@@ -55,11 +87,25 @@ public class SignupFragment2 extends Fragment {
             viewModel.setPhoneNumber(Format.phoneNumberFormat(viewModel.getPhoneNumber().getValue()));
         });
 
+        binding.etvPhone.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                return keyCode == KeyEvent.KEYCODE_ENTER;
+            }
+        });
+
         return binding.getRoot();
     }
 
-    private boolean isVaildPhoneNumber(String phoneNumber) {
-        Pattern pattern = Pattern.compile("(\\d{3})(\\d{3,4})(\\d{4})");
-        return pattern.matcher(phoneNumber).matches();
+    private void setActive () {
+        binding.btnPhoneNext.setEnabled(true);
+        binding.alarm2.setImageResource(R.drawable.ic_signup_active);
+        binding.btnPhoneNext.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.btn_active));
+    }
+
+    private void setInActive () {
+        binding.btnPhoneNext.setEnabled(false);
+        binding.alarm2.setImageResource(R.drawable.ic_signup_inactivation);
+        binding.btnPhoneNext.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.btn_in_active));
     }
 }

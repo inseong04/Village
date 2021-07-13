@@ -71,6 +71,23 @@
         android:background="@color/gray"
         app:layout_constraintBottom_toBottomOf="parent" />
 
+    <TextView
+        android:id="@+id/unreadCountTv"
+        android:layout_width="24sp"
+        android:layout_height="24sp"
+        android:textSize="15sp"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:fontFamily="@font/ns_b"
+        android:visibility="gone"
+        tools:text="2"
+        android:background="@drawable/unread_count_background"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="24sp"
+        />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

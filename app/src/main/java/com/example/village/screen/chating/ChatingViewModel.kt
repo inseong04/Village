@@ -9,9 +9,11 @@ class ChatingViewModel : ViewModel(){
     lateinit var postNumber : String
     lateinit var roomNumber : String
     lateinit var title : String
+    lateinit var sellerUid : String
     var chatSum : Int = 0
     var rental : Boolean = false
     val uid = FirebaseAuth.getInstance().uid
+    var warningRun : Boolean = false
 
     fun addChatArrayList( uid : String, chat : String) {
         var chatingData : ChatingData = ChatingData(uid, chat)

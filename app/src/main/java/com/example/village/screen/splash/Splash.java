@@ -2,6 +2,7 @@ package com.example.village.screen.splash;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.room.Room;
 
 import android.content.Intent;
@@ -26,6 +27,7 @@ public class Splash extends AppCompatActivity {
         super.onCreate(savedInstanceStare);
         setContentView(R.layout.activity_splash);
         this.overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         final LoginDatabase db = Room.databaseBuilder(getApplicationContext(), LoginDatabase.class,
                 "village-login-db")
                 .allowMainThreadQueries()

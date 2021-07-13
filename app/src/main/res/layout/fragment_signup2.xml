@@ -29,7 +29,7 @@
             app:layout_constraintVertical_bias="0.2" />
 
         <EditText
-            android:id="@+id/etv_id"
+            android:id="@+id/etv_phone"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="24dp"
@@ -51,9 +51,25 @@
             android:layout_height="50sp"
             android:src="@drawable/ic_signup_inactivation"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="@id/etv_id"
+            app:layout_constraintRight_toRightOf="@id/etv_phone"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.3" />
+
+        <TextView
+            android:id="@+id/alarm6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ns_r"
+            android:text="이미 사용중인 전화번호입니다."
+            android:textColor="#ff1616"
+            android:textSize="15sp"
+            android:layout_marginLeft="25dp"
+            android:visibility="invisible"
+            app:layout_constraintTop_toBottomOf="@id/etv_phone"
+            app:layout_constraintBottom_toBottomOf="@id/btn_phone_next"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/btn_phone_next"
+            />
 
         <Button
             android:id="@+id/btn_phone_next"
@@ -67,7 +83,7 @@
             android:textColor="#fff"
             android:textSize="18sp"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etv_id" />
+            app:layout_constraintTop_toBottomOf="@id/etv_phone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

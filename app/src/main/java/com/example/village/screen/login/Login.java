@@ -7,6 +7,7 @@ import androidx.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.example.village.screen.MainActivity;
@@ -38,39 +39,57 @@ public class Login extends AppCompatActivity {
                 "village-login-db")
                 .allowMainThreadQueries()
                 .build();
-        Log.e("t","ss1s");
-        binding.loginBtn.setOnClickListener(v -> {
+        try {
+            binding.loginBtn.setOnClickListener(v -> {
 
-            String email = binding.etvId.getText().toString();
-            String password = binding.etvPassword.getText().toString();
-            if (email.equals("") || email == null)
-                errorAlarm("아이디를 입력해주세요.");
-             else if (password.equals("") || password == null)
-                errorAlarm("비밀번호를 입력해주세요.");
-            else {
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
+                String email = binding.etvId.getText().toString();
+                String password = binding.etvPassword.getText().toString();
+                if (email.equals("") || email == null)
+                    errorAlarm("아이디를 입력해주세요.");
+                else if (password.equals("") || password == null)
+                    errorAlarm("비밀번호를 입력해주세요.");
+                else {
+                    mAuth.signInWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
 
-                                    Log.d("firebase", "signInWithEmail:success");
-                                    insertDB(db, email, password);
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                } else {
-                                    errorAlarm("존재하지 않는 아이디이거나, 잘못된 비밀번호입니다.");
+                                        Log.d("firebase", "signInWithEmail:success");
+                                        insertDB(db, email, password);
+                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    } else {
+                                        errorAlarm("존재하지 않는 아이디이거나, 잘못된 비밀번호입니다.");
+                                    }
                                 }
-                            }
-                        });
-            }
-        });
+                            });
+                }
+            });
 
-        binding.btnSignup.setOnClickListener(v -> {
+            binding.btnSignup.setOnClickListener(v -> {
                 Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
                 startActivity(intent);
             });
+
+            binding.etvId.setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                    return keyCode == KeyEvent.KEYCODE_ENTER;
+                }
+            });
+
+            binding.etvPassword.setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                    return keyCode == KeyEvent.KEYCODE_ENTER;
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void errorAlarm(String text) {

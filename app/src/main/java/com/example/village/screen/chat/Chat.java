@@ -69,8 +69,6 @@ public class Chat extends Fragment {
                 viewModel.ChatListArrayList = new ArrayList<>();
                 ChatRoomDataAsyncTask chatRoomDataAsyncTask = new ChatRoomDataAsyncTask(binding, viewModel);
                 chatRoomDataAsyncTask.execute();
-            Log.e("b","bq");
-
         }
     }
 }

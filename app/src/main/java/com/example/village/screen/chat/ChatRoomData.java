@@ -6,13 +6,15 @@ public class ChatRoomData {
     String lastMessage;
     String date;
     long lastMessageDate;
+    int unreadCount;
 
-    public ChatRoomData(String roomNumber, String userName, String lastMessage, String date, long lastMessageDate) {
+    public ChatRoomData(String roomNumber, String userName, String lastMessage, String date, long lastMessageDate, int unreadCount) {
         this.roomNumber = roomNumber;
         this.userName = userName;
         this.lastMessage = lastMessage;
         this.date = date;
         this.lastMessageDate = lastMessageDate;
+        this.unreadCount = unreadCount;
     }
 
     public String getRoomNumber() {
@@ -53,5 +55,13 @@ public class ChatRoomData {
 
     public void setLastMessageDate(long lastMessageDate) {
         this.lastMessageDate = lastMessageDate;
+    }
+
+    public int getUnreadCount() {
+        return unreadCount;
+    }
+
+    public void setUnreadCount(int unreadCount) {
+        this.unreadCount = unreadCount;
     }
 }

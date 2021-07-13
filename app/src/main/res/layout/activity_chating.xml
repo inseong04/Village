@@ -65,6 +65,15 @@
             android:background="@drawable/chatinglayout"
             >
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/postWholeLayout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/rentalBtn"
+                android:layout_marginRight="10sp">
+
             <ImageView
                 android:id="@+id/productIv"
                 android:layout_width="50sp"
@@ -104,6 +113,9 @@
                 android:layout_marginLeft="8sp"
                 android:layout_marginTop="5sp"
                 />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
             
             <Button
                 android:id="@+id/rentalBtn"
@@ -115,6 +127,25 @@
                 android:textColor="#2962ff"
                 android:background="@drawable/chatbtn1"
                 android:onClick="@{activity::callDialog}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginRight="24sp"
+                android:layout_marginTop="10sp"
+                android:layout_marginBottom="10sp"
+                />
+
+            <Button
+                android:id="@+id/rentalEndBtn"
+                android:layout_width="70sp"
+                android:layout_height="0dp"
+                android:text="대여종료"
+                android:textSize="12sp"
+                android:fontFamily="@font/ns_b"
+                android:textColor="#2962ff"
+                android:background="@drawable/chatbtn1"
+                android:visibility="gone"
+                android:onClick="@{activity::rentalEnd}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -140,7 +171,6 @@
             android:paddingLeft="20sp"
             android:paddingRight="20sp"
             android:paddingTop="10sp"
-            android:paddingBottom="10sp"
             />
         </LinearLayout>
 
@@ -153,6 +183,7 @@
             >
 
             <TextView
+                android:id="@+id/chatingLocation"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:text="위치 보내기"
@@ -176,6 +207,7 @@
                 />
 
             <TextView
+                android:id="@+id/chatingAccount"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:text="계좌보내기"
@@ -218,6 +250,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.13"
+                android:onClick="@{activity::sendMessage}"
                 >
                 <ImageButton
                     android:id="@+id/sendBtn"
@@ -225,6 +258,7 @@
                     android:layout_height="35sp"
                     android:background="@drawable/ic_send_btn"
                     android:layout_margin="14sp"
+                    android:onClick="@{activity::sendMessage}"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"

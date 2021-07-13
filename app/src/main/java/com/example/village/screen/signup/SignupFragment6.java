@@ -25,8 +25,6 @@ public class SignupFragment6 extends Fragment {
                 container, false);
 
         binding.signupBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), Login.class);
-            startActivity(intent);
             getActivity().finish();
         });
 

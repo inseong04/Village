@@ -58,6 +58,9 @@ public class LocationFragment extends Fragment {
             db.collection("users").document(useruid).update("location", binding.editText.getText().toString());
             binding.editText.setText("");
             activity.onFragmentChange(1);
+
+            UpdateLocation updateLocation = new UpdateLocation(binding.editText.getText().toString());
+            updateLocation.start();
         });
 
         return binding.getRoot();

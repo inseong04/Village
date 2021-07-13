@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".screen.chating.account.AccountActivity">
+
+    <data>
+        <variable
+            name="accountName"
+            type="String" />
+        <variable
+            name="accountNumber"
+            type="String" />
+        <variable
+            name="accountBank"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/accountTv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="판매자에게 \n계좌를 보냅니다"
+            android:fontFamily="@font/ns_b"
+            android:textSize="24sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="30sp"
+            />
+
+            <TextView
+                android:id="@+id/accountTv2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{accountBank}"
+                tools:text="우리은행"
+                android:visibility="invisible"
+                android:fontFamily="@font/ns_eb"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/accountTv1"
+                android:layout_marginTop="20sp"
+                android:layout_marginLeft="30sp"
+                />
+
+        <TextView
+            android:id="@+id/accountTv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="계좌"
+            android:fontFamily="@font/ns_eb"
+            android:textSize="14sp"
+            android:visibility="invisible"
+            app:layout_constraintLeft_toRightOf="@id/accountTv2"
+            app:layout_constraintTop_toBottomOf="@id/accountTv1"
+            android:layout_marginTop="20sp"
+            android:layout_marginLeft="5sp"
+            />
+
+        <TextView
+            android:id="@+id/accountTv4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="예금주"
+            android:visibility="invisible"
+            android:fontFamily="@font/ns_eb"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/accountTv3"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="30sp"
+            android:layout_marginTop="10sp"
+            />
+
+        <View
+            android:id="@+id/accountView1"
+            android:layout_width="1sp"
+            android:layout_height="0dp"
+            android:background="#efefef"
+            android:visibility="invisible"
+            app:layout_constraintLeft_toRightOf="@id/accountTv4"
+            app:layout_constraintTop_toTopOf="@id/accountTv4"
+            app:layout_constraintBottom_toBottomOf="@id/accountTv4"
+            android:layout_marginLeft="5sp"
+            />
+
+        <TextView
+            android:id="@+id/accountTv5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{accountName}"
+            tools:text="김선린"
+            android:visibility="invisible"
+            android:fontFamily="@font/ns_r"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toRightOf="@id/accountView1"
+            app:layout_constraintTop_toBottomOf="@id/accountTv3"
+            android:layout_marginTop="10sp"
+            android:layout_marginLeft="5sp"
+            />
+
+        <TextView
+            android:id="@+id/accountTv6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="계좌번호"
+            android:visibility="invisible"
+            android:fontFamily="@font/ns_eb"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/accountTv5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="10sp"
+            android:layout_marginLeft="30sp"
+            />
+
+        <View
+            android:id="@+id/accountView2"
+            android:layout_width="1sp"
+            android:layout_height="0dp"
+            android:background="#efefef"
+            android:visibility="invisible"
+            app:layout_constraintLeft_toRightOf="@id/accountTv6"
+            app:layout_constraintTop_toTopOf="@id/accountTv6"
+            app:layout_constraintBottom_toBottomOf="@id/accountTv6"
+            android:layout_marginLeft="5sp"
+            />
+
+        <TextView
+            android:id="@+id/accountTv7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{accountNumber}"
+            android:visibility="invisible"
+            tools:text="1002861405726"
+            app:layout_constraintTop_toBottomOf="@id/accountTv5"
+            app:layout_constraintLeft_toRightOf="@id/accountView2"
+            android:layout_marginTop="10sp"
+            android:layout_marginLeft="5sp"
+            />
+
+        <Button
+            android:id="@+id/accountBtn3"
+            android:layout_width="0dp"
+            android:layout_height="40sp"
+            android:text="계좌 추가"
+            android:textSize="14sp"
+            android:textColor="#000000"
+            android:fontFamily="@font/ns_r"
+            android:visibility="invisible"
+            android:background="@drawable/location_btn_background"
+            app:layout_constraintTop_toBottomOf="@id/accountTv1"
+            app:layout_constraintBottom_toTopOf="@id/accountView3"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="50sp"
+            android:layout_marginRight="50sp"
+            />
+
+        <View
+            android:id="@+id/accountView3"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#efefef"
+            app:layout_constraintTop_toBottomOf="@id/accountTv7"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="20sp"
+            android:layout_marginLeft="20sp"
+            android:layout_marginRight="20sp"
+            />
+
+        <Button
+            android:id="@+id/accountBtn1"
+            android:layout_width="0dp"
+            android:layout_height="40sp"
+            android:text="계좌 변경"
+            android:textSize="14sp"
+            android:textColor="#000000"
+            android:fontFamily="@font/ns_r"
+            android:visibility="invisible"
+            android:background="@drawable/location_btn_background"
+            android:layout_marginTop="40sp"
+            android:layout_marginLeft="50sp"
+            android:layout_marginRight="50sp"
+            app:layout_constraintTop_toBottomOf="@id/accountView3"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+        <Button
+            android:id="@+id/accountBtn2"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:text="위치 전송"
+            android:textSize="20sp"
+            android:fontFamily="@font/ns_b"
+            android:textColor="#ffffff"
+            android:background="#2962ff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

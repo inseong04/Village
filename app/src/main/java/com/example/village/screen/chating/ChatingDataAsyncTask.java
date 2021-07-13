@@ -19,7 +19,6 @@ public class ChatingDataAsyncTask extends AsyncTask {
     private FirebaseFirestore db;
     private String roomNumber;
     private ChatingViewModel viewModel;
-    private int chatCount = 0;
     private ActivityChatingBinding binding;
     private String sellerUid;
     public ChatingDataAsyncTask(String sellerUid, ActivityChatingBinding binding, ChatingViewModel viewModel, String roomNumber) {

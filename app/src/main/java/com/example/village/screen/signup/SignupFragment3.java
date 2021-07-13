@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +57,13 @@ public class SignupFragment3 extends Fragment {
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment,
                     new SignupFragment4())
                     .commit();
+        });
+
+        binding.etvId.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                return keyCode == KeyEvent.KEYCODE_ENTER;
+            }
         });
 
         return binding.getRoot();

@@ -1,12 +1,9 @@
 package com.example.village.screen.chating;
 
 import android.os.AsyncTask;
-import android.util.Log;
-
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -89,6 +86,9 @@ public class SendAsyncTask extends AsyncTask {
                                                 .addOnCompleteListener(sellerTask -> {
                                                     DocumentSnapshot documentSnapshot = sellerTask.getResult();
                                                     ArrayList<String> sellerRoomList = (ArrayList<String>) documentSnapshot.get("roomList");
+                                                    if (sellerRoomList == null) {
+                                                        sellerRoomList = new ArrayList<>();
+                                                    }
                                                     sellerRoomList.add(roomNumber);
                                                     Map<String, Object> map3 = new HashMap<>();
                                                     map3.put("roomList", sellerRoomList);
