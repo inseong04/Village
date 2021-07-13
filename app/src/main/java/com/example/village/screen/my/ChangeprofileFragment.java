@@ -66,26 +66,26 @@ public class ChangeprofileFragment extends Fragment {
 
         binding.changebtn.setOnClickListener(view -> {
             db.collection("users").document(useruid).update("name", binding.editText.getText().toString());
-            ((MainActivity)MainActivity.nContext).changeName();
-          
-        db.collection("users").document(user.getUid()).get()
-                .addOnCompleteListener(it->{
-                    username = it.getResult().get("name").toString();
-                    binding.editText.setHint(username);
-                });
+            ((MainActivity) MainActivity.nContext).changeName();
 
-        binding.changebtn.setOnClickListener(view -> {
-            String newName =  binding.editText.getText().toString();
-            db.collection("users").document(useruid).update("name", newName);
-          
-            binding.editText.setText("");
-            activity.onFragmentChange(1);
+            db.collection("users").document(user.getUid()).get()
+                    .addOnCompleteListener(it -> {
+                        username = it.getResult().get("name").toString();
+                        binding.editText.setHint(username);
+                    });
 
-            UpdateDB updateDB = new UpdateDB(username, newName);
-            updateDB.start();
+            binding.changebtn.setOnClickListener(view1 -> {
+                String newName = binding.editText.getText().toString();
+                db.collection("users").document(useruid).update("name", newName);
+
+                binding.editText.setText("");
+                activity.onFragmentChange(1);
+
+                UpdateDB updateDB = new UpdateDB(username, newName);
+                updateDB.start();
+            });
         });
 
         return binding.getRoot();
     }
-
 }
