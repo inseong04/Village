@@ -8,13 +8,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-
 import com.example.village.R;
 import com.example.village.databinding.ActivityAccountModifyBinding;
-import com.example.village.screen.chating.location.LocationModifyHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.HashMap;
 import java.util.Map;
 

@@ -1,6 +1,5 @@
 package com.example.village.util;
 
-import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.util.Log;
 

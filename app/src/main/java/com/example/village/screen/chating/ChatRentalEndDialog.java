@@ -9,8 +9,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 
-import androidx.fragment.app.FragmentManager;
-
 import com.example.village.R;
 import com.example.village.databinding.ActivityChatingBinding;
 import com.google.firebase.auth.FirebaseAuth;

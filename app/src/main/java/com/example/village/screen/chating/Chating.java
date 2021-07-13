@@ -10,13 +10,11 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 
 import com.example.village.R;
 import com.example.village.databinding.ActivityChatingBinding;
-import com.example.village.screen.MainActivity;
 import com.example.village.screen.chating.account.AccountActivity;
 import com.example.village.screen.chating.location.LocationActivity;
 import com.example.village.screen.post.Post;

@@ -1,7 +1,4 @@
 package com.example.village.screen.signup;
-
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;

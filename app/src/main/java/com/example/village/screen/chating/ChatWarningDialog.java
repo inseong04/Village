@@ -10,8 +10,6 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.WindowManager;
 
-import androidx.fragment.app.FragmentManager;
-
 import com.example.village.R;
 import com.example.village.databinding.ActivityChatingBinding;
 

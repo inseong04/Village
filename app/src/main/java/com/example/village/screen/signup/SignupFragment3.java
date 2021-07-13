@@ -1,30 +1,16 @@
 package com.example.village.screen.signup;
-
-import android.graphics.Color;
 import android.os.Bundle;
-
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.util.Log;
-import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.village.R;
-import com.example.village.databinding.FragmentSignup2Binding;
 import com.example.village.databinding.FragmentSignup3Binding;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Pattern;
 
 
 public class SignupFragment3 extends Fragment {

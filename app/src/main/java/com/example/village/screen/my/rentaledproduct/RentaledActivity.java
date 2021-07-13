@@ -31,7 +31,7 @@ public class RentaledActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext());
 
         binding.rentaledRecyclerview.setLayoutManager(linearLayoutManager);
-        RentaledAdapter adapter = new RentaledAdapter(viewModel, getApplicationContext());
+        RentaledAdapter adapter = new RentaledAdapter(viewModel);
         binding.rentaledRecyclerview.setAdapter(adapter);
 
         if (viewModel.rentaledArrayList.size() <= 0) {

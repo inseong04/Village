@@ -1,8 +1,6 @@
 package com.example.village.screen.chat;
 
 import android.os.AsyncTask;
-import android.util.Log;
-
 import com.example.village.databinding.FragmentChatBinding;
 import com.example.village.util.GetTime;
 import com.google.firebase.auth.FirebaseAuth;

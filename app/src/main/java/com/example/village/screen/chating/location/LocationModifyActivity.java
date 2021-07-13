@@ -7,9 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-
 import com.example.village.R;
-import com.example.village.databinding.ActivityLocationBinding;
 import com.example.village.databinding.ActivityLocationModifyBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;

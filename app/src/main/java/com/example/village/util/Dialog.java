@@ -1,8 +1,6 @@
 package com.example.village.util;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.util.DisplayMetrics;

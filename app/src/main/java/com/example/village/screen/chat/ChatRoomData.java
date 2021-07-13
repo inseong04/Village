@@ -33,35 +33,12 @@ public class ChatRoomData {
         this.userName = userName;
     }
 
-    public String getLastMessage() {
-        return lastMessage;
-    }
-
-    public void setLastMessage(String lastMessage) {
-        this.lastMessage = lastMessage;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
     public void setDate(String date) {
         this.date = date;
-    }
-
-    public long getLastMessageDate() {
-        return lastMessageDate;
     }
 
     public void setLastMessageDate(long lastMessageDate) {
         this.lastMessageDate = lastMessageDate;
     }
 
-    public int getUnreadCount() {
-        return unreadCount;
-    }
-
-    public void setUnreadCount(int unreadCount) {
-        this.unreadCount = unreadCount;
-    }
 }

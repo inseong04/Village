@@ -2,14 +2,11 @@ package com.example.village.screen.chating.account;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
 import com.example.village.R;
 import com.example.village.databinding.ActivityAccountBinding;
-import com.example.village.screen.chating.location.LocationModifyActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;

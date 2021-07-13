@@ -5,20 +5,17 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.room.Room;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
-
 import com.example.village.R;
 import com.example.village.databinding.ActivitySearchBinding;
 import com.example.village.screen.home.searchresult.SearchResult;
 import com.example.village.rdatabase.UsersSearchData;
 import com.example.village.rdatabase.UsersSearchDatabase;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 

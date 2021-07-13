@@ -1,11 +1,5 @@
 package com.example.village.util;
 
-import android.util.Log;
-
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.text.SimpleDateFormat;
-
 public class GetTime{
 
     public static String getTime(long productTime) {

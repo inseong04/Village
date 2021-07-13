@@ -1,9 +1,6 @@
 package com.example.village.screen.chating;
 
 import android.os.AsyncTask;
-import android.util.Log;
-import android.view.View;
-
 import com.example.village.databinding.ActivityChatingBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -65,8 +62,6 @@ public class ChatingDataAsyncTask extends AsyncTask {
 
                                     ArrayList<String> userNameArray = new ArrayList<>();
                                     for (int i = 0; i <2; i++) {
-
-                                        int finalI = i;
                                         db.collection("users").document(uidList.get(i))
                                                 .get()
                                                 .addOnCompleteListener(usersTask -> {

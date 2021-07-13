@@ -2,12 +2,10 @@ package com.example.village.screen.my.rentaledproduct;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,12 +21,10 @@ import org.jetbrains.annotations.NotNull;
 public class RentaledAdapter extends RecyclerView.Adapter<RentaledAdapter.ViewHolder>{
 
     private final RentaledViewModel viewModel;
-    private final Context context;
     private Context aContext;
 
-    RentaledAdapter(RentaledViewModel viewModel, Context context) {
+    RentaledAdapter(RentaledViewModel viewModel) {
         this.viewModel = viewModel;
-        this.context = context;
     }
 
     @Override

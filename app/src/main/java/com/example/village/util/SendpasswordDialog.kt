@@ -3,7 +3,6 @@ package com.example.village.util
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.widget.Button
 import android.widget.TextView
 import com.example.village.R
 
