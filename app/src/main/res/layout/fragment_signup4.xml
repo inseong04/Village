@@ -39,6 +39,7 @@
             android:hint="sunrin115@sunrint.hs.kr"
             android:maxLines="1"
             android:text="@={viewModel.email}"
+            android:inputType="textEmailAddress"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
