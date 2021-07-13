@@ -42,6 +42,7 @@ public class ChangeprofileFragment extends Fragment {
     }
 
     private FragmentChangeprofileBinding binding;
+    private String profileUsername;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,18 +56,17 @@ public class ChangeprofileFragment extends Fragment {
         FirebaseUser curuser = auth.getCurrentUser();
         String useruid = auth.getUid();
 
-        db.collection("users").document(user.getUid()).get()
-                .addOnCompleteListener(it->{
-                    String username = it.getResult().get("name").toString();
-                    binding.editText.setHint(username);
-                });
+        profileUsername = ((MainActivity)MainActivity.nContext).getProfileUsername();
+        binding.editText.setHint(profileUsername);
 
         binding.changebtn.setOnClickListener(view -> {
             db.collection("users").document(useruid).update("name", binding.editText.getText().toString());
+            ((MainActivity)MainActivity.nContext).changeName();
             binding.editText.setText("");
             activity.onFragmentChange(1);
         });
 
         return binding.getRoot();
     }
+
 }

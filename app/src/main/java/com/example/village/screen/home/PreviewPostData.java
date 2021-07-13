@@ -19,6 +19,9 @@ public class PreviewPostData {
         this.rental = rental;
     }
 
+    public PreviewPostData(Uri uri, int postnum, String s, String s1, String s2) {
+    }
+
     public String getTitle() {
         return title;
     }
