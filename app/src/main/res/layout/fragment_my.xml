@@ -29,7 +29,7 @@
         </androidx.appcompat.widget.Toolbar>
 
         <View
-            android:layout_width="405dp"
+            android:layout_width="0dp"
             android:layout_height="1dp"
             android:background="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,6 +37,7 @@
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:padding="16dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/bottomView"
@@ -46,15 +47,16 @@
 
             <ImageView
                 android:id="@+id/image_my_profile"
-                android:layout_width="137.2dp"
-                android:layout_height="137.2dp"
-                android:layout_marginTop="32dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:src="@drawable/ic_baseline_account_circle_24"
                 app:layout_constraintBottom_toTopOf="@+id/text_my_username"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.24"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="spread" />
+                app:layout_constraintVertical_chainStyle="spread"
+                app:layout_constraintWidth_percent="0.38" />
 
             <TextView
                 android:id="@+id/text_my_username"
@@ -85,33 +87,35 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/const_my_button"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="63.6dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="48dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_my_useremail">
+                app:layout_constraintTop_toBottomOf="@+id/text_my_useremail"
+                app:layout_constraintWidth_percent="0.65">
 
                 <Button
                     android:id="@+id/button_my_profile"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/white"
                     android:fontFamily="@font/ns_r"
+                    android:gravity="center_vertical"
                     android:stateListAnimator="@null"
                     android:text="프로필 보기"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@+id/view1"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <View
                     android:id="@+id/view1"
-                    android:layout_width="244.4dp"
+                    android:layout_width="0dp"
                     android:layout_height="3dp"
                     android:background="@color/gray"
                     app:layout_constraintBottom_toTopOf="@+id/button_my_password"
@@ -120,21 +124,23 @@
 
                 <Button
                     android:id="@+id/button_my_password"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/white"
                     android:fontFamily="@font/ns_r"
+                    android:gravity="center_vertical"
                     android:stateListAnimator="@null"
                     android:text="비밀번호 변경"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@+id/view3"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/view1" />
 
                 <View
                     android:id="@+id/view3"
-                    android:layout_width="244.4dp"
+                    android:layout_width="0dp"
                     android:layout_height="3dp"
                     android:background="@color/gray"
                     app:layout_constraintBottom_toTopOf="@+id/button_my_logout"
@@ -143,21 +149,23 @@
 
                 <Button
                     android:id="@+id/button_my_logout"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/white"
                     android:fontFamily="@font/ns_r"
+                    android:gravity="center_vertical"
                     android:stateListAnimator="@null"
                     android:text="로그아웃"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@id/view4"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/view3" />
 
                 <View
                     android:id="@+id/view4"
-                    android:layout_width="244.4dp"
+                    android:layout_width="0dp"
                     android:layout_height="3dp"
                     android:background="@color/gray"
                     app:layout_constraintBottom_toTopOf="@+id/button_my_end"
@@ -166,13 +174,15 @@
 
                 <Button
                     android:id="@+id/button_my_end"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/white"
+                    android:gravity="center_vertical"
                     android:stateListAnimator="@null"
                     android:text="회원탈퇴"
                     android:textColor="@color/black"
                     android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/view4" />
 

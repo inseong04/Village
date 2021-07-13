@@ -63,6 +63,8 @@ public class My extends Fragment implements View.OnClickListener, logoutOncilck 
 
     }
 
+    private String profileUsername;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,11 +78,8 @@ public class My extends Fragment implements View.OnClickListener, logoutOncilck 
         txt_email.setText(emailAddress);
         TextView txt_username = v.findViewById(R.id.text_my_username);
 
-        db.collection("users").document(user.getUid()).get()
-                .addOnCompleteListener(it->{
-                    String username = it.getResult().get("name").toString();
-                    txt_username.setText(username);
-                });
+        profileUsername = ((MainActivity)MainActivity.nContext).getProfileUsername();
+        txt_username.setText(profileUsername);
 
         Button button_profile = v.findViewById(R.id.button_my_profile);
 //        Button button_local = v.findViewById(R.id.button_my_local);

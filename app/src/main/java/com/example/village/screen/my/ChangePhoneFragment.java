@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.village.R;
 import com.example.village.databinding.FragmentChangePhoneBinding;
@@ -20,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 
@@ -28,6 +30,7 @@ public class ChangePhoneFragment extends Fragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     MainActivity activity;
+    ArrayList<String> phoneList;
 
     private static final String TAG = "MainActivity";
     private Context mContext;
@@ -50,6 +53,17 @@ public class ChangePhoneFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        Thread thread = new Thread(
+                () -> {
+                    FirebaseFirestore.getInstance().collection("users")
+                            .document("Storage")
+                            .get()
+                            .addOnCompleteListener(task -> {
+                                phoneList = (ArrayList<String>) task.getResult().get("phoneList");
+                            });
+                });
+        thread.start();
+
         FirebaseUser curuser = auth.getCurrentUser();
         String useruid = auth.getUid();
 
@@ -58,9 +72,19 @@ public class ChangePhoneFragment extends Fragment {
 
         binding.changebtn.setOnClickListener(view -> {
             String phonenum = Format.phoneNumberFormat(binding.editText.getText().toString());
-            db.collection("users").document(useruid).update("phoneNumber", phonenum);
-            binding.editText.setText("");
-            activity.onFragmentChange(1);
+
+            if (phoneList != null) {
+                for (int i = 0; i < phoneList.size(); i++) {
+                    if (phonenum.equals(phoneList.get(i))) {
+                        Toast.makeText(activity, "전화번호가 중복되었습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                    if (!phonenum.equals(phoneList.get(i))) {
+                        db.collection("users").document(useruid).update("phoneNumber", phonenum);
+                        binding.editText.setText("");
+                        activity.onFragmentChange(1);
+                    }
+                }
+            }
         });
 
         return binding.getRoot();
