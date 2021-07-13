@@ -6,6 +6,8 @@ import androidx.databinding.DataBindingUtil;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
 
 import com.example.village.R;
 import com.example.village.databinding.ActivityAccountModifyBinding;
@@ -52,6 +54,27 @@ public class AccountModifyActivity extends AppCompatActivity {
                 resultIntent.putExtra("accountName", binding.amEtv3.getText().toString());
                 setResult(RESULT_OK, resultIntent);
                 finish();
+            }
+        });
+
+        binding.amEtv1.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                return keyCode == KeyEvent.KEYCODE_ENTER;
+            }
+        });
+
+        binding.amEtv2.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                return keyCode == KeyEvent.KEYCODE_ENTER;
+            }
+        });
+
+        binding.amEtv3.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                return keyCode == KeyEvent.KEYCODE_ENTER;
             }
         });
     }

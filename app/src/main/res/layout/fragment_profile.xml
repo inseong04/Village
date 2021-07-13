@@ -79,7 +79,7 @@
                 android:background="@drawable/line_box"
                 android:fontFamily="@font/ns_r"
                 android:stateListAnimator="@null"
-                android:text="프로필 변경"
+                android:text="이름 변경"
                 android:textColor="#707070"
                 android:textSize="18sp"
                 app:layout_constraintWidth_percent="0.34"

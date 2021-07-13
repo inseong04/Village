@@ -5,6 +5,8 @@ import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.View;
 
 import com.example.village.R;
 import com.example.village.databinding.ActivityLocationBinding;
@@ -52,6 +54,27 @@ public class LocationModifyActivity extends AppCompatActivity {
                 resultIntent.putExtra("locationContent", binding.lmEtv3.getText().toString());
                 setResult(RESULT_OK, resultIntent);
                 finish();
+            }
+        });
+
+        binding.lmEtv1.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                return keyCode == KeyEvent.KEYCODE_ENTER;
+            }
+        });
+
+        binding.lmEtv2.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                return keyCode == KeyEvent.KEYCODE_ENTER;
+            }
+        });
+
+        binding.lmEtv3.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                return keyCode == KeyEvent.KEYCODE_ENTER;
             }
         });
     }

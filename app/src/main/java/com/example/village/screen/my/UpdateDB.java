@@ -33,6 +33,7 @@ public class UpdateDB extends Thread {
                     if (!roomList.isEmpty()) {
                         roomUpdate();
                     }
+
                     try {
                         writtenPostList = ((String) documentSnapshot.get("writtenPost")).split("-");
                         postUpdate();
