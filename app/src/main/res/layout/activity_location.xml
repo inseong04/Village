@@ -180,7 +180,7 @@
             android:id="@+id/locationBtn1"
             android:layout_width="0dp"
             android:layout_height="40sp"
-            android:text="배송지 변경"
+            android:text="위치 변경"
             android:textSize="14sp"
             android:textColor="#000000"
             android:fontFamily="@font/ns_r"

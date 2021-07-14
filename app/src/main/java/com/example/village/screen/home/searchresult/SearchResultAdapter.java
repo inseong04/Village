@@ -2,6 +2,7 @@ package com.example.village.screen.home.searchresult;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,6 +46,17 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         holder.sellerLocationTv.setText(viewModel.getPostArrayList().get(position).location);
         holder.productPriceTv.setText(viewModel.getPostArrayList().get(position).price);
         holder.homeImageIv.setImageURI(viewModel.getPostArrayList().get(position).HomeImageuri);
+
+        if (viewModel.getPostArrayList().get(position).rental) {
+            holder.rentalTv.setText("대여중");
+            holder.rentalTv.setTextColor(Color.parseColor("#000000"));
+            holder.rentalTv.setBackground(ContextCompat.getDrawable(mContext, R.drawable.rental_true));
+        } else {
+            holder.rentalTv.setText("대여가능");
+            holder.rentalTv.setTextColor(Color.parseColor("#ffffff"));
+            holder.rentalTv.setBackground(ContextCompat.getDrawable(mContext, R.drawable.rental_false));
+        }
+
         Glide.with(holder.itemView)
                 .load(viewModel.getPostArrayList().get(position).HomeImageuri)
                 .into(holder.homeImageIv);
@@ -65,6 +78,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         TextView productTitleTv;
         TextView sellerLocationTv;
         TextView productPriceTv;
+        TextView rentalTv;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,6 +88,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             productTitleTv = itemView.findViewById(R.id.productTitleTv);
             sellerLocationTv = itemView.findViewById(R.id.sellerLocationTv);
             productPriceTv = itemView.findViewById(R.id.productPriceTv);
+            rentalTv = itemView.findViewById(R.id.rentalTv);
         }
     }
 }

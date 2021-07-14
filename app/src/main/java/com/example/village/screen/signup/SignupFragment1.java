@@ -50,7 +50,6 @@ public class SignupFragment1 extends Fragment {
 
                 if (nameList != null) {
                     for (int i=0; i< nameList.size(); i++) {
-                        Log.e("e", String.valueOf(i));
                         if (text.equals(nameList.get(i))) {
                             setInActive();
                             binding.alarm5.setVisibility(View.VISIBLE);

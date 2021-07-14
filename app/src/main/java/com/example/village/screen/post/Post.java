@@ -107,7 +107,7 @@ public class Post extends AppCompatActivity {
             else {
 
                 if (uid.equals(sellerUid)) {
-                    Dialog dialog = new com.example.village.util.Dialog(getApplicationContext(),getResources().getDisplayMetrics(), "채팅하기", "자신의 상품은 \n대여가 불가능합니다.");
+                    Dialog dialog = new com.example.village.util.Dialog(Post.this,getResources().getDisplayMetrics(), "채팅하기", "자신의 상품은 \n대여가 불가능합니다.");
                     dialog.getWindow().setGravity(Gravity.CENTER);
                     dialog.show();
                 } else {

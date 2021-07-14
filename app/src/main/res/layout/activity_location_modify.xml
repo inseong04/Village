@@ -21,7 +21,7 @@
             android:fontFamily="@font/ns_b"
             android:textSize="24sp"
             android:text="@{tvText}"
-            tools:text="배송지를 등록합니다"
+            tools:text="위치를 등록합니다"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

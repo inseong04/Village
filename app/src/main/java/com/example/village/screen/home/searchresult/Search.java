@@ -35,7 +35,6 @@ public class Search {
 
                             matchingPostNum.add(i);
                         }
-                        Log.e("test", "2werewwergwef2qq2f2q");
                     }
 
 

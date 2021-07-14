@@ -62,8 +62,6 @@ public class SetSearchPostAsyncTask extends AsyncTask {
             storageReference.child("postImg/" + "img" + "-" + viewModel.matchingPostNum.get(i) + "-0").getDownloadUrl().
                     addOnSuccessListener(uri -> {
                         postUri[finalI] = uri;
-                        Log.e("test", "success");
-
                         db.collection("post")
                                 .document(String.valueOf(viewModel.matchingPostNum.get(finalI)))
                                 .get()
@@ -73,6 +71,7 @@ public class SetSearchPostAsyncTask extends AsyncTask {
                                     title[finalI] = String.valueOf(documentSnapshot.get("productName"));
                                     location[finalI] = String.valueOf(documentSnapshot.get("location"));
                                     price[finalI] = String.valueOf(documentSnapshot.get("price"));
+                                    rental[finalI] = (Boolean) documentSnapshot.get("rental");
 
                                     PreviewPostData previewPostData = new PreviewPostData(postUri[finalI], postNum, title[finalI], location[finalI], price[finalI], rental[finalI]);
                                     viewModel.postArrayList.add(previewPostData);
