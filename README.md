@@ -1,11 +1,11 @@
 # Village
-필요한 물건들을 구매가 아닌 원하는 기간동안 대여받는 서비스입니다.
+This is a service where you can borrow things you need for a desired period of time, not a purchase.
 
 # Team
-2021 모바일콘텐츠경진대회 빌리지 팀
+2021 Sunrin Internet High School Mobile Content Competition Team Village
 
-- 개발 : [옥인성](https://github.com/inseong04), [지민경](https://github.com/jjhair119)
-- 디자인 : 김유진
+- Developer : [옥인성](https://github.com/inseong04), [지민경](https://github.com/jjhair119)
+- Designer : 김유진
 
 # ScreenShot
 <img width="200" alt="screenshot1" src="https://user-images.githubusercontent.com/69490751/125737291-3733a424-d95b-474c-a1da-904a25b1d6be.jpg"/><img width="200" alt="screenshot7" src="https://user-images.githubusercontent.com/69490751/125738040-a66dcd44-49fa-4d00-b551-2eb6180ce6ed.jpg"/><img width="200" alt="screenshot2" src="https://user-images.githubusercontent.com/69490751/125737461-5203bac4-3821-4316-ad61-9705b8fbef4a.jpg"/>
